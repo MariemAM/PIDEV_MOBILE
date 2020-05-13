@@ -30,17 +30,17 @@ public class MenuForm extends Form{
         getAllStyles().setBorder(Border.createEmpty());
         getAllStyles().setBackgroundType(BACKGROUND_NONE);
         getAllStyles().setBgTransparency(255);
-        getAllStyles().setBgColor(0xffffff);
+        getAllStyles().setBgColor(0x0d0d0d);
         Toolbar tb = this.getToolbar(); 
         
         Label logo=new Label("HUNT KINGDOM");
-        logo.getStyle().setFgColor(0xffffff);
-        logo.getStyle().setFont(Font.createSystemFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_LARGE));
+        logo.getStyle().setFgColor(0xa6a6a6);
+        logo.getStyle().setFont(Font.createSystemFont(Font.FACE_SYSTEM, Font.STYLE_BOLD, Font.SIZE_LARGE));
         Container topBar = BorderLayout.centerCenter(logo);
         tb.getAllStyles().setBorder(Border.createEmpty());
         tb.getAllStyles().setBackgroundType(BACKGROUND_NONE);
         tb.getAllStyles().setBgTransparency(255);
-        tb.getAllStyles().setBgColor(0x456977);
+        tb.getAllStyles().setBgColor(0x0d0d0d);
         
         topBar.setUIID("SideCommand");
         topBar.getStyle().setPaddingTop(10);

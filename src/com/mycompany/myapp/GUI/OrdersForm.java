@@ -30,10 +30,7 @@ import java.util.ArrayList;
 public class OrdersForm extends MenuForm{
     public OrdersForm(Form prev){
        
-        getAllStyles().setBorder(Border.createEmpty());
-        getAllStyles().setBackgroundType(BACKGROUND_NONE);
-        getAllStyles().setBgTransparency(255);
-        getAllStyles().setBgColor(0xffffff);
+        
         this.setLayout(BoxLayout.yCenter());
         this.setScrollableY(false);
         SimpleDateFormat dateformatter = new SimpleDateFormat("dd/MM/yyyy");  
@@ -46,7 +43,7 @@ public class OrdersForm extends MenuForm{
             @Override
             protected Dimension calcPreferredSize() {
                 Dimension d = super.calcPreferredSize(); 
-                d.setHeight(getDisplayHeight() *80/100);
+                d.setHeight(getDisplayHeight() *85/100);
                 return d;
             }                
         };
@@ -55,20 +52,20 @@ public class OrdersForm extends MenuForm{
         main.getAllStyles().setPadding(20, 50, 20, 20);
         main.getAllStyles().setBorder(RoundRectBorder.create().strokeColor(0).
         strokeOpacity(120));   
-        main.getAllStyles().setBgColor(0xB9BFFF);
+        main.getAllStyles().setBgColor(0x2d283e);
         main.getAllStyles().setBgTransparency(255);
         
         Label center=new Label("PRICE");
-        center.getAllStyles().setFgColor(0x456977);
+        center.getAllStyles().setFgColor(0xd1d7e0);
         center.getAllStyles().setAlignment(CENTER);
         
         
         Label start=new Label("DATE");
-        start.getAllStyles().setFgColor(0x456977);
+        start.getAllStyles().setFgColor(0xd1d7e0);
         start.getAllStyles().setAlignment(CENTER);
         
         Label end=new Label("STATUS");
-        end.getAllStyles().setFgColor(0x456977);
+        end.getAllStyles().setFgColor(0xd1d7e0);
         end.getAllStyles().setAlignment(CENTER);
         
         Container tableHead=BorderLayout.centerEastWest(center, end, start);
@@ -82,23 +79,23 @@ public class OrdersForm extends MenuForm{
         Container dtc =new Container(BoxLayout.y());
         
         Label date=new Label(dateformatter.format(c.getDate()));
-        date.getAllStyles().setFgColor(0x000000);
+        date.getAllStyles().setFgColor(0x202020);
         date.getAllStyles().setAlignment(LEFT);
         date.getAllStyles().setFont(Font.createSystemFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_SMALL));
         
         Label time=new Label(timeformatter.format(c.getDate()));
-        time.getAllStyles().setFgColor(0x000000);
+        time.getAllStyles().setFgColor(0x202020);
         time.getAllStyles().setAlignment(LEFT);
         time.getAllStyles().setFont(Font.createSystemFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_SMALL));
        
         dtc.addAll(date,time);
         
         Label price=new Label(c.getPrixTotal().toString()+" T.N.D");
-        price.getAllStyles().setFgColor(0x000000);
+        price.getAllStyles().setFgColor(0x202020);
         price.getAllStyles().setAlignment(CENTER);
         
         Label status=new Label(c.getStatus());
-        status.getAllStyles().setFgColor(0x000000);
+        status.getAllStyles().setFgColor(0x202020);
         status.getAllStyles().setAlignment(RIGHT);
         
         status.addPointerReleasedListener((evt) -> {
@@ -108,7 +105,7 @@ public class OrdersForm extends MenuForm{
         content.getAllStyles().setBorder(Border.createEmpty());
         content.getAllStyles().setBackgroundType(BACKGROUND_NONE);
         content.getAllStyles().setBgTransparency(255);
-        content.getAllStyles().setBgColor(0xffffff);
+        content.getAllStyles().setBgColor(0xd1d7e0);
         content.getAllStyles().setMargin(20, 20, 5, 5);
         content.setLeadComponent(status);
         content.getAllStyles().setBorder(RoundRectBorder.create().strokeColor(0).
