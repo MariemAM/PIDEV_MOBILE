@@ -6,7 +6,6 @@
 package com.mycompany.myapp.GUI;
 
 import com.codename1.ui.Button;
-import com.codename1.ui.CN;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.Font;
@@ -15,7 +14,6 @@ import com.codename1.ui.Form;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextArea;
 import com.codename1.ui.TextField;
-import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.plaf.Border;
@@ -29,20 +27,21 @@ import com.mycompany.myapp.utils.UserSession;
  */
 public class CheckoutForm extends MenuForm {
     CheckoutForm(Form prev){
-         getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e-> prev.showBack());
-            setTitle("Checkout");
+        getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e-> prev.showBack());
+        setTitle("Checkout");
+        this.setLayout(BoxLayout.y());
         Container main = new Container(BoxLayout.y());
         main.getAllStyles().setMargin(20, 20, 20, 20);
-        main.getAllStyles().setPadding(20, 20, 20, 20);
+        
         main.getAllStyles().setBorder(RoundRectBorder.create().strokeColor(0).
         strokeOpacity(120));   
-        main.getAllStyles().setBgColor(0xB9BFFF);
+        main.getAllStyles().setBgColor(0x2d283e);
         main.getAllStyles().setBgTransparency(255);
         
         Label total= new Label(String.valueOf(UserSession.getInstance().getTotal())+" T.N.D");
         total.getAllStyles().setFont(Font.createSystemFont(Font.FACE_SYSTEM, Font.STYLE_BOLD, Font.SIZE_LARGE));
         total.setAlignment(CENTER);
-        total.getAllStyles().setFgColor(0xffffff);
+        total.getAllStyles().setFgColor(0xd1d7e0);
         Label addressLabel=new Label("Address: ");
         TextField address=new TextField();
         Label addressErr=new Label();
@@ -55,14 +54,14 @@ public class CheckoutForm extends MenuForm {
         Label Err=new Label();
         Err.getAllStyles().setFgColor(0xab031a);
         Button valider=new Button("Confirm");
-        valider.setAlignment(CENTER);
-        valider.getAllStyles().setFgColor(0x000000);
+       
+        valider.getAllStyles().setFgColor(0xd1d7e0);
         valider.getAllStyles().setBorder(Border.createEmpty());
         valider.getAllStyles().setBackgroundType(BACKGROUND_NONE);
-        valider.getAllStyles().setBgTransparency(155);
-        valider.getAllStyles().setBgColor(0x456977);
-        valider.getAllStyles().setMargin(10,10, 0, 0);
-        valider.getAllStyles().setPadding(0, 0, 5, 5);
+        valider.getAllStyles().setBgTransparency(255);
+        valider.getAllStyles().setBgColor(0x2d283e);
+        valider.getAllStyles().setMargin(20, 20, 20, 20);
+        valider.getAllStyles().setPadding(3, 3, 20, 20);
         valider.getAllStyles().setBorder(RoundRectBorder.create().strokeColor(0).
         strokeOpacity(120));   
         valider.addActionListener(e->{
@@ -70,12 +69,15 @@ public class CheckoutForm extends MenuForm {
                 Err.setText("Empty Cart");
                 return;
             }
-            if(tel.getText().length()!=8){
-                telErr.setText("Invalid phone number");
+           
+            if(address.getText().length()<8 ){
+                addressErr.setText("Address too short");
+                System.out.println(address.getText());
                 return;
             }
-            if(address.getText().length()<8){
-                addressErr.setText("Address too short");
+             if(tel.getText().length()!=8){
+                telErr.setText("Invalid phone number");
+                System.out.println(tel.getText());
                 return;
             }
             UserSession.getInstance().validerPanier(tel.getText(),address.getText());
@@ -89,16 +91,10 @@ public class CheckoutForm extends MenuForm {
             d.showPopupDialog(valider);
             new OrdersForm(new HomeForm()).show();
       });    
-        Container x = new Container(BoxLayout.xCenter()) {
-            @Override
-            protected Dimension calcPreferredSize() {
-                Dimension d = super.calcPreferredSize(); 
-                d.setWidth(CN.getDisplayWidth()*60/100);
-                return d;
-            }                
-        };
-        x.add(valider);
-        main.addAll(Err,total,addressLabel,address,addressErr,telLabel,tel,telErr,x);
+
+        main.addAll(Err,total,addressLabel,address,addressErr,telLabel,tel,telErr);
+        main.getAllStyles().setPadding(20, 20, 20, 20);
         add(main);
+        add(valider);
     }
 }

@@ -7,6 +7,7 @@ package com.mycompany.myapp.GUI;
 
 import com.codename1.components.ImageViewer;
 import com.codename1.components.MultiButton;
+import com.codename1.io.Storage;
 import com.codename1.ui.Button;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
@@ -25,6 +26,8 @@ import com.codename1.ui.plaf.Style;
 import com.codename1.ui.plaf.UIManager;
 import com.mycompany.myapp.entities.Produit_Promo;
 import com.mycompany.myapp.services.PromoteService;
+import java.util.Hashtable;
+import java.util.Vector;
 
 
 
@@ -39,7 +42,10 @@ public class PromoteForm extends MenuForm {
     public PromoteForm(Form prev) {
         this.setTitle("My Offers");
         this.setLayout(new BoxLayout(BoxLayout.Y_AXIS));
-        
+        Storage store=Storage.getInstance();
+        Vector produits=new Vector();
+        Hashtable produit=new Hashtable();
+    
 //        Image icon=null;
 //        Style s = UIManager.getInstance().getComponentStyle("Button");
 //        icon=FontImage.createMaterial(FontImage.MATERIAL_FILTER,s);
@@ -47,6 +53,14 @@ public class PromoteForm extends MenuForm {
 //        Tabs t=new Tabs();
 //        t.addTab("filter", icon, c);
         for(Produit_Promo e : PromoteService.getInstance().getAllTasks()){ 
+         produit.put("nom", e.getNom());
+         produit.put("prix", e.getPrix());
+         produit.put("prixp", e.getPrix_promo());
+         produit.put("desc", e.getDesc());
+         produits.add(produit);
+         
+         
+         
         MultiButton mb1=new MultiButton();
         mb1.setTextLine1(e.getNom());
         mb1.setTextLine2(e.getPrix_promo().toString());
@@ -58,7 +72,10 @@ public class PromoteForm extends MenuForm {
             }}); 
         this.add(mb1);}
         
-    
+        
+    boolean verifstorage=store.writeObject("infoproduits", produits);
+    if(verifstorage==true){System.out.println("Success");}
+    else System.out.println("Echec");;
 //        int mm = Display.getInstance().convertToPixels(3);     
 //  EncodedImage placeholder = EncodedImage.createFromImage(Image.createImage(mm * 3, mm * 4, 0), false);
 //        for(Produit_Promo e : PromoteService.getInstance().getAllTasks()){ 

@@ -48,9 +48,9 @@
     <image name="Button.borderTopR_5.png" type="multi"  />
     <theme name="Theme">
         <val key="@includeNativeBool" value="true" />
-        <val key="SideCommand.bgColor" value="456977" />
+        <val key="SideCommand.bgColor" value="0d0d0d" />
         <border key="SideCommand.border" type="empty" />
-        <val key="SideCommand.fgColor" value="ffffff" />
+        <val key="SideCommand.fgColor" value="d1d7e0" />
         <font key="SideCommand.font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="4.0" />
         <val key="SideCommand.margin" value="0.0,3.0,0.0,0.0" />
         <val key="SideCommand.padUnit" value="2,2,2,2" />
@@ -61,13 +61,15 @@
         <val key="SideCommand.sel#derive" value="SideCommand" />
         <val key="SideCommand.textDecoration" value="0" />
         <val key="SideCommand.transparency" value="255" />
-        <val key="SideNavigationPanel.bgColor" value="ffffff" />
+        <val key="SideNavigationPanel.bgColor" value="d1d7e0" />
         <val key="SideNavigationPanel.transparency" value="255" />
-        <val key="Title.fgColor" value="ffffff" />
-        <val key="TitleCommand.fgColor" value="ffffff" />
+        <val key="Title.fgColor" value="d1d7e0" />
+        <val key="TitleCommand.fgColor" value="d1d7e0" />
         <val key="TitleCommand.press#derive" value="TitleCommand" />
         <val key="TitleCommand.press#fgColor" value="3e37" />
         <val key="TitleCommand.sel#derive" value="TitleCommand" />
         <val key="TitleCommand.sel#fgColor" value="3e37" />
+        <gradient key="hi.bgGradient" color1="7431580" color2="14784360" posX="0.5" posY="0.5" radius="2.0" />
+        <val key="hi.bgType" value="6" />
     </theme>
 </resource>
