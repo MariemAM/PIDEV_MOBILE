@@ -22,7 +22,9 @@ import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.ui.plaf.RoundRectBorder;
 import com.codename1.ui.plaf.Style;
+import static com.codename1.ui.plaf.Style.BACKGROUND_NONE;
 import com.codename1.ui.plaf.UIManager;
 import com.mycompany.myapp.entities.Produit_Promo;
 import com.mycompany.myapp.services.PromoteService;
@@ -62,6 +64,14 @@ public class PromoteForm extends MenuForm {
          
          
         MultiButton mb1=new MultiButton();
+        mb1.getAllStyles().setBorder(RoundRectBorder.create().strokeColor(0).
+                strokeOpacity(120));
+        mb1.getAllStyles().setBackgroundType(BACKGROUND_NONE);
+        mb1.getAllStyles().setBgTransparency(255);
+        mb1.getAllStyles().setBgColor(0x2d283e);
+        mb1.getAllStyles().setFgColor(0xd1d7e0);
+        mb1.getAllStyles().setMargin(20, 20, 20, 20);
+        
         mb1.setTextLine1(e.getNom());
         mb1.setTextLine2(e.getPrix_promo().toString());
         mb1.setTextLine3(e.getPrix().toString());
