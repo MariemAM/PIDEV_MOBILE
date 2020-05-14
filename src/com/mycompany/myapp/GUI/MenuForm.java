@@ -64,6 +64,10 @@ public class MenuForm extends Form{
             Form f=new OrdersForm(getCurrentForm());
             f.setTransitionOutAnimator(CommonTransitions.createEmpty());
             f.show();});
+        tb.addMaterialCommandToSideMenu(" Offers ", FontImage.MATERIAL_REDEEM, e -> {
+            Form f=new PromoteForm(getCurrentForm());
+            f.setTransitionOutAnimator(CommonTransitions.createEmpty());
+            f.show();});
         Container c=new Container(BoxLayout.y()){
             @Override
             protected Dimension calcPreferredSize() {
