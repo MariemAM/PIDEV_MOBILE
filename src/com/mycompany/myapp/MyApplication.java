@@ -8,10 +8,7 @@ import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 import com.codename1.io.Log;
 import com.codename1.ui.Toolbar;
-import com.mycompany.myapp.GUI.HomeForm;
-import com.mycompany.myapp.GUI.MenuForm;
-import com.mycompany.myapp.entities.User;
-import com.mycompany.myapp.utils.UserSession;
+import com.mycompany.myapp.GUI.LoginForm;
 
 
 public class MyApplication {
@@ -30,7 +27,7 @@ public class MyApplication {
         Toolbar.setGlobalToolbar(true);
 
         // Pro only feature
-        Log.bindCrashProtection(true);
+        //Log.bindCrashProtection(true);
 
         addNetworkErrorListener(err -> {
             // prevent the event from propagating
@@ -39,7 +36,7 @@ public class MyApplication {
                 Log.e(err.getError());
             }
             Log.sendLogAsync();
-            Dialog.show("Connection Error", "There was a networking error in the connection to " + err.getConnectionRequest().getUrl(), "OK", null);
+            //Dialog.show("Connection Error", "There was a networking error in the connection to " + err.getConnectionRequest().getUrl(), "OK", null);
         });        
     }
     
@@ -48,10 +45,8 @@ public class MyApplication {
             current.show();
             return;
         }
-        User u = new User(12);
-        UserSession us=UserSession.getInstance(u);
-        
-        Form home= new HomeForm();
+
+        Form home= new LoginForm();
         home.show();
     }
 

@@ -19,7 +19,7 @@ public class HomeForm extends MenuForm {
 
         setTitle("Home");
         setLayout(BoxLayout.y()); 
-        
+       
         setTransitionOutAnimator(CommonTransitions.createEmpty());
     }
 }
