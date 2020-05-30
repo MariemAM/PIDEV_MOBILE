@@ -51,7 +51,7 @@ public class GuidesForm extends MenuForm{
        
         super();
          this.setLayout(BoxLayout.y());
-        this.setScrollableY(false);
+        this.setScrollableY(true);
       getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e-> prev.showBack());
       setTitle("GUIDES");
        Container c=new Container(BoxLayout.y()){
@@ -66,16 +66,22 @@ public class GuidesForm extends MenuForm{
         TextField searchFiled = new TextField("", "search here...");
         searchFiled.getAllStyles().setFgColor(0x000000);*/
         Style s = UIManager.getInstance().getComponentStyle("Title");
-        TextField searchField = new TextField("", " Search"); 
+       TextField searchField = new TextField("", " Search"); 
 searchField.getHintLabel().setUIID("Title");
 searchField.setUIID("Title");
 searchField.getAllStyles().setAlignment(Component.LEFT);
 FontImage searchIcon = FontImage.createMaterial(FontImage.MATERIAL_SEARCH, s);
       searchField.addDataChangedListener((int d1, int d2) ->{
-           
-            if (!searchField.getText().equals(""))  {
+         
+            if (!searchField.getText().equals("") ) {
               //  bS.rechercheList(searchFiled.getText());
-              bS.recherche(b);
+               String d = searchField.getText();
+             bS.ChercherTopic(d);
+             this.show();
+            //System.out.println("nnn"+liche);
+
+             // bS.rechercheList(searchField.getText());
+             
             } else {
                 bS.getList();
 
@@ -85,14 +91,13 @@ FontImage searchIcon = FontImage.createMaterial(FontImage.MATERIAL_SEARCH, s);
         searchContainer.add(searchIcon);
        searchContainer.add(searchField);
        this.add(searchContainer);
- /*this.addCommandToRightBar("", searchIcon, (e) -> {
-    searchField.startEditingAsync(); 
-            });*/
-      List<Guide> lp= new ArrayList<>();
-      GuidesService pr = new GuidesService();
-          lp=pr.getList();
+   
+            
+      ArrayList<Guide> lp= new ArrayList<>();
+     
+          lp=bS.getList();
                //Recovering objects
-        for (Guide guide : bS.getList()) {
+        for (Guide guide :lp) {
             Label titre = new Label(guide.getTitre());
             //titre.getAllStyles().setFgColor(0x0c42c0);
             Label date = new Label(guide.getDate_creation());
@@ -119,7 +124,7 @@ FontImage searchIcon = FontImage.createMaterial(FontImage.MATERIAL_SEARCH, s);
             });
       
      
-  EncodedImage img = EncodedImage.createFromImage(Image.createImage(Display.getInstance().getDisplayWidth(),450), true);
+  EncodedImage img = EncodedImage.createFromImage(Image.createImage(Display.getInstance().getDisplayWidth(),350), true);
                         URLImage imgg= URLImage.createToStorage(img,guide.getPhoto(), "http://localhost/pidev/web/images/"+guide.getPhoto());
                         imgg.fetch();
                         ScaleImageLabel sl = new ScaleImageLabel(imgg);
@@ -129,6 +134,7 @@ FontImage searchIcon = FontImage.createMaterial(FontImage.MATERIAL_SEARCH, s);
                         int likeCount = 0;
                         boolean liked = false;
                         int commentCount = 0;
+                        
              Label likes = new Label((guide.getNbLikes())+ " Likes  ", "NewsBottomLine");
        likes.setTextPosition(RIGHT);
        Style s2 = new Style(likes.getUnselectedStyle());
@@ -163,10 +169,11 @@ FontImage searchIcon = FontImage.createMaterial(FontImage.MATERIAL_SEARCH, s);
          
           info.add(comments);
         listeContainer.add(info);
+        
         }
+        add(listeContainer);
+        show();
         
-        
-          add(listeContainer);
           //add(searchContainer);
         
         }

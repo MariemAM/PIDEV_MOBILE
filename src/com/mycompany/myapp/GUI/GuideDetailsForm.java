@@ -11,12 +11,14 @@ import com.codename1.components.ScaleImageLabel;
 import com.codename1.components.ShareButton;
 import com.codename1.components.SpanLabel;
 import com.codename1.io.FileSystemStorage;
+import static com.codename1.io.Log.e;
 import com.codename1.io.Util;
 import com.codename1.ui.Button;
 import com.codename1.ui.Component;
 import static com.codename1.ui.Component.CENTER;
 import static com.codename1.ui.ComponentSelector.$;
 import com.codename1.ui.Container;
+import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
 import com.codename1.ui.EncodedImage;
 import com.codename1.ui.Font;
@@ -31,6 +33,7 @@ import com.codename1.ui.TextArea;
 import com.codename1.ui.URLImage;
 import com.codename1.ui.animations.CommonTransitions;
 import com.codename1.ui.events.ActionEvent;
+import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
@@ -43,10 +46,13 @@ import com.codename1.ui.plaf.Style;
 import static com.codename1.ui.plaf.Style.BACKGROUND_NONE;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
+import com.mycompany.myapp.MyApplication;
+
 import com.mycompany.myapp.entities.Commentaire;
 import com.mycompany.myapp.entities.Guide;
 import com.mycompany.myapp.entities.Likes;
 import com.mycompany.myapp.entities.User;
+import com.mycompany.myapp.entities.rate;
 import com.mycompany.myapp.services.CommentaireService;
 
 import com.mycompany.myapp.services.GuidesService;
@@ -55,6 +61,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+
 
 
 /**
@@ -73,13 +80,16 @@ public class GuideDetailsForm extends MenuForm{
     Guide b ;
      GuidesService bS = new GuidesService();
      CommentaireService bC=new CommentaireService();
-     User u=new User(1);
-             UserSession us=UserSession.getInstance(u);
-               
-
+    User u=new User(1);
+           //  UserSession us=UserSession.getInstance();
+   //  User f = UserSession.getInstance().getUser();
+    // User u = MyApplication.currentUser;
+     UserSession us=UserSession.getInstance(u);
+ Commentaire c=new Commentaire();
+ 
    // private void init() {
 public GuideDetailsForm(Form prev){}
-    public GuideDetailsForm(Guide g) {
+    public GuideDetailsForm(Guide g) throws NullPointerException{
     hi=this;
    /*  
     //GuideDetailsForm (Guide g) throws IOException{
@@ -99,6 +109,7 @@ public GuideDetailsForm(Form prev){}
             //getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> previous.showBack());
             new GuidesForm(hi).showBack();
         }).asComponent(Button.class);
+        
         Label titre = new Label(g.getTitre());
             titre.getAllStyles().setFgColor(0x0c42c0);
             Label date = new Label(g.getDate_creation());
@@ -151,21 +162,23 @@ public GuideDetailsForm(Form prev){}
       
    Button btn7 =new Button("like");
    btn7.addActionListener((evt) -> {
-       Likes l=new Likes();
-       l.setId_guide(g.getId());
-       l.setId_user(us.getUser().getId());
-       UserSession.getInstance().getUser().getId().toString();
-       bS.likeAction(g, false);
+       Likes l=new Likes(u.getId(),g.getId());
+     
+      /* l.setId_guide(g.getId());
+     // l.setId_user(us.getUser().getId());
+       //l.setId_user(UserSession.getInstance().getUser().getId());
+       l.setId_user(u.getId());
+       //UserSession.getInstance().getUser().getId().toString();*/
+       bS.likeAction(l, false);
             
             });
    
         Button btn2 =new Button("Dislike");
    btn2.addActionListener((evt) -> {
-       UserSession.getInstance().getUser().getId().toString();
-       Likes l=new Likes();
-       l.setId_guide(g.getId());
-       l.setId_user(u.getId());
-             bS.likeAction(g, true);
+     
+       Likes l=new Likes(u.getId(),g.getId());
+     
+             bS.likeAction(l,true);
             });
      FontImage Icon2 = FontImage.createMaterial(FontImage.MATERIAL_THUMB_DOWN, s);
        // addComponent(btn2);
@@ -174,30 +187,60 @@ public GuideDetailsForm(Form prev){}
       Container C4=new Container(BoxLayout.x());
           Container Concomm=new Container(BoxLayout.y());
       Button    ajouter = new Button("Ajouter");
-TextArea comm = new TextArea();
+      TextArea comm = new TextArea();
         comm.setHint("Ajouter un commentaire");
     Concomm.add(comm);
     Concomm.addComponent(ajouter);
        ajouter.addActionListener((e) -> {
-           Commentaire c=new Commentaire();
-          
-           c.setUser_id(u.getId());
-            c.setGuide_id(g.getId());
-            c.setContenu(comm.getText());
             
-            
-        bC.addComment(c);
+         
+         SpanLabel content = new SpanLabel(c.getContenu());
+          if (comm.getText().length() != 0) {
+           //Commentaire n=new Commentaire(g.getId(),UserSession.getInstance().getUser().getId(),comm.getText());
+          Commentaire n=new Commentaire(g.getId(),u.getId(), comm.getText());
+      
+        bC.addComment(n);
+         Dialog.show("Alert", "Commentaire ajouté", "ok", null);
+        } else {
+                Dialog.show("Alert", "Commentaire vide", "ok", null);}
+        Concomm.add(content);
     }); 
-      // for (Commentaire comment : bC.getList2(g.getId())){
+       for (Commentaire comment : bC.getList2(g)){
 
-       //     Container list = new Container(BoxLayout.y());
+          Container list = new Container(BoxLayout.y());
+       
 
-        //    SpanLabel content = new SpanLabel(comment.getContenu());
+            SpanLabel con = new SpanLabel(comment.getContenu());
+          Label username = new Label(" :"+ comment.getUser_id());
+            username.getAllStyles().setFgColor(0x1f2a7e);
+            list.add(username);
+             Button b = new Button("X");
+            b.getAllStyles().setFgColor(0x1f2a7e);
+           Concomm.add(con);
+           if (u.getId().equals(comment.getUser_id())) {
+                list.add(b);
 
-           
+           }
+            b.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent evt) {
+              
+                   
+                    bC.supprimercom(c,g);}
+       });
+           Concomm.add(list) ;}
+        Slider star = createStarRankSlider();
+        star.addActionListener((e) -> {
+        try {
+            int rating = star.getProgress();
+            // System.out.println(rating);
+            rate p=new rate(u.getId(),g.getId(),rating);
+            bS.AddRate(p);
+        } catch (IOException ex) {
+             System.out.println(ex.getMessage());
+        }
             
-       // Concomm.add(content);
-        
+        });
         C2.add(btn7);
      C2.add(Icon);
         //addComponent(btnl);
@@ -206,20 +249,21 @@ TextArea comm = new TextArea();
       C3.add(sb);
       C4.add(devGuide);
       C4.add(Icon5);
-     cy.addAll(back,titre,date,cate,imgv,C1,C2,C3,C4);
-     cy.add(FlowLayout.encloseCenterMiddle(createStarRankSlider()));
-       
+     cy.addAll(back,titre,date,cate,imgv,C1,C2,C3,C4,Concomm);
+   //  cy.add(FlowLayout.encloseCenterMiddle(createStarRankSlider()));
+       cy.add(FlowLayout.encloseCenterMiddle(star));
      hi.add(cy);
        hi. show();
+       }   
     
-    }
-   public SwipeableContainer createRankWidget(String title, String year) {
+    
+   /*public SwipeableContainer createRankWidget(String title, String year) {
         MultiButton button = new MultiButton(title);
         button.setTextLine2(year);
         return new SwipeableContainer(FlowLayout.encloseCenterMiddle(createStarRankSlider()),
                 button);
-    }
-
+    }*/
+    
     private void initStarRankStyle(Style s, Image star) {
         s.setBackgroundType(Style.BACKGROUND_IMAGE_TILE_BOTH);
         s.setBorder(Border.createEmpty());
@@ -232,7 +276,7 @@ TextArea comm = new TextArea();
         Slider starRank = new Slider();
         starRank.setEditable(true);
         starRank.setMinValue(0);
-        starRank.setMaxValue(10);
+        starRank.setMaxValue(5);
         Font fnt = Font.createTrueTypeFont("native:MainLight", "native:MainLight").
                 derive(Display.getInstance().convertToPixels(5, true), Font.STYLE_PLAIN);
         Style s = new Style(0xffff33, 0, fnt, (byte) 0);

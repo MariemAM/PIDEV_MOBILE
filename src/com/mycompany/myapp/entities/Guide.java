@@ -10,8 +10,9 @@ package com.mycompany.myapp.entities;
  * @author haifa
  */
 
+import java.io.Serializable;
 import java.util.Date;
-public class Guide {
+public class Guide implements Serializable {
     
     private int id ;
     private String titre;
@@ -21,7 +22,7 @@ public class Guide {
     private String lien ;
     private String photo;
     private double note ;
-   private int nbLikes=0;
+   private int nbLikes;
     public Guide() {
     }
     

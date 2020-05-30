@@ -13,9 +13,13 @@ import com.codename1.io.NetworkManager;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.util.Resources;
+import com.mycompany.myapp.MyApplication;
 import com.mycompany.myapp.entities.Commentaire;
+import com.mycompany.myapp.entities.Guide;
 import com.mycompany.myapp.entities.User;
+import com.mycompany.myapp.utils.UserSession;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -25,7 +29,12 @@ import java.util.Map;
  * @author haifa
  */
 public class CommentaireService {
-     public ArrayList<Commentaire> getListTask(String json) {
+    Guide g;
+    User u =new User();
+    
+    UserSession us=UserSession.getInstance(u);
+    // User u = MyApplication.currentUser;
+     public ArrayList<Commentaire> getListTask(String json){
 
         ArrayList<Commentaire> listuser = new ArrayList<>();
 
@@ -43,19 +52,27 @@ public class CommentaireService {
 
                 
                 float id = Float.parseFloat(obj.get("id").toString());
-            
+//               float user_id=Float.parseFloat(obj.get("user_id").toString());
                 e.setId((int) id);
+               // e.setUser_id((int)user_id);
                 
+                 // e.setGuide_id((int) Integer.parseInt(obj.get("guide_id").toString()));
+                // e.setUser_id((int) Integer.parseInt(obj.get("user_id").toString()));
+                   e.setContenu(obj.get("contenu").toString());
+                  User u = new User(1);
+                  
+            //    u.getId();
+              //  UserSession.getInstance();
+                e.setUser_id(u.getId());
+                // e.setUser_id(obj.get("user_id").toString());
                 
-                
-                e.setContenu(obj.get("contenu").toString());
-                //User u = new User(1);
-                ///u.setUsername(obj.get("user").toString());
-                //e.setUser_id(u.getId());
-                
-            
+             // User u = new User();
+                //u.setUsername(obj.get("username").toString());
+              // e.setUser_id(u.getId());
+              
+             // e.setUser_id((int)obj.get("user_id").toString());
                 listuser.add(e);
-
+              System.out.println(listuser);
             }
 
         } catch (IOException ex) {
@@ -66,14 +83,14 @@ public class CommentaireService {
     }
      ArrayList<Commentaire> listComments = new ArrayList<>();
     
-    public ArrayList<Commentaire> getList2(int id){ 
+    public ArrayList<Commentaire> getList2(Guide g){ 
         
        
         ConnectionRequest con = new ConnectionRequest();
         con.setPost(false);
-        con.setUrl("http://localhost/pidev/web/app_dev.php/api/AfficherComm");
+        con.setUrl("http://localhost/pidev/web/app_dev.php/api/AfficherComm/"+g.getId());
         
-        con.addArgument("bid", String.valueOf(id));
+        con.addArgument("id", String.valueOf(g.getId()));
         
 
         con.addResponseListener(new ActionListener<NetworkEvent>() {
@@ -82,16 +99,17 @@ public class CommentaireService {
                 CommentaireService ser = new CommentaireService();
                 listComments = ser.getListTask(new String(con.getResponseData()));
             }
+            
         });
         NetworkManager.getInstance().addToQueueAndWait(con);
         return listComments;
     }
     
-    public void addComment(Commentaire c){
-        
+    public void addComment(Commentaire c ){
+       
         ConnectionRequest con = new ConnectionRequest();
-        String Url = "http://localhost/pidev/web/app_dev.php/api/AddComm";
-        Url=Url+"?comment=" + c.getContenu()+"&id="+c.getGuide_id();
+        String Url = "http://localhost/pidev/web/app_dev.php/api/AddComm/"+c.getUser_id()+"/"+c.getGuide_id()+"/"+c.getContenu();
+        //Url=Url+"?comment=" + c.getContenu()+"&id="+c.getGuide_id();
         con.setUrl(Url); 
         NetworkManager.getInstance().addToQueueAndWait(con);
 
@@ -131,10 +149,11 @@ public class CommentaireService {
         });
         NetworkManager.getInstance().addToQueueAndWait(con);
     }*/
-     public void supprimercom(Commentaire e) {
+     public void supprimercom(Commentaire e,Guide g) {
         ConnectionRequest con = new ConnectionRequest();
          System.out.println(e.getId());
-        String Url = "http://localhost/piweb-master/web/app_dev.php/api/deleteTopMob/" + e.getId();
+       // String Url = "http://localhost/pidev/web/app_dev.php/api/DellCom/" + e.getId()+"/"+e.getGuide_id();
+   String    Url = "http://localhost/pidev/web/app_dev.php/api/DellCom/" + e.getId()+"/"+e.getGuide_id()+"/"+e.getUser_id();
         con.setUrl(Url);
         con.addResponseListener((ee) -> {
             String str = new String(con.getResponseData());

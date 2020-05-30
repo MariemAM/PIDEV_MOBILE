@@ -26,8 +26,12 @@ import java.util.Map;
  */
 public class UserSession {
 
-   
-    private static UserSession          instance = null;
+   private static UserSession          instance = null;
+
+    public static void logout() {
+        instance=null;
+        
+    }
     private User                        user     = null;
     private final Map<Produit, Integer> panier   = new HashMap<>();
     private float total=0;

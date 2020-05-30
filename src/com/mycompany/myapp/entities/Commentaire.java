@@ -5,11 +5,13 @@
  */
 package com.mycompany.myapp.entities;
 
+import java.io.Serializable;
+
 /**
  *
  * @author haifa
  */
-public class Commentaire {
+public class Commentaire implements Serializable {
     private int id;
     private int guide_id;
     private int user_id;

@@ -27,6 +27,8 @@ import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 import com.mycompany.myapp.entities.Guide;
+import com.mycompany.myapp.entities.Likes;
+import com.mycompany.myapp.entities.User;
 import com.mycompany.myapp.entities.rate;
 import com.mycompany.myapp.utils.Statics;
 import com.mycompany.myapp.utils.UserSession;
@@ -73,7 +75,7 @@ public class GuidesService {
                         
                         guide.setTitre(obj.get("titre").toString());
                          guide.setDescription(obj.get("description").toString());
-                       //   guide.setDate_creation(obj.get("date creation").toString());
+                       //guide.setDate_creation(obj.get("date creation").toString());
                          guide.setLien(obj.get("lien").toString());
                          guide.setNote(Double.parseDouble(obj.get("note").toString()));
                        //  guide.setNbLikes(obj.get("nbLikes").toString());
@@ -85,11 +87,22 @@ public class GuidesService {
                            guide.setCategorie(obj.get("categorie").toString());
                         guide.setId((int) id);
                       guide.setPhoto(obj.get("photo").toString());
-                       DateFormat format = new SimpleDateFormat("yyyy-MM-dd H:m");
+                       DateFormat format = new SimpleDateFormat("yyyy-MM-dd ");
                      //    Date date = null;
-                         
+                     
+               /*           Double nte = Double.parseDouble(obj.get("note").toString());
+                guide.setNote(nte);
+                float nb = Float.parseFloat(obj.get("nbLikes").toString()); 
+                guide.setNbLikes((int)nb);*/
+               //guide.setNbLikes(Integer.parseInt((String) obj.get("nbLikes")));
                                 System.out.println(guide.getPhoto());
-                      
+//                       String  dateString = obj.get("date_creation").toString();
+                      java.util.Date date1 = new java.util.Date();
+                     
+       String date_creation= new java.text.SimpleDateFormat("yyyy-MM-dd").format(date1);
+  //      String date_creation= new java.text.SimpleDateFormat("yyyy-MM-dd").format(dateString);
+        guide.setDate_creation(date_creation);
+        //guide.getDate_creation();
                   listguides.add(guide);
                  System.out.println(listguides);
                     }
@@ -144,6 +157,7 @@ public void AfficherDetails(Guide b)throws NullPointerException{
       ConnectionRequest con = new ConnectionRequest();
         String Url = "http://localhost/pidev/web/app_dev.php/api/rechercher" + g.getTitre();
         con.setUrl(Url);
+           con.setHttpMethod("GET");
 
         System.out.println(Url);
 
@@ -154,13 +168,17 @@ public void AfficherDetails(Guide b)throws NullPointerException{
         NetworkManager.getInstance().addToQueueAndWait(con);
 
       }
-   public List<Guide> rechercheList(String word) {
+   public List<Guide> rechercheList(String titre) {
         ArrayList<Guide> guides = new ArrayList<>();
+        Guide g;
         ConnectionRequest con = new ConnectionRequest();
-        String Url = "http://localhost/pidev/web/app_dev.php/api/rechercher"+word;
+        String Url = "http://localhost/pidev/web/app_dev.php/api/rechercher";
+        Url=Url+"?titre="+titre;
         con.setUrl(Url);
-        con.addResponseListener((NetworkEvent evt) -> {
-            //listTasks = getListTask(new String(con.getResponseData()));
+         con.setHttpMethod("GET");
+       //  guides = getList();
+       /* con.addResponseListener((NetworkEvent evt) -> {
+            
             JSONParser jsonp = new JSONParser();
             
             try {
@@ -171,17 +189,16 @@ public void AfficherDetails(Guide b)throws NullPointerException{
                     for(Map<String, Object> e : list) {
                         guides.add(fillData(e));
                     }
-                }
+                }*/
                
-            } catch (IOException ex) {
-            }
-        });
+             
+       // });
         NetworkManager.getInstance().addToQueueAndWait(con);
         return guides;
     }
    public Guide fillData(Map<String,Object> e){
           Guide guide = new Guide();
-          guide.setId(((Double)e.get("id_guide")).intValue());
+          guide.setId((int)e.get("id_guide"));
          guide.setNbLikes(((Double)e.get("nb_like")).intValue());
           guide.setTitre((String)e.get("titre_guide"));
           guide.setDate_creation((String)e.get("date_creation"));
@@ -189,12 +206,12 @@ public void AfficherDetails(Guide b)throws NullPointerException{
           return guide;
     }
               
-    public void likeAction(Guide g, boolean action){
+    public void likeAction(Likes g, boolean action){
         ConnectionRequest con = new ConnectionRequest();
        // String Url = RESTAURANT_API+"like/"+UserCo.userCo.getId()+"/"+g.getId();
-                    String Url ="http://localhost/pidev/web/app_dev.php/api/PasAimer/"+g.getId();
+                    String Url ="http://localhost/pidev/web/app_dev.php/api/PasAimer/"+g.getId_guide()+"/"+g.getId_user();
         if(!action){
-         String Url2 ="http://localhost/pidev/web/app_dev.php/api/Aimer/"+g.getId();
+         String Url2 ="http://localhost/pidev/web/app_dev.php/api/Aimer/"+g.getId_guide()+"/"+g.getId_user();
            con.setUrl(Url2);
            NetworkManager.getInstance().addToQueueAndWait(con);
         }else{
@@ -224,10 +241,13 @@ public void AfficherDetails(Guide b)throws NullPointerException{
         
     }*/
     
-     public ArrayList<Guide> ChercherTopic(String d) {
+     public ArrayList<Guide> ChercherTopic(String titre) {
         ArrayList<Guide> listTopic = new ArrayList<>();
         ConnectionRequest con = new ConnectionRequest();
-        con.setUrl("http://localhost/pidev/web/app_dev.php/api/rechercher"+d);
+       
+        String Url = "http://localhost/pidev/web/app_dev.php/api/rechercher";
+        Url=Url+"?titre="+titre;
+        con.setUrl(Url);
         con.addResponseListener((NetworkEvent evt) -> {
             JSONParser jsonp = new JSONParser();
             try {
@@ -247,15 +267,17 @@ public void AfficherDetails(Guide b)throws NullPointerException{
                         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                         String dateString = formatter.format(currentTime);*/
                     listTopic.add(task);
+                    System.out.println(task);
                 }
             } catch (IOException ex) {
+                 System.out.println(ex.getMessage());
             }
 
         });
         NetworkManager.getInstance().addToQueueAndWait(con);
         return listTopic;
     }
-public void AddRate(rate p){
+public void AddRate(rate p)throws IOException{
         
         //String url = "http://127.0.0.1:8000/ajouterjson/"+p.getNom()+ "/" +p.getCategorie()+ "/" +p.getEmail()+ "/" +p.getType()+ "/" +p.getAdresse()+ "/" +p.getDescription()+ "/" +p.getSiteWeb()+ "/" +p.getPageFacebook()+ "/" +p.getPhone();
         String url = "http://localhost/pidev/web/app_dev.php/api/guide/rate/"+p.getId_user()+"/"+p.getId_guide()+"/"+p.getNote();
@@ -264,34 +286,20 @@ public void AddRate(rate p){
     
     
      con.setUrl(url);
-     con.addRequestHeader("X-Requested-With", "XMLHttpRequest");
-     con.addArgument("id_user", p.getId_user()+"");
-    con.addArgument("id_guide", p.getId_guide()+"");
-    con.addArgument("note", p.getNote()+"");
+     //con.addRequestHeader("X-Requested-With", "XMLHttpRequest");
+    // con.addArgument("id_user", p.getId_user()+"");
+  //  con.addArgument("id_guide", p.getId_guide()+"");
+   // con.addArgument("note", p.getNote()+"");
 
-     con.setPost(true);
+     //con.setPost(true);
         System.out.println(url);
-      con.addResponseListener(new ActionListener<NetworkEvent>() {
-
-                    @Override
-                    public void actionPerformed(NetworkEvent evt) {
-                        
-                        byte[] data = (byte[]) evt.getMetaData();
-                        String s = new String(data);
-                        System.out.println(s);
-                        if (s.equals("success")) {
-                            Dialog.show("Confirmation", "success", "Ok", null);
-                        } else {
-                            Dialog.show("Erreur", "erreur", "Ok", null);
-                        }
-                    }
-                });
-      /**
+     
+     
         con.addResponseListener((e) -> {
             String str = new String(con.getResponseData());
             System.out.println(str);
              });
-        **/
+    
         NetworkManager.getInstance().addToQueueAndWait(con);
     
     }

@@ -5,11 +5,13 @@
  */
 package com.mycompany.myapp.entities;
 
+import java.io.Serializable;
+
 /**
  *
  * @author haifa
  */
-public class rate {
+public class rate implements Serializable{
        private int id ;
     private int id_user;
     private int id_guide;

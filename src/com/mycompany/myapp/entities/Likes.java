@@ -5,11 +5,13 @@
  */
 package com.mycompany.myapp.entities;
 
+import java.io.Serializable;
+
 /**
  *
  * @author haifa
  */
-public class Likes {
+public class Likes implements Serializable {
     private int id;
     private int id_user;
     private int id_guide;
@@ -22,6 +24,12 @@ public class Likes {
         this.id_user = id_user;
         this.id_guide = id_guide;
     }
+
+    public Likes(int id_user, int id_guide) {
+        this.id_user = id_user;
+        this.id_guide = id_guide;
+    }
+    
 
     public int getId() {
         return id;

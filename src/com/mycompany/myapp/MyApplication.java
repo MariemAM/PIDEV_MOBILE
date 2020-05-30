@@ -9,6 +9,7 @@ import com.codename1.ui.util.Resources;
 import com.codename1.io.Log;
 import com.codename1.ui.Toolbar;
 import com.mycompany.myapp.GUI.HomeForm;
+import com.mycompany.myapp.GUI.LoginForm;
 import com.mycompany.myapp.GUI.MenuForm;
 import com.mycompany.myapp.entities.User;
 import com.mycompany.myapp.utils.UserSession;
@@ -18,7 +19,8 @@ public class MyApplication {
 
     private Form current;
     private Resources theme;
-
+    // public static User currentUser=new User(2) ;  
+ // UserSession us=UserSession.getInstance(currentUser);
     public void init(Object context) {
         // use two network threads instead of one
         updateNetworkThreadCount(2);
@@ -48,11 +50,14 @@ public class MyApplication {
             current.show();
             return;
         }
-        User u = new User(1);
+        User u = new User();
         UserSession us=UserSession.getInstance(u);
-        
-        Form home= new HomeForm();
+        Form home= new LoginForm();
         home.show();
+        
+       /* Form home= new HomeForm();
+        home.show();*/
+        
     }
 
     public void stop() {
