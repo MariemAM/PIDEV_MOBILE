@@ -6,7 +6,6 @@
 package com.mycompany.myapp.GUI;
 
 import com.codename1.charts.models.CategorySeries;
-import com.codename1.charts.util.ColorUtil;
 import com.codename1.components.ImageViewer;
 import com.codename1.components.ScaleImageLabel;
 import com.codename1.ui.Button;
@@ -14,7 +13,6 @@ import com.codename1.ui.CN;
 import static com.codename1.ui.CN.getDisplayHeight;
 import com.codename1.ui.ComboBox;
 import com.codename1.ui.Component;
-import static com.codename1.ui.Component.CENTER;
 import static com.codename1.ui.Component.LEFT;
 import com.codename1.ui.Container;
 import com.codename1.ui.Display;
@@ -35,7 +33,6 @@ import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.plaf.RoundBorder;
 import com.codename1.ui.plaf.RoundRectBorder;
 import com.codename1.ui.plaf.Style;
-import static com.codename1.ui.plaf.Style.BACKGROUND_NONE;
 import com.mycompany.myapp.entities.Category;
 import com.mycompany.myapp.entities.Produit;
 import com.mycompany.myapp.services.CategoryServices;
@@ -46,14 +43,13 @@ import java.util.List;
 
 /**
  *
- * @author arij
+ * @author rejeb
  */
-public class ShopTestForm extends MenuForm{
+public class ShopCat extends MenuForm{
     Form current;
-     public ShopTestForm(Form prev){
+     public ShopCat(String nom,Form prev){
          current=this; 
          this.setLayout(BoxLayout.y());
-         
          Container searchc = new Container(BoxLayout.x());
          TextField tsearch= new TextField("","search",18,TextArea.ANY);
          Button search = new Button();
@@ -76,49 +72,14 @@ public class ShopTestForm extends MenuForm{
           tftStyle.setMargin(Component.BOTTOM, 3);
           searchc.addAll(tsearch,search);
          search.addActionListener((ActionListener) (ActionEvent evt9) -> {  
-               Produit p = new Produit();
+             Produit p = new Produit();
                p = ProductServices.getInstance().SearchProduct(tsearch.getText()).get(0);
-               List<Produit> lps= new ArrayList<>();
-               lps.add(p);
-               
-               if(!lps.isEmpty()){
                    
-                new ShowPDetails( p.getId(),current).show();}
-               else{  
-             setLayout(BoxLayout.yCenter());
-             Container cp =new Container(BoxLayout.xCenter());
-             cp.add(new Label("No products "));
-             add(cp);}
+                new ShowPDetails( p.getId(),current).show();
               
              
          });
          add(searchc);
-         
-         
-    Container catg = new Container(BoxLayout.x());
-
-        catg.getAllStyles().setPadding(25, 25, 25, 25);
-    CategoryServices cs= new CategoryServices();
-    List<Category> lc = new ArrayList<>();
-    lc=cs.getAllCategory();
-    ComboBox categories= new ComboBox();
-         for(Category c:lc){
-             categories.addItem(c.getNom());
-                  
-         }
-         Category cat = new Category();
-         
-         categories.addActionListener(e10->{
-             String catf = categories.getSelectedItem().toString();
-             new ShopCat(catf,current).show();
-         });
-    
-    catg.add(categories);
-    add(catg);
-    
-     
-     
-     
      getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e-> prev.showBack());
      setTitle("Shop");
      Container main = new Container(BoxLayout.y()); 
@@ -129,7 +90,7 @@ public class ShopTestForm extends MenuForm{
       cart.addActionListener(l->new CartForm(this).show());
       List<Produit> lp= new ArrayList<>();
       ProductServices pr = new ProductServices();
-          lp=pr.getAllProduct();
+          lp=pr.PByCat(nom);
           
       for(Produit i:lp){
           Container c = new Container(BoxLayout.y()){
@@ -148,16 +109,11 @@ public class ShopTestForm extends MenuForm{
         c.getAllStyles().setMargin(20, 20, 20, 20);
         c.getAllStyles().setPadding(20, 20, 20, 20);
           Label l=new Label(i.getNom());
-            l.getAllStyles().setBorder(RoundRectBorder.create().strokeColor(0).
-            strokeOpacity(120));   
-            l.getAllStyles().setBackgroundType(BACKGROUND_NONE);
-            l.getAllStyles().setBgTransparency(255);
-            l.getAllStyles().setBgColor(0x2d283e);
-            l.getAllStyles().setFgColor(0xd1d7e0);
-            l.getAllStyles().setMargin(20, 20, 20, 20);
-            l.getAllStyles().setAlignment(LEFT);
+          l.getAllStyles().setFgColor(0x202020);
+          l.getAllStyles().setAlignment(LEFT);
+          l.getAllStyles().setFont(Font.createSystemFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_SMALL));
         Label prix=new Label(i.getPrix()+" T.N.D");
-           prix.getAllStyles().setFgColor(0xd1d7e0);
+           prix.getAllStyles().setFgColor(0x202020);
            prix.getAllStyles().setAlignment(LEFT);
            final int idp = i.getId();
           EncodedImage img = EncodedImage.createFromImage(Image.createImage(Display.getInstance().getDisplayWidth(),450), true);
@@ -174,7 +130,14 @@ public class ShopTestForm extends MenuForm{
                
           });
         Button b2=new Button("details");
-        b2.addActionListener((ActionListener)(ActionEvent evt9) -> {new ShowPDetails(idp,current).show(); });
+        
+                
+       
+         b2.addActionListener((ActionListener)(ActionEvent evt9) -> {
+                      //pr.getAProduct(nom);
+                     new ShowPDetails(idp,current).show();
+
+                  });
           
           
          c.addAll(imgv,l,prix, b,b2);
