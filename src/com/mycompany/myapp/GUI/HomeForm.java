@@ -3,23 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.myapp.GUI;
+package com.mycompany.myapp.gui;
 
-import com.codename1.ui.animations.CommonTransitions;
+import com.codename1.ui.Button;
+import com.codename1.ui.Form;
+import com.codename1.ui.Label;
 import com.codename1.ui.layouts.BoxLayout;
 
 /**
  *
- * @author Mariem
+ * @author bhk
  */
-public class HomeForm extends MenuForm {
-    
-    public HomeForm(){
-        super();
+public class HomeForm extends Form{
 
-        setTitle("Home");
-        setLayout(BoxLayout.y()); 
-       
-        setTransitionOutAnimator(CommonTransitions.createEmpty());
+    public HomeForm() {
+
+        
     }
+    
+    
 }

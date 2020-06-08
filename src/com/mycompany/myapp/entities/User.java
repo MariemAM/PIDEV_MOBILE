@@ -1,17 +1,24 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.mycompany.myapp.entities;
 
-import java.io.Serializable;
+/**
+ *
+ * @author ghofrane
+ */
 
-import java.util.Date;
+
 
 /**
  *
  * @author rejeb
  */
-public class User implements Serializable {
+public class User {
 
-    private static final long serialVersionUID = 1L;
+    
 
 
     private Integer id;
@@ -32,11 +39,11 @@ public class User implements Serializable {
     private String password;
  
 
-    private Date lastLogin;
+    private String lastLogin;
   
     private String confirmationToken;
  
-    private Date passwordRequestedAt;
+    private String passwordRequestedAt;
   
 
     private String roles;
@@ -49,14 +56,11 @@ public class User implements Serializable {
 
     public User() {
     }
-     public User(int id) {
-         this.id=id;
-    }
     public User(String username,String password) {
         this.username = username;
         this.password = password;
         }
-    public User(Integer id, String username, String usernameCanonical, String email, String emailCanonical, boolean enabled, String salt, String password, Date lastLogin, String confirmationToken, Date passwordRequestedAt, String roles) {
+    public User(Integer id, String username, String usernameCanonical, String email, String emailCanonical, boolean enabled, String salt, String password, String lastLogin, String confirmationToken, String passwordRequestedAt, String roles) {
         this.id = id;
         this.username = username;
         this.usernameCanonical = usernameCanonical;
@@ -70,6 +74,16 @@ public class User implements Serializable {
         this.passwordRequestedAt = passwordRequestedAt;
         this.roles = roles;
        
+    }
+
+    public User(Integer id, String username, String usernameCanonical, String email, String emailCanonical, boolean enabled, String password) {
+        this.id = id;
+        this.username = username;
+        this.usernameCanonical = usernameCanonical;
+        this.email = email;
+        this.emailCanonical = emailCanonical;
+        this.enabled = enabled;
+        this.password = password;
     }
 
    
@@ -138,11 +152,11 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public Date getLastLogin() {
+    public String getLastLogin() {
         return lastLogin;
     }
 
-    public void setLastLogin(Date lastLogin) {
+    public void setLastLogin(String lastLogin) {
         this.lastLogin = lastLogin;
     }
 
@@ -154,25 +168,18 @@ public class User implements Serializable {
         this.confirmationToken = confirmationToken;
     }
 
-    public Date getPasswordRequestedAt() {
+    public String getPasswordRequestedAt() {
         return passwordRequestedAt;
     }
 
-    public void setPasswordRequestedAt(Date passwordRequestedAt) {
+    public void setPasswordRequestedAt(String passwordRequestedAt) {
         this.passwordRequestedAt = passwordRequestedAt;
     }
 
     public String getRoles() {
         return roles;
     }
-    public boolean isAdmin() {
-        
-        if (this.getRoles().equals("a:1:{i:0;s:10:\"ROLE_ADMIN\";}")) {
-            return true;
-        }
-        return false;
-    }
-    
+
     public void setRoles(String roles) {
         this.roles = roles;
     }
@@ -193,10 +200,10 @@ public class User implements Serializable {
         User other = (User) object;
         return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
     }
-  @Override
+
+    @Override
     public String toString() {
-        return "User{" + "id=" + id + ", username=" + username + ", usernameCanonical=" + usernameCanonical + ", email=" + email + ", emailCanonical=" + emailCanonical + ", enabled=" + enabled + ", salt=" + salt + ", password=" + password + ", lastLogin=" + lastLogin + ", confirmationToken=" + confirmationToken + ", passwordRequestedAt=" + passwordRequestedAt + ", roles=" + roles + '}';
+        return username;
     }
-   
 
 }
