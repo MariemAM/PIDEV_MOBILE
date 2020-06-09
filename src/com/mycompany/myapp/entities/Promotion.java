@@ -5,6 +5,8 @@
  */
 package com.mycompany.myapp.entities;
 
+import java.util.Date;
+
 /**
  *
  * @author Mariem
@@ -13,21 +15,22 @@ public class Promotion {
 
     private int id;
     private String nom;
-    private String date_debut;
-    private String date_fin;
-    private int taux_reduction;
+    private Date dateDebut;
+    private Date dateFin;
+    private int tauxReduction;
 
     public Promotion() {
     }
 
-    public Promotion(int id, String nom, String date_debut, String date_fin, int taux_reduction) {
+    public Promotion(int id, String nom, Date dateDebut, Date dateFin, int tauxReduction) {
         this.id = id;
         this.nom = nom;
-        this.date_debut = date_debut;
-        this.date_fin = date_fin;
-        this.taux_reduction = taux_reduction;
-
+        this.dateDebut = dateDebut;
+        this.dateFin = dateFin;
+        this.tauxReduction = tauxReduction;
     }
+
+ 
 
     public int getId() {
         return id;
@@ -37,17 +40,11 @@ public class Promotion {
         return nom;
     }
 
-    public String getDate_debut() {
-        return date_debut;
-    }
+   
 
-    public String getDate_fin() {
-        return date_fin;
-    }
+   
 
-    public int getTaux_reduction() {
-        return taux_reduction;
-    }
+   
 
     public void setId(int id) {
         this.id = id;
@@ -57,22 +54,29 @@ public class Promotion {
         this.nom = nom;
     }
 
-    public void setDate_debut(String date_debut) {
-        this.date_debut = date_debut;
+    public Date getDateDebut() {
+        return dateDebut;
     }
 
-    public void setDate_fin(String date_fin) {
-
-        this.date_fin = date_fin;
+    public void setDateDebut(Date dateDebut) {
+        this.dateDebut = dateDebut;
     }
 
-    public void setTaux_reduction(int taux_reduction) {
-        this.taux_reduction = taux_reduction;
+    public Date getDateFin() {
+        return dateFin;
     }
 
-    @Override
-    public String toString() {
-        return "NAME=" + nom + ", START DATE=" + date_debut + ", END DATE=" + date_fin + ", RATE=" + taux_reduction;
+    public void setDateFin(Date dateFin) {
+        this.dateFin = dateFin;
     }
+
+    public int getTauxReduction() {
+        return tauxReduction;
+    }
+
+    public void setTauxReduction(int tauxReduction) {
+        this.tauxReduction = tauxReduction;
+    }
+
 
 }

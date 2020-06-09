@@ -31,7 +31,7 @@ public class OrdersDetailsForm extends MenuForm {
     public OrdersDetailsForm(Form prev,Commande c){
       
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");  
-        getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e-> prev.showBack());
+        getToolbar().addMaterialCommandToRightBar("", FontImage.MATERIAL_ARROW_BACK, e-> prev.showBack());
         setTitle("Order Details");
         this.setLayout(BoxLayout.y());
         Container ct= new Container(BoxLayout.yCenter());

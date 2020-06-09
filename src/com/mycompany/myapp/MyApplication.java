@@ -9,6 +9,7 @@ import com.codename1.ui.util.Resources;
 import com.codename1.io.Log;
 import com.codename1.ui.Toolbar;
 import com.mycompany.myapp.GUI.HomeForm;
+import com.mycompany.myapp.GUI.InscriptionForm;
 import com.mycompany.myapp.GUI.MenuForm;
 import com.mycompany.myapp.entities.User;
 import com.mycompany.myapp.utils.UserSession;
@@ -47,12 +48,13 @@ public class MyApplication {
         if(current != null){
             current.show();
             return;
-        }
-        User u = new User(12);
+        }      // new InscriptionForm();
+       User u = new User(12);
         UserSession us=UserSession.getInstance(u);
-        
-        Form home= new HomeForm();
-        home.show();
+       
+      Form home= new HomeForm();
+      home.show();
+
     }
 
     public void stop() {

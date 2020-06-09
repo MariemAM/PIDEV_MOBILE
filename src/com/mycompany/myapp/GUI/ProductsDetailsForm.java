@@ -9,8 +9,10 @@ import com.codename1.components.MultiButton;
 import com.codename1.components.ShareButton;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
+import com.codename1.ui.Label;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.plaf.RoundRectBorder;
+import com.codename1.ui.plaf.Style;
 import static com.codename1.ui.plaf.Style.BACKGROUND_NONE;
 import com.mycompany.myapp.entities.Produit_Promo;
 
@@ -26,8 +28,10 @@ public class ProductsDetailsForm extends MenuForm {
         this.setLayout(BoxLayout.y());
         MultiButton mb1 = new MultiButton();
         mb1.setTextLine1(p.getNom());
-        mb1.setTextLine2(p.getPrix_promo().toString());
-        mb1.setTextLine3(p.getPrix().toString());
+        mb1.setTextLine2(p.getPrix_promo().toString()+" T.N.D");
+        Label l=new Label(p.getPrix().toString());
+        l.getAllStyles().setTextDecoration(Style.TEXT_DECORATION_UNDERLINE);
+        mb1.setTextLine3(l.getText()+"T.N.D");
         mb1.setTextLine4(p.getDesc());
         mb1.getAllStyles().setBorder(RoundRectBorder.create().strokeColor(0).
                 strokeOpacity(120));
@@ -38,7 +42,7 @@ public class ProductsDetailsForm extends MenuForm {
         mb1.getAllStyles().setMargin(20, 20, 20, 20);
         ShareButton button = new ShareButton();
         button.setText("  Share with friends");
-        button.setTextToShare("" + p.getNom() + "price before discount: " + p.getPrix() + "price after discount:" + p.getPrix_promo());
+        button.setTextToShare("" + p.getNom() + "Price before discount: " + p.getPrix() + "Price after discount:" + p.getPrix_promo());
         button.getAllStyles().setBackgroundType(BACKGROUND_NONE);
         button.getAllStyles().setBgTransparency(255);
         button.getAllStyles().setBgColor(0x2d283e);

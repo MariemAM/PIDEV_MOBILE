@@ -6,6 +6,8 @@
 package com.mycompany.myapp.entities;
 
 import com.codename1.ui.Image;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -20,6 +22,7 @@ public class Produit_Promo {
     private String            desc;
     private Image             Image;
     private String t[] ;
+    private boolean hasLgpromo;
 
     public Produit_Promo() {
     }

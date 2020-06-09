@@ -33,6 +33,8 @@ public class User implements Serializable {
  
 
     private Date lastLogin;
+    
+    private String phone;
   
     private String confirmationToken;
  
@@ -52,6 +54,7 @@ public class User implements Serializable {
      public User(int id) {
          this.id=id;
     }
+     
     public User(String username,String password) {
         this.username = username;
         this.password = password;
@@ -177,6 +180,13 @@ public class User implements Serializable {
         this.roles = roles;
     }
     
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
     @Override
     public int hashCode() {
         int hash = 0;
