@@ -88,16 +88,17 @@ public class AddPromoForm extends MenuForm {
         r.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                if (name.getText().equals("") && rate.getText().equals("") && startdate.toString().equals("") && enddate.toString().equals("")) {
+                if (name.getText().equals("") || rate.getText().equals("") || startdate.toString().equals("") || enddate.toString().equals("")) {
                     err.setText("Empty fields!!");
                     revalidate();
                 }
+                else{
 
                 PromoServices.getInstance().createPromotion(name.getText(), Integer.parseInt(rate.getText()));
                 Label error = new Label("successfully added");
                 Dialog d = new Dialog("", BoxLayout.y());
                 d.addAll(error);
-                d.showPopupDialog(r); }
+                d.showPopupDialog(r); }}
 
         });
         c.addAll(l, name, ra, rate, s, startdate, end, enddate, err, r, cancel);

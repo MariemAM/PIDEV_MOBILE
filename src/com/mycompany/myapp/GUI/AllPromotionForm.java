@@ -221,14 +221,14 @@ public class AllPromotionForm extends MenuForm {
        ok.addActionListener(i->{
            for(User u:PromoServices.getInstance().getAPImessage())
            {
-//               Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
-//           Message message = Message
-//                .creator(new PhoneNumber(u.getPhone()), // integration
-//                        new PhoneNumber("+17606546225"), // from
-//                        ta.getText())
-//                .create();
-//         System.out.println(message.getSid());
-//         System.out.println("API Done");
+               Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+           Message message = Message
+                .creator(new PhoneNumber(u.getPhone()), // integration
+                        new PhoneNumber("+17606546225"), // from
+                        ta.getText())
+                .create();
+         System.out.println(message.getSid());
+         System.out.println("API Done");
            
            }         
        });

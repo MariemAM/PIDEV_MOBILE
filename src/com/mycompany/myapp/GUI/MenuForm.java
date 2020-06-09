@@ -19,6 +19,7 @@ import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.plaf.Border;
 import static com.codename1.ui.plaf.Style.BACKGROUND_NONE;
+import com.mycompany.myapp.utils.UserSession;
 
 /**
  *
@@ -64,11 +65,21 @@ public class MenuForm extends Form{
             Form f=new OrdersForm(getCurrentForm());
             f.setTransitionOutAnimator(CommonTransitions.createEmpty());
             f.show();});
+
          tb.addMaterialCommandToSideMenu("Promote ", FontImage.MATERIAL_REDEEM, e -> {
-            Form f=new AllPromotionForm(getCurrentForm());
+            Form f=new AllPromotionForm(getCurrentForm());      
+
             f.setTransitionOutAnimator(CommonTransitions.createEmpty());
-            f.show();
+  f.show();
+         
          });
+          
+         tb.addMaterialCommandToSideMenu(" Logout ", FontImage.MATERIAL_LOGOUT, e -> {
+            Form f=new LoginForm();
+            UserSession.logout();
+            f.setTransitionInAnimator(CommonTransitions.createSlide(CommonTransitions.SLIDE_VERTICAL, false, 500));
+            f.show();
+        });
         Container c=new Container(BoxLayout.y()){
             @Override
             protected Dimension calcPreferredSize() {
