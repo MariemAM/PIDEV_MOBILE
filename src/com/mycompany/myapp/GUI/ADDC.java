@@ -21,6 +21,8 @@ import com.codename1.ui.plaf.RoundRectBorder;
 import com.codename1.ui.plaf.Style;
 import com.mycompany.myapp.entities.Category;
 import com.mycompany.myapp.services.CategoryServices;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -34,6 +36,11 @@ public class ADDC extends MenuForm{
         getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e-> prev.showBack());       
         setTitle("Add Category");
         setLayout(BoxLayout.yCenter());
+        List<Category> lp= new ArrayList<>();
+        CategoryServices cs = new CategoryServices();
+        lp=cs.getAllCategory();
+        List<String> lnc = new ArrayList<>();
+        for (Category cc:lp){lnc.add(cc.getNom());}
         Container CX = new Container(BoxLayout.yCenter());
         Container C = new Container(BoxLayout.yCenter());
         TextField tfnom = new TextField("","nom");
@@ -67,11 +74,14 @@ public class ADDC extends MenuForm{
             public void actionPerformed(ActionEvent evt) {
                 if (tfnom.getText().length()==0)
                     Dialog.show("Alert", "Please fill all the fields", new Command("OK"));
+                else if (lnc.contains(tfnom.getText())) {
+                    Dialog.show("Alert", "category already exists", new Command("OK"));
+                }
                 else
                 {
                     try {
-                        Category C = new Category( tfnom.getText(),Integer.parseInt(tfproduit.getText()));
-                        CategoryServices.getInstance().addCategory(tfnom.getText(),Integer.valueOf(tfproduit.getText()));
+                        Category C = new Category( tfnom.getText());
+                        CategoryServices.getInstance().addCategory(tfnom.getText());
                         new ShowC(current).show();
                        
                     } catch (NumberFormatException e) {
@@ -85,7 +95,7 @@ public class ADDC extends MenuForm{
         }); 
        
           
-         C.addAll(tfnom,tfproduit,btnValider);
+         C.addAll(tfnom,btnValider);
             add(C);   
           
       }

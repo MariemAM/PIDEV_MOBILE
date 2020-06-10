@@ -15,26 +15,15 @@ public class Category implements Serializable {
     private static final long serialVersionUID = 1L;
     private Integer           id;
     private String            nom;
-    private Integer            produit;
+   // private Integer            produit;
 
-    public Category(Integer id, String nom, Integer produit) {
-        this.id = id;
+    public Category(String nom) {
         this.nom = nom;
-        this.produit = produit;
     }
 
-    public Category(String nom, Integer produit) {
-        this.nom = nom;
-        this.produit = produit;
-    }
 
-    public Integer getProduit() {
-        return produit;
-    }
 
-    public void setProduit(Integer produit) {
-        this.produit = produit;
-    }
+ 
     @Override
     public String toString() {
         return "Category{" + "id=" + id + ", nom=" + nom + '}';

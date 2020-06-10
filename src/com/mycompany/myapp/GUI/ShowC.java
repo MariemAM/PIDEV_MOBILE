@@ -32,7 +32,7 @@ import java.util.List;
 public class ShowC extends MenuForm{
       Form current;
     public ShowC( Form prev){
-       current=this;
+        current=this;
         this.setLayout(BoxLayout.y());
         getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e-> prev.showBack());
         setTitle("All Categories");
@@ -66,9 +66,9 @@ public class ShowC extends MenuForm{
           l.getAllStyles().setFgColor(0xd1d7e0);
           l.getAllStyles().setAlignment(LEFT);
           l.getAllStyles().setFont(Font.createSystemFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_SMALL));
-        Label produit=new Label(i.getProduit()+" Products");
-           produit.getAllStyles().setFgColor(0xd1d7e0);
-           produit.getAllStyles().setAlignment(LEFT);
+       // Label produit=new Label(i.getProduit()+" Products");
+         //  produit.getAllStyles().setFgColor(0xd1d7e0);
+           //produit.getAllStyles().setAlignment(LEFT);
            final int idc = i.getId();
         Button b=new Button("edit");
                b.addActionListener((ActionListener)(ActionEvent evt1) -> {

@@ -7,6 +7,7 @@ package com.mycompany.myapp.GUI;
 
 import com.codename1.components.ImageViewer;
 import com.codename1.components.ScaleImageLabel;
+import com.codename1.components.ShareButton;
 import static com.codename1.push.PushContent.setTitle;
 import com.codename1.ui.Button;
 import com.codename1.ui.CN;
@@ -98,9 +99,12 @@ public class ShowPDetails extends MenuForm{
                
           });
           
-          
+          ShareButton share = new ShareButton();
+             share.setTextToShare("Check out our product "+i.getNom()+ " !  It is "+i.getDescription()+" and only for "+ i.getPrix()+" T.N.D");
+             share.setAlignment(LEFT);
+
        
-          c.addAll(imgv,l,des,prix,qte,b);
+          c.addAll(imgv,l,des,prix,qte,share,b);
             add(c);  
       }
      

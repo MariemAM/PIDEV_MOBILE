@@ -9,6 +9,7 @@ package com.mycompany.myapp.utils;
  *
  * @author Mariem
  */
-public class Statics {
-    public static final String BASE_URL="http://127.0.0.1:8000/api";
+public class Statics_M {
+    public static final String BASE_URL="http://localhost:4500";
+    
 }

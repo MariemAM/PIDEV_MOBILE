@@ -9,6 +9,7 @@ import com.codename1.charts.models.CategorySeries;
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.components.ImageViewer;
 import com.codename1.components.ScaleImageLabel;
+import com.codename1.components.ShareButton;
 import com.codename1.ui.Button;
 import com.codename1.ui.CN;
 import static com.codename1.ui.CN.getDisplayHeight;
@@ -63,7 +64,6 @@ public class ShopTestForm extends MenuForm{
           searchStyle.setMarginUnit(Style.UNIT_TYPE_DIPS);
           searchStyle.setMargin(Component.LEFT, 0);
           FontImage.setMaterialIcon(search, FontImage.MATERIAL_SEARCH,7);
-         
           Style tftStyle =  tsearch.getAllStyles();
           Stroke borderStroke = new Stroke(2, Stroke.CAP_SQUARE, Stroke.JOIN_MITER, 1);
           tftStyle.setBorder(RoundRectBorder.create().
@@ -75,29 +75,25 @@ public class ShopTestForm extends MenuForm{
           tftStyle.setMarginUnit(Style.UNIT_TYPE_DIPS);
           tftStyle.setMargin(Component.BOTTOM, 3);
           searchc.addAll(tsearch,search);
-         search.addActionListener((ActionListener) (ActionEvent evt9) -> {  
+          search.addActionListener((ActionListener) (ActionEvent evt9) -> {  
                Produit p = new Produit();
                p = ProductServices.getInstance().SearchProduct(tsearch.getText()).get(0);
                List<Produit> lps= new ArrayList<>();
                lps.add(p);
-               
                if(!lps.isEmpty()){
-                   
                 new ShowPDetails( p.getId(),current).show();}
-               else{  
-             setLayout(BoxLayout.yCenter());
-             Container cp =new Container(BoxLayout.xCenter());
-             cp.add(new Label("No products "));
-             add(cp);}
-              
-             
+              else{  
+               //this.setLayout(BoxLayout.yCenter());
+               //Container cp =new Container(BoxLayout.xCenter());
+               /*cp.*/add(new Label("No products "));
+              // add(cp);
+               }
          });
          add(searchc);
          
          
     Container catg = new Container(BoxLayout.x());
-
-        catg.getAllStyles().setPadding(25, 25, 25, 25);
+    catg.getAllStyles().setPadding(25, 25, 25, 25);
     CategoryServices cs= new CategoryServices();
     List<Category> lc = new ArrayList<>();
     lc=cs.getAllCategory();
@@ -106,7 +102,7 @@ public class ShopTestForm extends MenuForm{
              categories.addItem(c.getNom());
                   
          }
-         Category cat = new Category();
+        // Category cat = new Category();
          
          categories.addActionListener(e10->{
              String catf = categories.getSelectedItem().toString();
@@ -161,7 +157,7 @@ public class ShopTestForm extends MenuForm{
            prix.getAllStyles().setAlignment(LEFT);
            final int idp = i.getId();
           EncodedImage img = EncodedImage.createFromImage(Image.createImage(Display.getInstance().getDisplayWidth(),450), true);
-                        URLImage imgg= URLImage.createToStorage(img,i.getPhoto(), "http://localhost:8080/pidev-merge/web/images/"+i.getPhoto());
+                        URLImage imgg= URLImage.createToStorage(img,i.getPhoto(), "http://localhost:8080/pidev-merge/web/images"+i.getPhoto());
                         imgg.fetch(); 
                         ScaleImageLabel sl = new ScaleImageLabel(imgg);
             sl.setBackgroundType(Style.BACKGROUND_IMAGE_SCALED_FILL);
@@ -175,9 +171,15 @@ public class ShopTestForm extends MenuForm{
           });
         Button b2=new Button("details");
         b2.addActionListener((ActionListener)(ActionEvent evt9) -> {new ShowPDetails(idp,current).show(); });
+        
+         ShareButton share = new ShareButton();
+             share.setTextToShare("Check out our product "+i.getNom()+ " !  It is "+i.getDescription()+" and only for "+ i.getPrix()+" T.N.D");
+             share.setAlignment(LEFT);
+
+             
           
           
-         c.addAll(imgv,l,prix, b,b2);
+         c.addAll(imgv,l,prix, b,b2,share);
             add(c);   
           
       }

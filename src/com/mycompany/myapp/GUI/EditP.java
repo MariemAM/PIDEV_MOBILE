@@ -51,16 +51,16 @@ public class EditP extends MenuForm{
      public EditP(int id ,Form prev){
     current = this;
         getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e-> prev.showBack());       
-        setTitle("Add Product");
+        setTitle("Edit Product");
         setLayout(BoxLayout.yCenter());
         Container CX = new Container(BoxLayout.yCenter());
         Container C = new Container(BoxLayout.yCenter());
         TextField tfnom = new TextField("","name");
         TextField tfqte = new TextField("","quantity");
         TextField tfprix = new TextField("","price");
-        TextField tfprix_promo = new TextField("","discount price");
+       // TextField tfprix_promo = new TextField("","discount price");
         TextField tfdescription = new TextField("","description");
-        TextField tfphoto = new TextField("","please insert photo url");
+        //TextField tfphoto = new TextField("","please insert photo url");
        // TextField tfcategorie = new TextField("","categorie");
        Container catg = new Container(BoxLayout.x());
 
@@ -80,7 +80,7 @@ public class EditP extends MenuForm{
           
      
             
-        Button btnValider = new Button("add");
+        Button btnValider = new Button("Edit");
         Style tftStyle =  tfnom.getAllStyles();
           Stroke borderStroke = new Stroke(2, Stroke.CAP_SQUARE, Stroke.JOIN_MITER, 1);
           tftStyle.setBorder(RoundRectBorder.create().
@@ -113,16 +113,16 @@ public class EditP extends MenuForm{
           ttStyle.setBgTransparency(255);
           ttStyle.setMarginUnit(Style.UNIT_TYPE_DIPS);
           ttStyle.setMargin(Component.BOTTOM, 3);
-                   Style tsStyle =  tfprix_promo.getAllStyles();
+                 //  Style tsStyle =  tfprix_promo.getAllStyles();
          
-          tsStyle.setBorder(RoundRectBorder.create().
+          /*tsStyle.setBorder(RoundRectBorder.create().
                          strokeColor(0xffffff).
                          strokeOpacity(120).
                          stroke(borderStroke));
           tsStyle.setBgColor(0xffffff);
           tsStyle.setBgTransparency(255);
           tsStyle.setMarginUnit(Style.UNIT_TYPE_DIPS);
-          tsStyle.setMargin(Component.BOTTOM, 3);
+          tsStyle.setMargin(Component.BOTTOM, 3*/
                    Style tbStyle =  tfdescription.getAllStyles();
          
           tbStyle.setBorder(RoundRectBorder.create().
@@ -133,7 +133,7 @@ public class EditP extends MenuForm{
           tbStyle.setBgTransparency(255);
           tbStyle.setMarginUnit(Style.UNIT_TYPE_DIPS);
           tbStyle.setMargin(Component.BOTTOM, 3);
-                   Style tpStyle =  tfphoto.getAllStyles();
+/*                   Style tpStyle =  tfphoto.getAllStyles();
          
           tpStyle.setBorder(RoundRectBorder.create().
                          strokeColor(0xffffff).
@@ -142,12 +142,12 @@ public class EditP extends MenuForm{
           tpStyle.setBgColor(0xffffff);
           tpStyle.setBgTransparency(255);
           tpStyle.setMarginUnit(Style.UNIT_TYPE_DIPS);
-          tpStyle.setMargin(Component.BOTTOM, 3);
+          tpStyle.setMargin(Component.BOTTOM, 3);*/
         
         btnValider.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                if (tfnom.getText().length()==0 ||tfprix.getText().length()==0||tfqte.getText().length()==0||tfprix_promo.getText().length()==0||tfdescription.getText().length()==0||tfphoto.getText().length()==0 )
+                if (tfnom.getText().length()==0 ||tfprix.getText().length()==0||tfqte.getText().length()==0||tfdescription.getText().length()==0 )
                     Dialog.show("Alert", "Please fill all the fields", new Command("OK"));
                 else if (Integer.parseInt(tfprix.getText())<1) {
                     Dialog.show("Alert", "Price can't be null", new Command("OK"));
@@ -160,7 +160,7 @@ public class EditP extends MenuForm{
                     try { List<Category> lcd = cs.findCat(catf);
         for(Category c:lcd){
            int idc =c.getId();
-                        ProductServices.getInstance().updateProduct( id ,tfnom.getText(),Integer.parseInt( tfqte.getText()),Integer.parseInt(tfprix.getText()) ,Integer.parseInt(tfprix_promo.getText()) ,tfdescription.getText(), tfphoto.getText(),idc);
+                        ProductServices.getInstance().updateProduct( id ,tfnom.getText(),Integer.parseInt( tfqte.getText()),Integer.parseInt(tfprix.getText())  ,tfdescription.getText(),idc);
                       
                          new ShowP(current).show();
         }
@@ -175,7 +175,7 @@ public class EditP extends MenuForm{
             }}); 
        
           
-         C.addAll(tfnom,tfqte,tfprix,tfprix_promo,tfdescription,tfphoto,btnValider);
+         C.addAll(tfnom,tfqte,tfprix,tfdescription,btnValider);
             add(C);   
           
       }

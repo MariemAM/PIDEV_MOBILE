@@ -123,8 +123,8 @@ public class ProductServices {
         NetworkManager.getInstance().addToQueueAndWait(req);
         return resultOK;
     }
-public boolean updateProduct(int id,String nom,int qte,int prix,int prix_promo,String description,String photo,int categorie){
- String url = Statics.BASE_URL+"/editprod/"+id+"?nom="+nom+"&qte="+qte+"&prix="+prix+"&prix_promo="+prix_promo+"&description="+description+"&photo="+photo+"&categorie="+categorie;
+public boolean updateProduct(int id,String nom,int qte,int prix,String description,int categorie){
+ String url = Statics.BASE_URL+"/editprod/"+id+"?nom="+nom+"&qte="+qte+"&prix="+prix+"&description="+description+"&categorie="+categorie;
 
     req.setUrl(url);
         req.addResponseListener(new ActionListener<NetworkEvent>() {

@@ -58,7 +58,7 @@ public class CategoryServices {
             for(Map<String,Object> obj : list){
                 
                 Category c = new Category();
-               float id=Float.parseFloat(obj.get("id").toString());
+                float id=Float.parseFloat(obj.get("id").toString());
                 c.setId((int)id);
                 c.setNom(obj.get("nom").toString());
                
@@ -97,8 +97,8 @@ public class CategoryServices {
         
         return ctgs;
     }
-    public boolean addCategory (String nom, Integer produit) {
-        String url = Statics.BASE_URL+"/newcat/"+nom+"/"+produit;
+    public boolean addCategory (String nom) {
+        String url = Statics.BASE_URL+"/newcat/"+nom;
         req.setUrl(url);
         req.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
@@ -110,8 +110,8 @@ public class CategoryServices {
         NetworkManager.getInstance().addToQueueAndWait(req);
         return resultOK;
     }
-    public boolean updateCategory(int id,String nom,int produit){
-        String url = Statics.BASE_URL+"/editcat/"+id+"?nom="+nom+"&produit="+produit;
+    public boolean updateCategory(int id,String nom){
+        String url = Statics.BASE_URL+"/editcat/"+id+"?nom="+nom;
         req.setUrl(url);
         req.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
@@ -154,7 +154,7 @@ public class CategoryServices {
             }
         });
         NetworkManager.getInstance().addToQueueAndWait(req);
-         System.out.println("oooo");
+        
         return ctgs;
            
     }

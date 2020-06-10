@@ -8,6 +8,7 @@ package com.mycompany.myapp.GUI;
 import com.codename1.charts.models.CategorySeries;
 import com.codename1.components.ImageViewer;
 import com.codename1.components.ScaleImageLabel;
+import com.codename1.components.ShareButton;
 import com.codename1.ui.Button;
 import com.codename1.ui.CN;
 import static com.codename1.ui.CN.getDisplayHeight;
@@ -71,7 +72,7 @@ public class ShopCat extends MenuForm{
           tftStyle.setMarginUnit(Style.UNIT_TYPE_DIPS);
           tftStyle.setMargin(Component.BOTTOM, 3);
           searchc.addAll(tsearch,search);
-         search.addActionListener((ActionListener) (ActionEvent evt9) -> {  
+          search.addActionListener((ActionListener) (ActionEvent evt9) -> {  
              Produit p = new Produit();
                p = ProductServices.getInstance().SearchProduct(tsearch.getText()).get(0);
                    
@@ -109,11 +110,11 @@ public class ShopCat extends MenuForm{
         c.getAllStyles().setMargin(20, 20, 20, 20);
         c.getAllStyles().setPadding(20, 20, 20, 20);
           Label l=new Label(i.getNom());
-          l.getAllStyles().setFgColor(0x202020);
+          l.getAllStyles().setFgColor(0xd1d7e0);
           l.getAllStyles().setAlignment(LEFT);
           l.getAllStyles().setFont(Font.createSystemFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_SMALL));
         Label prix=new Label(i.getPrix()+" T.N.D");
-           prix.getAllStyles().setFgColor(0x202020);
+           prix.getAllStyles().setFgColor(0xd1d7e0);
            prix.getAllStyles().setAlignment(LEFT);
            final int idp = i.getId();
           EncodedImage img = EncodedImage.createFromImage(Image.createImage(Display.getInstance().getDisplayWidth(),450), true);
@@ -134,13 +135,17 @@ public class ShopCat extends MenuForm{
                 
        
          b2.addActionListener((ActionListener)(ActionEvent evt9) -> {
-                      //pr.getAProduct(nom);
+                     
                      new ShowPDetails(idp,current).show();
 
                   });
+         ShareButton share = new ShareButton();
+             share.setTextToShare("Check out our product "+i.getNom()+ " !  It is "+i.getDescription()+" and only for "+ i.getPrix()+" T.N.D");
+             share.setAlignment(LEFT);
+
           
           
-         c.addAll(imgv,l,prix, b,b2);
+         c.addAll(imgv,l,prix,share, b,b2);
             add(c);   
           
       }

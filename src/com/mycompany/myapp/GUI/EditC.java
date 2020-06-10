@@ -57,7 +57,7 @@ public class EditC extends MenuForm{
         Container C = new Container(BoxLayout.yCenter());
         TextField tfnom = new TextField("","nom");
         TextField tfproduit = new TextField("","produit");
-        Button btnValider = new Button("Add");
+        Button btnValider = new Button("Edit");
         Style tftStyle =  tfnom.getAllStyles();
           Stroke borderStroke = new Stroke(2, Stroke.CAP_SQUARE, Stroke.JOIN_MITER, 1);
           tftStyle.setBorder(RoundRectBorder.create().
@@ -88,8 +88,8 @@ public class EditC extends MenuForm{
                 else
                 {
                     try {
-                        Category C = new Category( tfnom.getText(),Integer.parseInt(tfproduit.getText()));
-                        CategoryServices.getInstance().updateCategory(id,tfnom.getText(),Integer.valueOf(tfproduit.getText()));
+                        Category C = new Category( tfnom.getText());
+                        CategoryServices.getInstance().updateCategory(id,tfnom.getText());
                         new ShowC(current).show();
                        
                     } catch (NumberFormatException e) {
@@ -103,7 +103,7 @@ public class EditC extends MenuForm{
         }); 
        
           
-         C.addAll(tfnom,tfproduit,btnValider);
+         C.addAll(tfnom,btnValider);
             add(C);   
           
       }

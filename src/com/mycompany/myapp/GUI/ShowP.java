@@ -45,11 +45,11 @@ public class ShowP extends MenuForm{
         getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e-> prev.showBack());
         setTitle("All Products");
         Container main = new Container(BoxLayout.y()); 
-        Button ADD=new Button("ADD");
+        /*Button ADD=new Button("ADD");
         main.add(ADD);
         add(main);
       
-       ADD.addActionListener(l->new ADDP(this).show());
+       ADD.addActionListener(l->new ADDP(this).show());*/
        List<Produit> lp= new ArrayList<>();
        ProductServices pr = new ProductServices();
           lp=pr.getAllProduct();
