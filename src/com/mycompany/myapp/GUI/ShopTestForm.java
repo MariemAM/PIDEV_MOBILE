@@ -30,8 +30,8 @@ public class ShopTestForm extends MenuForm{
       add(cart);
       cart.addActionListener(l->new CartForm(this).show());
       List<Produit> lp= new ArrayList<>();
-      Produit p = new Produit(4,"test",50,100);
-      Produit p1 = new Produit(6,"fish",50,20);
+      Produit p = new Produit(4,"tent",50,300);
+      Produit p1 = new Produit(6,"rod",50,70);
       lp.add(p);
       lp.add(p1);
       for(Produit i:lp){

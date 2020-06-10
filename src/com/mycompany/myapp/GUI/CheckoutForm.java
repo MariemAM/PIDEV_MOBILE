@@ -73,12 +73,29 @@ public class CheckoutForm extends MenuForm {
             if(address.getText().length()<8 ){
                 addressErr.setText("Address too short");
                 System.out.println(address.getText());
+                revalidate();
                 return;
             }
-             if(tel.getText().length()!=8){
+            else{
+                addressErr.setText("");
+                revalidate();
+            }
+            boolean test;
+            try {
+                double d = Double.parseDouble(tel.getText());
+                test=true;
+            } catch (NumberFormatException nfe) {
+                test=false;
+            }
+             if(tel.getText().length()!=8||test!=true){
                 telErr.setText("Invalid phone number");
+                revalidate();
                 System.out.println(tel.getText());
                 return;
+            }
+            else{
+                telErr.setText("");
+                revalidate();
             }
             UserSession.getInstance().validerPanier(tel.getText(),address.getText());
             UserSession.getInstance().newPanier();
