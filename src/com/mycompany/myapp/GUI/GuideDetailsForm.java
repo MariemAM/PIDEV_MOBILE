@@ -13,6 +13,7 @@ import com.codename1.components.SpanLabel;
 import com.codename1.io.FileSystemStorage;
 import static com.codename1.io.Log.e;
 import com.codename1.io.Util;
+import com.codename1.l10n.DateFormat;
 import com.codename1.ui.Button;
 import com.codename1.ui.Component;
 import static com.codename1.ui.Component.CENTER;
@@ -80,30 +81,15 @@ public class GuideDetailsForm extends MenuForm{
     Guide b ;
      GuidesService bS = new GuidesService();
      CommentaireService bC=new CommentaireService();
-    User u=new User(1);
-           //  UserSession us=UserSession.getInstance();
-   //  User f = UserSession.getInstance().getUser();
-    // User u = MyApplication.currentUser;
-     UserSession us=UserSession.getInstance(u);
+    
  Commentaire c=new Commentaire();
- 
+     User f = UserSession.getInstance().getUser();
+
    // private void init() {
 public GuideDetailsForm(Form prev){}
     public GuideDetailsForm(Guide g) throws NullPointerException{
     hi=this;
-   /*  
-    //GuideDetailsForm (Guide g) throws IOException{
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm"); */ 
-      //  getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e-> prev.showBack());
-       /* setTitle("Guide Details");
-        setLayout(BoxLayout.y());
-        GuidesService gs=new GuidesService();*/
-       // ArrayList<Guide> listeGuide = new ArrayList<>();
-
-       // listeGuide = gs.getList();
-
-        //for (Guide g : listeGuide) {
-          //  Container c = new Container(BoxLayout.y());*/
+   
         Button back = $(new Button("Back")).addActionListener(e2 -> {
 
             //getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> previous.showBack());
@@ -149,7 +135,7 @@ public GuideDetailsForm(Form prev){}
         Button devGuide = new Button("Show PDF");
     devGuide.addActionListener(e -> {
     FileSystemStorage fs = FileSystemStorage.getInstance();
-    String fileName = fs.getAppHomePath() + g.getTitre();
+    String fileName = fs.getAppHomePath() +g.getTitre();
     if(!fs.exists(fileName)) {
         Util.downloadUrlToFile(a, fileName, true);
     }
@@ -162,13 +148,7 @@ public GuideDetailsForm(Form prev){}
       
    Button btn7 =new Button("like");
    btn7.addActionListener((evt) -> {
-       Likes l=new Likes(u.getId(),g.getId());
-     
-      /* l.setId_guide(g.getId());
-     // l.setId_user(us.getUser().getId());
-       //l.setId_user(UserSession.getInstance().getUser().getId());
-       l.setId_user(u.getId());
-       //UserSession.getInstance().getUser().getId().toString();*/
+       Likes l=new Likes(f.getId(),g.getId());
        bS.likeAction(l, false);
             
             });
@@ -176,7 +156,7 @@ public GuideDetailsForm(Form prev){}
         Button btn2 =new Button("Dislike");
    btn2.addActionListener((evt) -> {
      
-       Likes l=new Likes(u.getId(),g.getId());
+       Likes l=new Likes(f.getId(),g.getId());
      
              bS.likeAction(l,true);
             });
@@ -195,29 +175,29 @@ public GuideDetailsForm(Form prev){}
             
          
          SpanLabel content = new SpanLabel(c.getContenu());
-          if (comm.getText().length() != 0) {
+          if (comm.getText().length() != 0 || comm.getText().length()<8) {
            //Commentaire n=new Commentaire(g.getId(),UserSession.getInstance().getUser().getId(),comm.getText());
-          Commentaire n=new Commentaire(g.getId(),u.getId(), comm.getText());
+          Commentaire n=new Commentaire(g.getId(),f.getId(), comm.getText());
       
         bC.addComment(n);
          Dialog.show("Alert", "Commentaire ajouté", "ok", null);
         } else {
-                Dialog.show("Alert", "Commentaire vide", "ok", null);}
+                Dialog.show("Alert", "empty field ", "ok", null);}
         Concomm.add(content);
     }); 
        for (Commentaire comment : bC.getList2(g)){
 
           Container list = new Container(BoxLayout.y());
        
-
+ DateFormat format = new com.codename1.l10n.SimpleDateFormat("yyyy-MM-dd ");
             SpanLabel con = new SpanLabel(comment.getContenu());
-          Label username = new Label(" :"+ comment.getUser_id());
+          Label username = new Label(" Username:"+comment.getUser_id());
             username.getAllStyles().setFgColor(0x1f2a7e);
             list.add(username);
              Button b = new Button("X");
             b.getAllStyles().setFgColor(0x1f2a7e);
            Concomm.add(con);
-           if (u.getId().equals(comment.getUser_id())) {
+           if (f.getId().equals(comment.getUser_id())) {
                 list.add(b);
 
            }
@@ -234,7 +214,7 @@ public GuideDetailsForm(Form prev){}
         try {
             int rating = star.getProgress();
             // System.out.println(rating);
-            rate p=new rate(u.getId(),g.getId(),rating);
+            rate p=new rate(f.getId(),g.getId(),rating);
             bS.AddRate(p);
         } catch (IOException ex) {
              System.out.println(ex.getMessage());

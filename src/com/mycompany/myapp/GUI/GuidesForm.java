@@ -11,6 +11,7 @@ import com.codename1.ui.Button;
 import static com.codename1.ui.CN.getDisplayHeight;
 import com.codename1.ui.Component;
 import static com.codename1.ui.Component.CENTER;
+import static com.codename1.ui.ComponentSelector.$;
 import com.codename1.ui.Container;
 import com.codename1.ui.Display;
 import com.codename1.ui.EncodedImage;
@@ -20,7 +21,10 @@ import com.codename1.ui.Form;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
+import com.codename1.ui.Toolbar;
 import com.codename1.ui.URLImage;
+import com.codename1.ui.events.ActionEvent;
+import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.plaf.RoundRectBorder;
@@ -29,6 +33,7 @@ import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 import com.codename1.util.EasyThread;
 import com.mycompany.myapp.entities.Guide;
+import com.mycompany.myapp.services.CommentaireService;
 import com.mycompany.myapp.services.GuidesService;
 //import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -47,6 +52,7 @@ public class GuidesForm extends MenuForm{
     Resources res;
     Guide b ;
      GuidesService bS = new GuidesService();
+     CommentaireService bC=new CommentaireService();
     public GuidesForm(Form prev){
        
         super();
@@ -70,29 +76,53 @@ public class GuidesForm extends MenuForm{
 searchField.getHintLabel().setUIID("Title");
 searchField.setUIID("Title");
 searchField.getAllStyles().setAlignment(Component.LEFT);
-FontImage searchIcon = FontImage.createMaterial(FontImage.MATERIAL_SEARCH, s);
-      searchField.addDataChangedListener((int d1, int d2) ->{
+FontImage  searchIcon= FontImage.createMaterial(FontImage.MATERIAL_SEARCH, s);
+/*      searchField.addDataChangedListener((int d1, int d2) ->{
          
-            if (!searchField.getText().equals("") ) {
+          //  if (!searchField.getText().equals("") ) {
               //  bS.rechercheList(searchFiled.getText());
                String d = searchField.getText();
-             bS.ChercherTopic(d);
-             this.show();
+             bS.searchIconChercherTopic(d);
+            // this.show();
             //System.out.println("nnn"+liche);
 
              // bS.rechercheList(searchField.getText());
              
-            } else {
-                bS.getList();
+            //} else {
+             //   bS.getList();
 
-            }
+            //}
         });
         //searchContainer.add(srchText);
+*/
+               Button searchbt = new Button("search");
+             searchbt.getAllStyles().setAlignment(Component.RIGHT);
+          /* searchbt.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent evt) {
+              
+                   bS.ChercherTopic(searchField.getText());
+                }
+       });*/
+      /*     searchbt.addActionListener((l) -> {
+                bS.ChercherTopic(searchField.getText());
+            searchContainer.setVisible(true);
+            this.revalidate();
+            //PaiementForm pf = new PaiementForm();
+            //pf.getF().show();
+        });*/
+
+        searchContainer.add(searchbt);
         searchContainer.add(searchIcon);
        searchContainer.add(searchField);
        this.add(searchContainer);
-   
-            
+     
+       searchbt.addActionListener((e) -> {
+       new SearchFormguide(searchField.getText()).show();
+        
+       });
+        
+    
       ArrayList<Guide> lp= new ArrayList<>();
      
           lp=bS.getList();
@@ -134,8 +164,14 @@ FontImage searchIcon = FontImage.createMaterial(FontImage.MATERIAL_SEARCH, s);
                         int likeCount = 0;
                         boolean liked = false;
                         int commentCount = 0;
+                        bS.nbrelike(guide);
+                     /*   float f1 = (float)bC.avgReview(b) ;
+                        f1 = f1 * 100;
+                  f1 = (int) f1;
+        f1 = f1 / 100;
+                Label lrating = new Label(String.valueOf(f1));*/
                         
-             Label likes = new Label((guide.getNbLikes())+ " Likes  ", "NewsBottomLine");
+             Label likes = new Label((guide.getNote())+ " Likes  ", "NewsBottomLine");
        likes.setTextPosition(RIGHT);
        Style s2 = new Style(likes.getUnselectedStyle());
        if(!liked) {
@@ -146,7 +182,7 @@ FontImage searchIcon = FontImage.createMaterial(FontImage.MATERIAL_SEARCH, s);
            FontImage heartImage = FontImage.createMaterial(FontImage.MATERIAL_FAVORITE, s2);
            likes.setIcon(heartImage);
        }
-       Label comments = new Label(commentCount + " Comments", "NewsBottomLine");
+       Label comments = new Label(bS.nbrelike(guide) + " Comments", "NewsBottomLine");
        //FontImage.setMaterialIcon(likes, FontImage.MATERIAL_CHAT);  
       FontImage commIm = FontImage.createMaterial(FontImage.MATERIAL_CHAT, s2);
            comments.setIcon(commIm);
@@ -176,9 +212,9 @@ FontImage searchIcon = FontImage.createMaterial(FontImage.MATERIAL_SEARCH, s);
         
           //add(searchContainer);
         
-        }
+        
     
-}   
+}}   
             
             
     

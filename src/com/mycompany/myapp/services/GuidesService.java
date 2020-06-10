@@ -44,6 +44,7 @@ import java.util.Map;
  */
 
 public class GuidesService {
+    User f = UserSession.getInstance().getUser();
      private Guide currentGuide;
       public static GuidesService instance=null;
      public static GuidesService getInstance() {
@@ -75,13 +76,15 @@ public class GuidesService {
                         
                         guide.setTitre(obj.get("titre").toString());
                          guide.setDescription(obj.get("description").toString());
-                       //guide.setDate_creation(obj.get("date creation").toString());
+      
                          guide.setLien(obj.get("lien").toString());
                          guide.setNote(Double.parseDouble(obj.get("note").toString()));
                        //  guide.setNbLikes(obj.get("nbLikes").toString());
                       //guide.setNbLikes((int) Integer.parseInt(obj.get("nbLikes").toString())); 
                       // guide.setNbLikes((int) Float.parseFloat(obj.get("nbLikes").toString()));
                         float id = Float.parseFloat(obj.get("id").toString());
+                 //       String date =obj.get("date creation").toString();
+                   //     guide.setDate_creation(date);
 //                        String date1 = obj.get("date_creation").toString();
 //                             guide.setDate_creation(obj.get("date_creation").toString());
                            guide.setCategorie(obj.get("categorie").toString());
@@ -98,11 +101,13 @@ public class GuidesService {
                                 System.out.println(guide.getPhoto());
 //                       String  dateString = obj.get("date_creation").toString();
                       java.util.Date date1 = new java.util.Date();
-                     
-       String date_creation= new java.text.SimpleDateFormat("yyyy-MM-dd").format(date1);
+//                       String date=obj.get("date_creation").toString();
+                       guide.setDate_creation(obj.get("dateCreation").toString());
+                       
+       /*String date_creation= new java.text.SimpleDateFormat("yyyy-MM-dd").format(date1);
   //      String date_creation= new java.text.SimpleDateFormat("yyyy-MM-dd").format(dateString);
         guide.setDate_creation(date_creation);
-        //guide.getDate_creation();
+        //guide.getDate_creation();*/
                   listguides.add(guide);
                  System.out.println(listguides);
                     }
@@ -116,6 +121,7 @@ public class GuidesService {
         return listguides;
        
     }
+   
     private Date format(String input) throws java.text.ParseException{
          java.text.DateFormat format = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssz");
                 if ( input.endsWith( "Z" ) ) 
@@ -168,40 +174,31 @@ public void AfficherDetails(Guide b)throws NullPointerException{
         NetworkManager.getInstance().addToQueueAndWait(con);
 
       }
-   public List<Guide> rechercheList(String titre) {
-        ArrayList<Guide> guides = new ArrayList<>();
-        Guide g;
-        ConnectionRequest con = new ConnectionRequest();
-        String Url = "http://localhost/pidev/web/app_dev.php/api/rechercher";
-        Url=Url+"?titre="+titre;
+  public String nbrelike(Guide g){
+          
+      ConnectionRequest con = new ConnectionRequest();
+        String Url = "http://localhost/pidev/web/app_dev.php/api/nbrelike/" + g.getId();
         con.setUrl(Url);
-         con.setHttpMethod("GET");
-       //  guides = getList();
-       /* con.addResponseListener((NetworkEvent evt) -> {
-            
-            JSONParser jsonp = new JSONParser();
-            
-            try {
-                Map<String, Object> tasks = jsonp
-                        .parseJSON(new CharArrayReader(new String(con.getResponseData()).toCharArray()));
-                if(tasks.get("root")!=null){
-                     List<Map<String, Object>> list = (List<Map<String, Object>>) tasks.get("root");
-                    for(Map<String, Object> e : list) {
-                        guides.add(fillData(e));
-                    }
-                }*/
-               
-             
-       // });
+           con.setHttpMethod("GET");
+
+        System.out.println(Url);
+
+        /*con.addResponseListener((e) -> {
+            String str = new String(con.getResponseData());
+            System.out.println(str);
+        });*/
         NetworkManager.getInstance().addToQueueAndWait(con);
-        return guides;
-    }
+       
+  return Url ;
+      }
+   
+       
    public Guide fillData(Map<String,Object> e){
           Guide guide = new Guide();
-          guide.setId((int)e.get("id_guide"));
-         guide.setNbLikes(((Double)e.get("nb_like")).intValue());
-          guide.setTitre((String)e.get("titre_guide"));
-          guide.setDate_creation((String)e.get("date_creation"));
+          guide.setId((int)e.get("id"));
+         guide.setNbLikes(((Double)e.get("nblike")).intValue());
+          guide.setTitre((String)e.get("titre"));
+          guide.setDate_creation((String)e.get("dateCreation"));
           
           return guide;
     }

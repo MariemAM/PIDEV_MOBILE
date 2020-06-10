@@ -31,7 +31,7 @@ public class User implements Serializable {
 
     private String password;
  
-
+   private  String nom;
     private Date lastLogin;
   
     private String confirmationToken;
@@ -45,7 +45,6 @@ public class User implements Serializable {
    
 
     
-   
 
     public User() {
     }
@@ -70,6 +69,14 @@ public class User implements Serializable {
         this.passwordRequestedAt = passwordRequestedAt;
         this.roles = roles;
        
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
    

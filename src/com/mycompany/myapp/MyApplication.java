@@ -19,8 +19,7 @@ public class MyApplication {
 
     private Form current;
     private Resources theme;
-    // public static User currentUser=new User(2) ;  
- // UserSession us=UserSession.getInstance(currentUser);
+    //s=UserSession.getInstance(currentUser);
     public void init(Object context) {
         // use two network threads instead of one
         updateNetworkThreadCount(2);
@@ -50,12 +49,14 @@ public class MyApplication {
             current.show();
             return;
         }
-        User u = new User();
-        UserSession us=UserSession.getInstance(u);
+    
+        User u=new User();
+        //User f = UserSession.getInstance().getUser();
+     //   Integer us=UserSession.getInstance().getUser().getId();
         Form home= new LoginForm();
         home.show();
-        
-       /* Form home= new HomeForm();
+    
+     /*   Form home= new HomeForm();
         home.show();*/
         
     }

@@ -5,7 +5,11 @@
  */
 package com.mycompany.myapp.entities;
 
+
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -17,7 +21,9 @@ public class Commentaire implements Serializable {
     private int user_id;
     private String contenu;
     private String date;
-
+    private String nom;
+   private List<Guide> lcs= new ArrayList<>();
+   private List<User> lcu= new ArrayList<>();
     public Commentaire() {
     }
 
@@ -49,7 +55,33 @@ public class Commentaire implements Serializable {
         this.date = date;
     }
 
-    
+    public Commentaire(int id, int guide_id, int user_id, String contenu) {
+        this.id = id;
+        this.guide_id = guide_id;
+        this.user_id = user_id;
+        this.contenu = contenu;
+    }
+public void addLcs(Guide lc){
+        this.lcs.add(lc);
+    }
+public List<Guide> getLcs(){
+        return this.lcs;
+    }
+    public void addLcu(User lu){
+        this.lcu.add(lu);
+    }
+public List<User> getLcu(){
+        return this.lcu;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
     
     public int getId() {
         return id;
@@ -86,8 +118,11 @@ public class Commentaire implements Serializable {
     public String getDate() {
         return date;
     }
+    public String setDate(String date){
+      return  this.date=date;
+    }
 
-    public void setDate(String date) {
+    public void String(String date) {
         this.date = date;
     }
 
