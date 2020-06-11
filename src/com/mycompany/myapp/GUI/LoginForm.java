@@ -54,6 +54,13 @@ public class LoginForm extends Form{
         login.getAllStyles().setBgTransparency(255);
         login.getAllStyles().setBgColor(0x194C1F);
         login.getAllStyles().setFgColor(0xd3d3d3);
+        Button sp=new Button("Or Signup");
+        sp.getAllStyles().setBorder(Border.createEmpty());
+        sp.getAllStyles().setBackgroundType(BACKGROUND_NONE);
+        sp.getAllStyles().setBgTransparency(255);
+        sp.getAllStyles().setBgColor(0x194C1F);
+        sp.getAllStyles().setFgColor(0xd3d3d3);
+        sp.getAllStyles().setMarginTop(10);
         login.addActionListener(l->{
             if(username.getText().equals("") || pass.getText().equals(""))
             {
@@ -76,8 +83,11 @@ public class LoginForm extends Form{
             }
    
         });
+        sp.addActionListener(l->{
+            new InscriptionForm().show();
+        });
         c.addAll(hk,title,err);
-        c.addAll(username,pass,login);
+        c.addAll(username,pass,login,sp);
         addAll(c);
     }
 }
