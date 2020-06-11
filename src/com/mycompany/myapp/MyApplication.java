@@ -8,11 +8,7 @@ import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 import com.codename1.io.Log;
 import com.codename1.ui.Toolbar;
-import com.mycompany.myapp.GUI.HomeForm;
 import com.mycompany.myapp.GUI.InscriptionForm;
-import com.mycompany.myapp.GUI.MenuForm;
-import com.mycompany.myapp.entities.User;
-import com.mycompany.myapp.utils.UserSession;
 import com.mycompany.myapp.GUI.LoginForm;
 
 
@@ -53,8 +49,8 @@ public class MyApplication {
         }      // new InscriptionForm();
        
        
-      Form home= new LoginForm();
-      home.show();
+     new LoginForm().show();
+      
     }
 
     public void stop() {

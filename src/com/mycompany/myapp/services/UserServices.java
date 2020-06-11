@@ -14,6 +14,7 @@ import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
 import com.codename1.ui.events.ActionListener;
 import com.mycompany.myapp.entities.User;
+import com.mycompany.myapp.utils.Statics;
 import com.mycompany.myapp.utils.UserSession;
 import java.io.IOException;
 import java.text.ParseException;
@@ -76,8 +77,8 @@ public class UserServices {
     }
 
     public boolean addUser(User  u){
-        String url = Statics_M.BASE_URL + "/pidevmerge/web/app_dev.php/api/newuser?nom="+u.getUsername()+"&prenom="+u.getUsernameCanonical()+"&email="+u.getEmail()+"&pass="+u.getPassword();//+"&date="+u.getLastLogin();
-        req.setUrl(url);// Insertion de l'URL de notre demande de connexion
+        String url = Statics.BASE + "newuser?username="+u.getUsername()+"&email="+u.getEmail()+"&pass="+u.getPassword()+"&phone="+u.getPhone();
+        req.setUrl(url);
         req.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
             public void actionPerformed(NetworkEvent evt) {
