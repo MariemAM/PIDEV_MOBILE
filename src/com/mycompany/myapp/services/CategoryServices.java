@@ -78,7 +78,7 @@ public class CategoryServices {
     }
     
     public ArrayList<Category> getAllCategory(){
-        String url = Statics.BASE_URL+"/cat";
+        String url = Statics.BASE+"cat";
         System.out.println(url);
         req.setUrl(url);
         req.setPost(false);
@@ -98,7 +98,7 @@ public class CategoryServices {
         return ctgs;
     }
     public boolean addCategory (String nom) {
-        String url = Statics.BASE_URL+"/newcat/"+nom;
+        String url = Statics.BASE+"newcat/"+nom;
         req.setUrl(url);
         req.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
@@ -111,7 +111,7 @@ public class CategoryServices {
         return resultOK;
     }
     public boolean updateCategory(int id,String nom){
-        String url = Statics.BASE_URL+"/editcat/"+id+"?nom="+nom;
+        String url = Statics.BASE+"editcat/"+id+"?nom="+nom;
         req.setUrl(url);
         req.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
@@ -124,7 +124,7 @@ public class CategoryServices {
         return resultOK;
      }
     public boolean deleteCategory(int id){
-        String url = Statics.BASE_URL+"/deletecat/"+id;
+        String url = Statics.BASE+"deletecat/"+id;
         req.setUrl(url);
         req.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
@@ -138,7 +138,7 @@ public class CategoryServices {
     }
      public ArrayList<Category> findCat(String nom){
          Category c = new Category();
-        String url = Statics.BASE_URL+"/findc/"+nom;
+        String url = Statics.BASE+"findc/"+nom;
         System.out.println(url);
         req.setUrl(url);
         req.setPost(false);

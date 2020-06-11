@@ -5,14 +5,11 @@
  */
 package com.mycompany.myapp.GUI;
 
-import com.codename1.charts.models.CategorySeries;
 import com.codename1.components.ImageViewer;
 import com.codename1.components.ScaleImageLabel;
 import com.codename1.components.ShareButton;
 import com.codename1.ui.Button;
 import com.codename1.ui.CN;
-import static com.codename1.ui.CN.getDisplayHeight;
-import com.codename1.ui.ComboBox;
 import com.codename1.ui.Component;
 import static com.codename1.ui.Component.LEFT;
 import com.codename1.ui.Container;
@@ -31,12 +28,9 @@ import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.layouts.BoxLayout;
-import com.codename1.ui.plaf.RoundBorder;
 import com.codename1.ui.plaf.RoundRectBorder;
 import com.codename1.ui.plaf.Style;
-import com.mycompany.myapp.entities.Category;
 import com.mycompany.myapp.entities.Produit;
-import com.mycompany.myapp.services.CategoryServices;
 import com.mycompany.myapp.services.ProductServices;
 import com.mycompany.myapp.utils.UserSession;
 import java.util.ArrayList;
@@ -74,10 +68,11 @@ public class ShopCat extends MenuForm{
           searchc.addAll(tsearch,search);
           search.addActionListener((ActionListener) (ActionEvent evt9) -> {  
              Produit p = new Produit();
-               p = ProductServices.getInstance().SearchProduct(tsearch.getText()).get(0);
+             if(!ProductServices.getInstance().SearchProduct(tsearch.getText()).isEmpty())
+             {p = ProductServices.getInstance().SearchProduct(tsearch.getText()).get(0);
                    
-                new ShowPDetails( p.getId(),current).show();
-              
+                new ShowPDetails( p.getId(),current).show();}
+             
              
          });
          add(searchc);

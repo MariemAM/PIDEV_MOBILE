@@ -69,20 +69,15 @@ public class ShopTestForm extends MenuForm{
           tftStyle.setMarginUnit(Style.UNIT_TYPE_DIPS);
           tftStyle.setMargin(Component.BOTTOM, 3);
           searchc.addAll(tsearch,search);
+          
           search.addActionListener((ActionListener) (ActionEvent evt9) -> {  
                Produit p = new Produit();
+               if(!ProductServices.getInstance().SearchProduct(tsearch.getText()).isEmpty()){
                p = ProductServices.getInstance().SearchProduct(tsearch.getText()).get(0);
-               List<Produit> lps= new ArrayList<>();
-               lps.add(p);
-               if(!lps.isEmpty()){
-                new ShowPDetails( p.getId(),current).show();}
-              else{  
-               //this.setLayout(BoxLayout.yCenter());
-               //Container cp =new Container(BoxLayout.xCenter());
-               /*cp.*/add(new Label("No products "));
-              // add(cp);
-               }
-         });
+              
+              
+                new ShowPDetails( p.getId(),current).show();
+               }});
          add(searchc);
          
          

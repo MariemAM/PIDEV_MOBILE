@@ -19,7 +19,11 @@ import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.plaf.Border;
 import static com.codename1.ui.plaf.Style.BACKGROUND_NONE;
+import com.mycompany.myapp.entities.Produit;
+import com.mycompany.myapp.services.ProductServices;
 import com.mycompany.myapp.utils.UserSession;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -70,9 +74,39 @@ if(UserSession.getInstance().getUser().isAdmin()){
             Form f=new AllPromotionForm(getCurrentForm());      
 
             f.setTransitionOutAnimator(CommonTransitions.createEmpty());
-  f.show();
+            f.show();
+            
          
-         });}
+         });
+         List<Produit> lp= new ArrayList<>();
+         ProductServices pr = new ProductServices();
+          lp=pr.POut();
+          
+         tb.addMaterialCommandToSideMenu("Out of stock "+lp.size(), FontImage.MATERIAL_REDEEM, e -> {
+            Form f=new POutOfStock(getCurrentForm());      
+
+            f.setTransitionOutAnimator(CommonTransitions.createEmpty());
+            f.show();
+            
+         
+         });
+         tb.addMaterialCommandToSideMenu("Manage Products", FontImage.MATERIAL_REDEEM, e -> {
+            Form f=new ShowP(getCurrentForm());      
+
+            f.setTransitionOutAnimator(CommonTransitions.createEmpty());
+            f.show();
+            
+         
+         });
+         tb.addMaterialCommandToSideMenu("Manage Categories ", FontImage.MATERIAL_REDEEM, e -> {
+            Form f=new ShowC(getCurrentForm());      
+
+            f.setTransitionOutAnimator(CommonTransitions.createEmpty());
+            f.show();
+            
+         
+         });
+}
           
          tb.addMaterialCommandToSideMenu(" Logout ", FontImage.MATERIAL_LOGOUT, e -> {
             Form f=new LoginForm();

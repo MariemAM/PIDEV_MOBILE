@@ -90,7 +90,7 @@ public class ShowP extends MenuForm{
            des.getAllStyles().setAlignment(LEFT);
            final int idp = i.getId();
         EncodedImage img = EncodedImage.createFromImage(Image.createImage(Display.getInstance().getDisplayWidth(),450), true);
-                        URLImage imgg= URLImage.createToStorage(img,i.getPhoto(), "http://localhost:8080/pidev-merge/web/images/"+i.getPhoto());
+                        URLImage imgg= URLImage.createToStorage(img,i.getPhoto(), "http://localhost/pidev/web/images/"+i.getPhoto());
                         imgg.fetch(); 
                         ScaleImageLabel sl = new ScaleImageLabel(imgg);
             sl.setBackgroundType(Style.BACKGROUND_IMAGE_SCALED_FILL);

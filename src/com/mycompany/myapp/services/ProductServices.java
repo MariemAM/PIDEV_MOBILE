@@ -12,16 +12,11 @@ import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
 
 import com.codename1.ui.events.ActionListener;
-import com.mycompany.myapp.entities.Commande;
-import com.mycompany.myapp.entities.LigneCommande;
 import com.mycompany.myapp.entities.Produit;
 import com.mycompany.myapp.utils.Statics;
 import java.io.IOException;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -58,7 +53,7 @@ public class ProductServices {
             
             Map<String,Object> tasksListJson = j.parseJSON(new CharArrayReader(jsonText.toCharArray()));
             
-            
+            System.out.println(tasksListJson);
             List<Map<String,Object>> list = (List<Map<String,Object>>)tasksListJson.get("root");
             
            
@@ -91,7 +86,7 @@ public class ProductServices {
         return prds;
     }
     public ArrayList<Produit> getAllProduct(){
-        String url = Statics.BASE_URL+"/produit";
+        String url = Statics.BASE+"produit";
         System.out.println(url);
         req.setUrl(url);
         req.setPost(false);
@@ -111,7 +106,7 @@ public class ProductServices {
         return prds;
     }
      public boolean addProduit (Produit p) {
-        String url = Statics.BASE_URL+"/newprod?nom="+p.getNom()+"&qte="+p.getQte()+"&prix="+p.getPrix()+"&prix_promo="+p.getPrix()+"&description="+p.getDescription()+"&photo="+p.getPhoto()+"&categorie="+p.getCategorie();
+        String url = Statics.BASE+"newprod?nom="+p.getNom()+"&qte="+p.getQte()+"&prix="+p.getPrix()+"&prix_promo="+p.getPrix()+"&description="+p.getDescription()+"&photo="+p.getPhoto()+"&categorie="+p.getCategorie();
         req.setUrl(url);
         req.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
@@ -124,7 +119,7 @@ public class ProductServices {
         return resultOK;
     }
 public boolean updateProduct(int id,String nom,int qte,int prix,String description,int categorie){
- String url = Statics.BASE_URL+"/editprod/"+id+"?nom="+nom+"&qte="+qte+"&prix="+prix+"&description="+description+"&categorie="+categorie;
+ String url = Statics.BASE+"editprod/"+id+"?nom="+nom+"&qte="+qte+"&prix="+prix+"&description="+description+"&categorie="+categorie;
 
     req.setUrl(url);
         req.addResponseListener(new ActionListener<NetworkEvent>() {
@@ -138,7 +133,7 @@ public boolean updateProduct(int id,String nom,int qte,int prix,String descripti
         return resultOK;
      }
      public boolean deleteProduit(int id){
-        String url = Statics.BASE_URL+"/deletep/"+id;
+        String url = Statics.BASE+"deletep/"+id;
         req.setUrl(url);
         req.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
@@ -152,7 +147,7 @@ public boolean updateProduct(int id,String nom,int qte,int prix,String descripti
     }
 
 public ArrayList<Produit> SearchProduct(String nom){
-        String url = Statics.BASE_URL+"/find/"+nom;
+        String url = Statics.BASE+"find/"+nom;
         req.setUrl(url);
         //req.setPost(false);
         req.addResponseListener(new ActionListener<NetworkEvent>() {
@@ -170,7 +165,7 @@ public ArrayList<Produit> SearchProduct(String nom){
         return prds;
     }
 public ArrayList<Produit> getAProduct(int id){
-        String url = Statics.BASE_URL+"/details/"+id;
+        String url = Statics.BASE+"details/"+id;
         System.out.println(url);
         req.setUrl(url);
         req.setPost(false);
@@ -190,7 +185,7 @@ public ArrayList<Produit> getAProduct(int id){
         return prds;
     }
     public ArrayList<Produit> POut(){
-        String url = Statics.BASE_URL+"/findPOut";
+        String url = Statics.BASE+"findPOut";
         System.out.println(url);
         req.setUrl(url);
         req.setPost(false);
@@ -210,7 +205,7 @@ public ArrayList<Produit> getAProduct(int id){
         return prds;
     }
         public ArrayList<Produit> PByCat(String nom){
-        String url = Statics.BASE_URL+"/findcat/"+nom;
+        String url = Statics.BASE+"findcat/"+nom;
         System.out.println(url);
         req.setUrl(url);
         req.setPost(false);
