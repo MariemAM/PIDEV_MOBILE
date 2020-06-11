@@ -170,10 +170,10 @@ public class User implements Serializable {
     }
     public boolean isAdmin() {
         
-        if (this.getRoles().equals("a:1:{i:0;s:10:\"ROLE_ADMIN\";}")) {
-            return true;
+        if (this.getRoles().equals("[ROLE_USER]")) {
+            return false;
         }
-        return false;
+        return true;
     }
     
     public void setRoles(String roles) {

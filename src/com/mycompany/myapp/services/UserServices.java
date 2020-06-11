@@ -49,6 +49,7 @@ public class UserServices {
         user.setId((int)id);
         user.setUsername(obj.get("username").toString());
         user.setEmail(obj.get("email").toString());
+        user.setRoles(obj.get("roles").toString());
         return user;
     }
     public User login(String uname,String pass){

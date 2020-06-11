@@ -65,14 +65,14 @@ public class MenuForm extends Form{
             Form f=new OrdersForm(getCurrentForm());
             f.setTransitionOutAnimator(CommonTransitions.createEmpty());
             f.show();});
-
+if(UserSession.getInstance().getUser().isAdmin()){
          tb.addMaterialCommandToSideMenu("Promote ", FontImage.MATERIAL_REDEEM, e -> {
             Form f=new AllPromotionForm(getCurrentForm());      
 
             f.setTransitionOutAnimator(CommonTransitions.createEmpty());
   f.show();
          
-         });
+         });}
           
          tb.addMaterialCommandToSideMenu(" Logout ", FontImage.MATERIAL_LOGOUT, e -> {
             Form f=new LoginForm();
