@@ -81,7 +81,7 @@ public class GuideDetailsForm extends MenuForm{
     Guide b ;
      GuidesService bS = new GuidesService();
      CommentaireService bC=new CommentaireService();
-    
+    Commentaire cd=new Commentaire();
  Commentaire c=new Commentaire();
      User f = UserSession.getInstance().getUser();
 
@@ -168,35 +168,38 @@ public GuideDetailsForm(Form prev){}
           Container Concomm=new Container(BoxLayout.y());
       Button    ajouter = new Button("Ajouter");
       TextArea comm = new TextArea();
-        comm.setHint("Ajouter un commentaire");
+        comm.setHint("Add a new comment");
     Concomm.add(comm);
     Concomm.addComponent(ajouter);
        ajouter.addActionListener((e) -> {
             
          
          SpanLabel content = new SpanLabel(c.getContenu());
-          if (comm.getText().length() != 0 || comm.getText().length()<8) {
+          if (comm.getText().length() != 0) {
            //Commentaire n=new Commentaire(g.getId(),UserSession.getInstance().getUser().getId(),comm.getText());
           Commentaire n=new Commentaire(g.getId(),f.getId(), comm.getText());
       
         bC.addComment(n);
-         Dialog.show("Alert", "Commentaire ajouté", "ok", null);
+       // GuideDetailsForm an=new GuideDetailsForm(hi);
+       //  an.show();
+        new GuideDetailsForm(g).show();
+         Dialog.show("Alert", "Comment Added", "ok", null);
         } else {
                 Dialog.show("Alert", "empty field ", "ok", null);}
         Concomm.add(content);
     }); 
-       for (Commentaire comment : bC.getList2(g)){
+       for (Commentaire comment : bC.getAllClaims(g.getId())){
 
           Container list = new Container(BoxLayout.y());
        
  DateFormat format = new com.codename1.l10n.SimpleDateFormat("yyyy-MM-dd ");
             SpanLabel con = new SpanLabel(comment.getContenu());
-          Label username = new Label(" Username:"+comment.getUser_id());
+          Label username = new Label(" Username:"+comment.getNom());
             username.getAllStyles().setFgColor(0x1f2a7e);
-            list.add(username);
+            Concomm.add(username);
              Button b = new Button("X");
             b.getAllStyles().setFgColor(0x1f2a7e);
-           Concomm.add(con);
+           list.add(con);
            if (f.getId().equals(comment.getUser_id())) {
                 list.add(b);
 
@@ -205,8 +208,12 @@ public GuideDetailsForm(Form prev){}
                 @Override
                 public void actionPerformed(ActionEvent evt) {
               
-                   
-                    bC.supprimercom(c,g);}
+                   Commentaire cd=new Commentaire(comment.getId(), g.getId(), f.getId());
+                    bC.supprimercom(cd);
+                   new GuideDetailsForm(g).show();
+                
+                }
+              
        });
            Concomm.add(list) ;}
         Slider star = createStarRankSlider();
@@ -234,8 +241,10 @@ public GuideDetailsForm(Form prev){}
        cy.add(FlowLayout.encloseCenterMiddle(star));
      hi.add(cy);
        hi. show();
+       
        }   
-    
+      
+     
     
    /*public SwipeableContainer createRankWidget(String title, String year) {
         MultiButton button = new MultiButton(title);
@@ -271,7 +280,14 @@ public GuideDetailsForm(Form prev){}
         starRank.setPreferredSize(new Dimension(fullStar.getWidth() * 5, fullStar.getHeight()));
         return starRank;
     }
+     public Form getF() {
+        return hi;
+    }
 
+    public void setF(Form hi) {
+        this.hi = hi;
+    }
+ 
 }
             
                 

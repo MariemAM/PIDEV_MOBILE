@@ -154,7 +154,7 @@ public class CommentaireService {
         });
         NetworkManager.getInstance().addToQueueAndWait(con);
     }*/
-     public void supprimercom(Commentaire e,Guide g) {
+     public void supprimercom(Commentaire e) {
         ConnectionRequest con = new ConnectionRequest();
          System.out.println(e.getId());
        // String Url = "http://localhost/pidev/web/app_dev.php/api/DellCom/" + e.getId()+"/"+e.getGuide_id();
@@ -301,146 +301,67 @@ public ArrayList<Commentaire> parseTasks(String jsonText){
         
         return bo;
     }
-      public ArrayList<Commentaire> parseOrders(String jsonText) throws ParseException {
+    
+    
+ 
+
+public ArrayList<Commentaire> parseReclamation(String jsonText) throws ParseException{
         try {
             comment=new ArrayList<>();
             JSONParser j = new JSONParser();
+            Map<String,Object> PostsListJson = j.parseJSON(new CharArrayReader(jsonText.toCharArray()));
 
-            Map<String,Object> tasksListJson = j.parseJSON(new CharArrayReader(jsonText.toCharArray()));
-                       
-            List<Map<String,Object>> list = (List<Map<String,Object>>)tasksListJson.get("root"); 
-           
+            List<Map<String,Object>> list = (List<Map<String,Object>>)PostsListJson.get("root");
             for(Map<String,Object> obj : list){
-                
-                Commentaire c = new Commentaire();
-                
+                Commentaire r = new Commentaire();
                 float id = Float.parseFloat(obj.get("id").toString());
-                c.setId((int)id);
-              //  c.setDate(obj.get("date").toString());
-                
-                String contenu=obj.get("contenu").toString();
-                c.setContenu(contenu);
-                
-                c=parceOrdersDetails(c, obj.get("user")); 
-                comment.add(c);
-                
+                r.setId((int)id);
+              /*  float Date = Date.(obj.get("id").toString());*/
+               Map<String,Object> us = (Map<String,Object>)obj.get("user");
+               float userid = Float.parseFloat(us.get("id").toString());
+               r.setUser_id((int)userid);
+             String nom=us.get("nom").toString();
+                  r.setNom(nom);
+               
+               
+               Map<String,Object> tr = (Map<String,Object>)obj.get("guide");
+               float target = Float.parseFloat(tr.get("id").toString());
+               r.setGuide_id((int)target);
+               r.setContenu(obj.get("contenu").toString());
+              // r.setObject(obj.get("objet").toString());
+               //Date date=this.format(obj.get("date").toString());
+               //r.setDate(date);
+
+
+                System.out.println(comment);
+
+                comment.add(r);
             }
-     
+
         } catch (IOException ex) {
-            
+
         }
-        
         return comment;
     }
-    private Commentaire parceOrdersDetails(Commentaire c,Object obj){
-         
-        
-             /*Guide lc=new Guide();
-                float id = Float.parseFloat(o.get("id").toString());
-                lc.setId((int)id);
-                
-                Map<String,Object> prod = (Map<String,Object>) o.get("guide");
-                lc.setId((int)id);*/
-             Map<String,Object> user = (Map<String,Object>) obj;
-              User lu=new User();
-              float idu = Float.parseFloat(user.get("id").toString());
-                lu.setId((int)idu);
-                
-              //  lu.setNom(user.get("nom").toString());
-               lu.setUsername(user.get("nom").toString());
-                c.addLcu(lu);
-                
-     
-         System.out.println(c);
-        return c;
-    }
-    public ArrayList<Commentaire> getAllOrders(Guide g){
-        ConnectionRequest con = new ConnectionRequest();
-        con.setUrl("http://localhost/pidev/web/app_dev.php/api/AfficherComm/"+g.getId());
+
+    public ArrayList<Commentaire> getAllClaims(int id){
+         ConnectionRequest con = new ConnectionRequest();
+        String url = "http://localhost/pidev/web/app_dev.php/api/AfficherComm/"+id;
+        con.setUrl(url);
         con.setPost(false);
         con.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
             public void actionPerformed(NetworkEvent evt) {
                 try {
-                    comment = parseOrders(new String(con.getResponseData()));
+                    comment = parseReclamation(new String(con.getResponseData()));
                 } catch (ParseException ex) {
-                    System.out.println(ex.getMessage());
+                     System.out.println(ex.getMessage());
                 }
                 con.removeResponseListener(this);
             }
         });
         NetworkManager.getInstance().addToQueueAndWait(con);
-        
         return comment;
     }
-    
-    public ArrayList<Commentaire> getListCommentaires(String json) throws ParseException  {
-
-        ArrayList<Commentaire> listcomments = new ArrayList<>();
-        try {
-            JSONParser j = new JSONParser();
-            Map<String, Object> comments = j.parseJSON(new CharArrayReader(json.toCharArray()));
-            java.util.List<Map<String, Object>> liist = (java.util.List<Map<String, Object>>) comments.get("root");
-
-            for (Map<String, Object> obj : liist) {
-                Commentaire e = new Commentaire();
-
-                  float id = Float.parseFloat(obj.get("id").toString());
-                e.setId((int)id);
-                //Map<String, Object> dateEnvoi  = (Map<String, Object>) obj.get("date");
-                //float date = Float.parseFloat(dateEnvoi.get("timestamp").toString());
-                //Date d = new Date((long)(date-3600 )*1000);
-                
-                
-                e.setContenu(obj.get("contenu").toString());
-              //  e.setNom(obj.get("nom").toString());
-               float idu= Float.parseFloat(obj.get("id").toString());
-                e.setUser_id((int)idu);
-                //e.setDate(d);
-                Map<String, Object> client  = (Map<String, Object>) obj.get("user");
-                User u = new User();
-             //   u.setUsername(client.get("username").toString());
-                //u.setNom(client.get("nom").toString());
-                //u.setPrenom(client.get("prenom").toString());
-               /* float iduser = Float.parseFloat(client.get("id").toString());
-                u.setId((int) iduser);
-                e.setUser_id((int)iduser);*/
-               
-               // Map<String, Object> gui  = (Map<String, Object>) obj.get("guide");
-                //Guide r = new Guide();
-                 //float idguide = Float.parseFloat(client.get("id").toString());
-                //r.setId((int) idguide);
-                //e.setGuide_id(r.getId());
-              System.out.println(e);
-                listcomments.add(e);
-              //  listcomments.add(r);
-            }
-
-        } catch (IOException ex) {
-        }
-        return listcomments;
-
-    }
-    
-    ArrayList<Commentaire> listRecl = new ArrayList<>();
-
-    public ArrayList<Commentaire> getListeComments(Guide g){    
-        ConnectionRequest con = new ConnectionRequest();
-        con.setUrl("http://localhost/pidev/web/app_dev.php/api/AfficherComm/"+g.getId());        
-        con.setPost(false);
-//     con.addArgument('idevent',String.valueOf(ServiceCommentaires.eventSelected.getId()));
-        con.addResponseListener((NetworkEvent evt) -> {
-            CommentaireService ser = new CommentaireService();
-            try {
-                listRecl = ser.getListCommentaires(new String(con.getResponseData()));
-            } catch (ParseException ex) {
-                System.out.println("Error while parsing !");
-            }
-        });
-        NetworkManager.getInstance().addToQueueAndWait(con);
-        return listRecl;
-    }
-
-
      
 }

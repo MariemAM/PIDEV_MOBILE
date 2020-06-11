@@ -61,6 +61,13 @@ public class Commentaire implements Serializable {
         this.user_id = user_id;
         this.contenu = contenu;
     }
+
+    public Commentaire(int id, int guide_id, int user_id) {
+        this.id = id;
+        this.guide_id = guide_id;
+        this.user_id = user_id;
+    }
+    
 public void addLcs(Guide lc){
         this.lcs.add(lc);
     }
