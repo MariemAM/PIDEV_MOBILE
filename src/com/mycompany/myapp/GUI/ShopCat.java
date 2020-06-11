@@ -68,10 +68,10 @@ public class ShopCat extends MenuForm{
           searchc.addAll(tsearch,search);
           search.addActionListener((ActionListener) (ActionEvent evt9) -> {  
              Produit p = new Produit();
-             if(!ProductServices.getInstance().SearchProduct(tsearch.getText()).isEmpty())
-             {p = ProductServices.getInstance().SearchProduct(tsearch.getText()).get(0);
+             
+             p = ProductServices.getInstance().SearchProduct(tsearch.getText()).get(0);
                    
-                new ShowPDetails( p.getId(),current).show();}
+                new ShowPDetails( p.getId(),current).show();
              
              
          });
@@ -113,7 +113,7 @@ public class ShopCat extends MenuForm{
            prix.getAllStyles().setAlignment(LEFT);
            final int idp = i.getId();
           EncodedImage img = EncodedImage.createFromImage(Image.createImage(Display.getInstance().getDisplayWidth(),450), true);
-                        URLImage imgg= URLImage.createToStorage(img,i.getPhoto(), "http://localhost:8080/pidev-merge/web/images/"+i.getPhoto());
+                        URLImage imgg= URLImage.createToStorage(img,i.getPhoto(), "http://localhost/pidev/web/images/"+i.getPhoto());
                         imgg.fetch(); 
                         ScaleImageLabel sl = new ScaleImageLabel(imgg);
             sl.setBackgroundType(Style.BACKGROUND_IMAGE_SCALED_FILL);

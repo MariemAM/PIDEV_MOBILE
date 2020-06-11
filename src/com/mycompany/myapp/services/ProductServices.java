@@ -50,10 +50,10 @@ public class ProductServices {
             prds=new ArrayList<>();
             JSONParser j = new JSONParser();
 
-            
+            System.out.println(jsonText);
             Map<String,Object> tasksListJson = j.parseJSON(new CharArrayReader(jsonText.toCharArray()));
             
-            System.out.println(tasksListJson);
+          
             List<Map<String,Object>> list = (List<Map<String,Object>>)tasksListJson.get("root");
             
            
@@ -205,7 +205,7 @@ public ArrayList<Produit> getAProduct(int id){
         return prds;
     }
         public ArrayList<Produit> PByCat(String nom){
-        String url = Statics.BASE+"findcat/"+nom;
+        String url = Statics.BASE+"findcats/"+nom;
         System.out.println(url);
         req.setUrl(url);
         req.setPost(false);
