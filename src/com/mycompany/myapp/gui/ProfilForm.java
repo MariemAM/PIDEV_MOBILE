@@ -20,10 +20,6 @@ import com.codename1.ui.layouts.BoxLayout;
  */
 public class ProfilForm extends Form{
 
-    public ProfilForm() {
-    
-        
-    }
     public void addSideMenu(){      
        
         Toolbar tb = getToolbar();
@@ -31,14 +27,14 @@ public class ProfilForm extends Form{
         Container topBar = BorderLayout.east(new Label());
         topBar.add(BorderLayout.SOUTH, new Label("Menu", "SidemenuTagline")); 
         topBar.setUIID("SideCommand");
-      
         
         tb.addComponentToSideMenu(topBar);
         tb.addMaterialCommandToSideMenu("Home", FontImage.MATERIAL_HOME, e->new HomeProfilForm().show());
         tb.addMaterialCommandToSideMenu("Profil", FontImage.MATERIAL_ACCOUNT_BOX, e->new ListPostForm().show());
         tb.addMaterialCommandToSideMenu("Claims", FontImage.MATERIAL_INFO, e->new ListClaimForm().show());
         tb.addMaterialCommandToSideMenu("Capture", FontImage.MATERIAL_INFO, e->new SettingsForm().show());
-     //   tb.addMaterialCommandToSideMenu("rec", FontImage.MATERIAL_INFO, e->new cam().show());
+       
+    
         refreshTheme();}
 
 }

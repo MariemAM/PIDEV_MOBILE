@@ -5,6 +5,7 @@
  */
 package com.mycompany.myapp.gui;
 
+import com.codename1.components.ImageViewer;
 import com.codename1.components.SpanLabel;
 import com.codename1.ui.Button;
 import com.codename1.ui.CN;
@@ -12,10 +13,13 @@ import com.codename1.ui.Command;
 import com.codename1.ui.Component;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
+import com.codename1.ui.EncodedImage;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
+import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.Stroke;
+import com.codename1.ui.URLImage;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.geom.Dimension;
@@ -172,8 +176,11 @@ public class UserDetailsForm extends ProfilForm {
                   Button dislike = new Button(FontImage.MATERIAL_FAVORITE);
               
                   final int id = p.getId(); 
+                   Container c3 = new Container(BoxLayout.x());
+                   ImageViewer imgv = new ImageViewer();  
+                  imgv.setImage(setImage(userf));
                   sp.setText(ServiceUser.getInstance().getAUser(userf).get(0).getUsername());
-                  c1.add(sp);
+                  c3.add(imgv);
                   c1.add(date);
                   c1.add(cont);
                  
@@ -181,7 +188,7 @@ public class UserDetailsForm extends ProfilForm {
                   c2.add(like);
                   c2.add(dislike);
                   c1.add(spj);
-                
+                   c.add(c3);
                   c.add(c1);
                   c.add(c2);
                   listpost.add(c);
@@ -213,13 +220,19 @@ public class UserDetailsForm extends ProfilForm {
                 }
                
                gl.add(listpost);
-              
-                
-    
-       
+        
         
     }
-    
+    public URLImage setImage(int id){
+        User u = new User();
+        ServiceUser su = new ServiceUser();
+        String img =su.getAUser(id).get(0).getPhoto();
+         EncodedImage imgs = EncodedImage.createFromImage(Image.createImage(150,150), true);
+                        URLImage imgg= URLImage.createToStorage(imgs,img, "http://localhost/pidev/web/images/"+img);
+                      return imgg;
+                       
+                        
+    }
     
 }
     

@@ -6,17 +6,21 @@
 package com.mycompany.myapp.gui;
 
 import static com.codename1.charts.util.ColorUtil.green;
+import com.codename1.components.ImageViewer;
 import com.codename1.components.SpanLabel;
 import com.codename1.ui.Button;
 import com.codename1.ui.CN;
 import com.codename1.ui.Component;
 import com.codename1.ui.Container;
+import com.codename1.ui.EncodedImage;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
+import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.Stroke;
 import com.codename1.ui.TextArea;
 import com.codename1.ui.TextField;
+import com.codename1.ui.URLImage;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.geom.Dimension;
@@ -48,7 +52,7 @@ Form current;
     public ListPostForm() {
        current=this; 
          setTitle("Profil");
-           Container gl = new Container(BoxLayout.y());
+           Container gl = new Container(BoxLayout.yCenter());
         super.addSideMenu();
         Container searchc = new Container(BoxLayout.x());
          TextField tsearch= new TextField("","search",18,TextArea.ANY);
@@ -124,6 +128,7 @@ Form current;
                   };
                   Container c1 = new Container(BoxLayout.y());
                   Container c2 = new Container(BoxLayout.x());
+                  
                    Style tftStyle =  c.getAllStyles();
                 Stroke borderStroke = new Stroke(2, Stroke.CAP_SQUARE, Stroke.JOIN_MITER, 1);
           tftStyle.setBorder(RoundRectBorder.create().
@@ -145,9 +150,13 @@ Form current;
                   Button like = new Button(FontImage.MATERIAL_FAVORITE_BORDER);
                   Button dislike = new Button(FontImage.MATERIAL_FAVORITE);
                   Button delete = new Button(FontImage.MATERIAL_DELETE_FOREVER);
-                  final int id = p.getId(); 
+                  final int id = p.getId();
+                   Container c3 = new Container(BoxLayout.x());
+                   ImageViewer imgv = new ImageViewer();  
+               imgv.setImage(setImage(1));
                   sp.setText(ServiceUser.getInstance().getAUser(user).get(0).getUsername());
-                  c1.add(sp);
+                  c3.add(imgv);
+                  c3.add(sp);
                   c1.add(date);
                   c1.add(cont);
                   c2.add(edit); 
@@ -155,7 +164,8 @@ Form current;
                   c2.add(like);
                   c2.add(dislike);
                   c1.add(spj);
-                  c2.add(delete); 
+                  c2.add(delete);
+                  c.add(c3);
                   c.add(c1);
                   c.add(c2);
                   listpost.add(c);
@@ -196,12 +206,18 @@ Form current;
                 }
                
                gl.add(listpost);
-              
-                
-    
        
         
     }
     
-    
+    public URLImage setImage(int id){
+        User u = new User();
+        ServiceUser su = new ServiceUser();
+        String img =su.getAUser(id).get(0).getPhoto();
+         EncodedImage imgs = EncodedImage.createFromImage(Image.createImage(150,150), true);
+                        URLImage imgg= URLImage.createToStorage(imgs,img, "http://localhost/pidev/web/images/"+img);
+                      return imgg;
+                       
+                        
+    }
 }

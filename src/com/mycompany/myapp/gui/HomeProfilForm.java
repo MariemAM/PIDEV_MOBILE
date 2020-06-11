@@ -5,16 +5,20 @@
  */
 package com.mycompany.myapp.gui;
 
+import com.codename1.components.ImageViewer;
 import com.codename1.components.SpanLabel;
 import com.codename1.ui.Button;
 import com.codename1.ui.CN;
 import com.codename1.ui.Component;
 import com.codename1.ui.Container;
+import com.codename1.ui.EncodedImage;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
+import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.Stroke;
 import com.codename1.ui.TextField;
+import com.codename1.ui.URLImage;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.geom.Dimension;
@@ -24,6 +28,7 @@ import com.codename1.ui.plaf.Style;
 import com.mycompany.myapp.entities.Follow;
 import com.mycompany.myapp.entities.Jaime;
 import com.mycompany.myapp.entities.Post;
+import com.mycompany.myapp.entities.User;
 import com.mycompany.myapp.services.ServiceFollow;
 import com.mycompany.myapp.services.ServiceJaime;
 import com.mycompany.myapp.services.ServicePost;
@@ -124,8 +129,12 @@ public class HomeProfilForm extends ProfilForm {
                   Button dislike = new Button(FontImage.MATERIAL_FAVORITE);
                 
                   final int id = p.getId(); 
+                  Container c3 = new Container(BoxLayout.x());
+                   ImageViewer imgv = new ImageViewer();  
+                  imgv.setImage(setImage(user));
                   sp.setText(ServiceUser.getInstance().getAUser(user).get(0).getUsername());
-                  c1.add(sp);
+                  c3.add(imgv);
+                  c3.add(sp);
                   c1.add(date);
                   c1.add(cont);
                 
@@ -133,11 +142,11 @@ public class HomeProfilForm extends ProfilForm {
                   c2.add(like);
                   c2.add(dislike);
                   c1.add(spj);
-                 
+                   c.add(c3);
                   c.add(c1);
                   c.add(c2);
                   listpost.add(c);
-                  int liked =jm.getlikes(uid,id).size();
+                  int liked =jm.getlikes(1,id).size();
                     System.out.println(liked);
                   if(liked != 0){
                       like.remove();
@@ -172,5 +181,14 @@ public class HomeProfilForm extends ProfilForm {
         
     }
     
-    
+    public URLImage setImage(int id){
+        User u = new User();
+        ServiceUser su = new ServiceUser();
+        String img =su.getAUser(id).get(0).getPhoto();
+         EncodedImage imgs = EncodedImage.createFromImage(Image.createImage(150,150), true);
+                        URLImage imgg= URLImage.createToStorage(imgs,img, "http://localhost/pidev/web/images/"+img);
+                      return imgg;
+                       
+                        
+    }
 }

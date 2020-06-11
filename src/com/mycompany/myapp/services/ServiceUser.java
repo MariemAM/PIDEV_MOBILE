@@ -30,7 +30,7 @@ public class ServiceUser {
     public boolean resultOK;
     private ConnectionRequest req;
 
-    ServiceUser() {
+    public ServiceUser() {
          req = new ConnectionRequest();
     }
 
@@ -53,7 +53,8 @@ public class ServiceUser {
                 float id = Float.parseFloat(obj.get("id").toString());
                 u.setId((int)id);
                 u.setUsername(obj.get("nom").toString());
-              users.add(u);
+                u.setPhoto(obj.get("photo").toString());
+                 users.add(u);
             }
         } catch (IOException ex) {
             
@@ -88,4 +89,17 @@ public class ServiceUser {
         NetworkManager.getInstance().addToQueueAndWait(req);
         return users;
     }
+        public boolean updateUser(int id,String username,String mail,String add,int tel,String photo){
+        String url = Statics.BASE_URL+"/api/editUser/"+id+"?username="+username+"&photo="+photo+"&mail="+mail+"&tel="+tel+"&add="+add;
+        req.setUrl(url);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                resultOK = req.getResponseCode() == 200; //Code HTTP 200 OK
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return resultOK;
+     }
 }

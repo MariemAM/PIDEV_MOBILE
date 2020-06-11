@@ -5,15 +5,19 @@
  */
 package com.mycompany.myapp.gui;
 
+import com.codename1.components.ImageViewer;
 import com.codename1.components.SpanLabel;
 import com.codename1.ui.Button;
 import com.codename1.ui.CN;
 import com.codename1.ui.Component;
 import com.codename1.ui.Container;
+import com.codename1.ui.EncodedImage;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
+import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.Stroke;
+import com.codename1.ui.URLImage;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.geom.Dimension;
@@ -23,6 +27,7 @@ import com.codename1.ui.plaf.RoundRectBorder;
 import com.codename1.ui.plaf.Style;
 import com.mycompany.myapp.entities.Post;
 import com.mycompany.myapp.entities.Reclamation;
+import com.mycompany.myapp.entities.User;
 import com.mycompany.myapp.services.ServicePost;
 import com.mycompany.myapp.services.ServiceReclamation;
 import com.mycompany.myapp.services.ServiceUser;
@@ -37,13 +42,12 @@ public class ListClaimForm extends ProfilForm{
 Form current;
     public ListClaimForm() {
       current =this;
-        setTitle("List Claims");
-         Container gl = new Container(BoxLayout.y());
-        super.addSideMenu();
-        
-        readClaim(1,gl);
-        Button btnAddClaim = new Button();
-          btnAddClaim.addActionListener(e-> new AddClaimForum(current).show());
+           setTitle("List Claims");
+           Container gl = new Container(BoxLayout.y());
+           super.addSideMenu();
+           readClaim(1,gl);
+           Button btnAddClaim = new Button();
+           btnAddClaim.addActionListener(e-> new AddClaimForum(current).show());
            Style closeStyle = btnAddClaim.getAllStyles();
            closeStyle.setFgColor(0xffffff);
            closeStyle.setBgTransparency(0);
@@ -55,7 +59,7 @@ Form current;
            btn.add(btnAddClaim);
            gl.add(btn);
            add(gl);
-        
+         
        
     }
     private void readClaim(int uid,Container gl){
@@ -96,12 +100,18 @@ Form current;
                   Button edit = new Button(FontImage.MATERIAL_EDIT);
                   Button delete = new Button(FontImage.MATERIAL_DELETE);  
                   final int id = r.getId();        
-                 sp.setText(ServiceUser.getInstance().getAUser(r.getReclamer()).get(0).getUsername());
-                 c1.add(sp);
+                
+                Container c3 = new Container(BoxLayout.x());
+                   ImageViewer imgv = new ImageViewer();  
+                  imgv.setImage(setImage(ServiceUser.getInstance().getAUser(r.getReclamer()).get(0).getId()));
+                  sp.setText(ServiceUser.getInstance().getAUser(r.getReclamer()).get(0).getUsername());
+                  c3.add(imgv);
+                  c3.add(sp);
                   c1.add(date);
                   c1.add(cont);
                   c2.add(edit);
-                  c2.add(delete); 
+                  c2.add(delete);
+                  c.add(c3);
                   c.add(c1);
                   c.add(c2);
                   listclaim.add(c);
@@ -120,9 +130,17 @@ Form current;
                
                 gl.add(listclaim);
                
-                
-    
        
         
+    }
+    public URLImage setImage(int id){
+        User u = new User();
+        ServiceUser su = new ServiceUser();
+        String img =su.getAUser(id).get(0).getPhoto();
+         EncodedImage imgs = EncodedImage.createFromImage(Image.createImage(150,150), true);
+                        URLImage imgg= URLImage.createToStorage(imgs,img, "http://localhost/pidev/web/images/"+img);
+                      return imgg;
+                       
+                        
     }
 }

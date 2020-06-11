@@ -37,8 +37,8 @@ public class User {
     private String salt;
 
     private String password;
- 
-
+  private String photo;
+  
     private String lastLogin;
   
     private String confirmationToken;
@@ -84,6 +84,30 @@ public class User {
         this.emailCanonical = emailCanonical;
         this.enabled = enabled;
         this.password = password;
+    }
+
+    public User(String username, String usernameCanonical, String email, String emailCanonical, boolean enabled, String salt, String password, String photo, String lastLogin, String confirmationToken, String passwordRequestedAt, String roles) {
+        this.username = username;
+        this.usernameCanonical = usernameCanonical;
+        this.email = email;
+        this.emailCanonical = emailCanonical;
+        this.enabled = enabled;
+        this.salt = salt;
+        this.password = password;
+        this.photo = photo;
+        this.lastLogin = lastLogin;
+        this.confirmationToken = confirmationToken;
+        this.passwordRequestedAt = passwordRequestedAt;
+        this.roles = roles;
+    }
+    
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
    
