@@ -5,13 +5,8 @@
  */
 package com.mycompany.myapp.GUI;
 
-import com.codename1.components.InfiniteProgress;
-import com.codename1.components.MultiButton;
 import com.codename1.components.ShareButton;
 import com.codename1.components.SpanLabel;
-import com.codename1.contacts.Contact;
-import com.codename1.io.FileSystemStorage;
-import com.codename1.io.Log;
 import com.codename1.ui.Button;
 import static com.codename1.ui.CN.getCurrentForm;
 import com.codename1.ui.Command;
@@ -19,13 +14,10 @@ import com.codename1.ui.Component;
 import static com.codename1.ui.Component.CENTER;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
-import com.codename1.ui.Display;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
-import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextArea;
-import com.codename1.ui.TextField;
 import com.codename1.ui.Toolbar;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
@@ -35,8 +27,6 @@ import com.codename1.ui.plaf.Border;
 import com.codename1.ui.plaf.RoundRectBorder;
 import com.codename1.ui.plaf.Style;
 import static com.codename1.ui.plaf.Style.BACKGROUND_NONE;
-import com.codename1.ui.plaf.UIManager;
-import com.codename1.ui.util.ImageIO;
 import com.mycompany.myapp.entities.Promotion;
 import com.mycompany.myapp.entities.User;
 import com.mycompany.myapp.services.PromoServices;
@@ -45,8 +35,6 @@ import static com.mycompany.myapp.utils.SmsSender.AUTH_TOKEN;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 /**
@@ -128,9 +116,9 @@ public class AllPromotionForm extends MenuForm {
 
             cont2.setLeadComponent(stdate);
 
-            stdate.addPointerPressedListener(evt -> {
+            stdate.addPointerReleasedListener(evt -> {
 
-                new ProductsPerPromoForm(getCurrentForm(), c);
+                new ProductsPerPromoForm(getCurrentForm(), c).show();
 
             });
             Container actions=new Container(BoxLayout.xRight());
@@ -139,7 +127,7 @@ public class AllPromotionForm extends MenuForm {
          overflow.setUIID("overflow");
          FontImage.setMaterialIcon(overflow, FontImage.MATERIAL_MORE_VERT);
         
-         overflow.addActionListener((ActionEvent e) -> {
+         overflow.addPointerReleasedListener((ActionEvent e) -> {
          Button edit=new Button("edit");
          edit.setUIID("edit");
          FontImage.setMaterialIcon(edit, FontImage.MATERIAL_EDIT, 5);
@@ -148,14 +136,10 @@ public class AllPromotionForm extends MenuForm {
              FontImage.setMaterialIcon(delete, FontImage.MATERIAL_DELETE, 5);
             
         
-          edit.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent evt) {
-                   new editPromoForm(getCurrentForm(),c);
-                   
-                }
-            });
-          delete.addActionListener(new ActionListener() {
+          edit.addPointerReleasedListener((ActionListener) (ActionEvent evt) -> {
+              new editPromoForm(getCurrentForm(),c).show();
+         });
+          delete.addPointerReleasedListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent evt) {
                    Button showDialog = new Button("Tint");
@@ -179,7 +163,7 @@ public class AllPromotionForm extends MenuForm {
          message.setUIID("message");
          FontImage.setMaterialIcon(message, FontImage.MATERIAL_MESSAGE);
          
-         message.addActionListener(new ActionListener() {
+         message.addPointerReleasedListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent evt) {
                     
@@ -218,7 +202,7 @@ public class AllPromotionForm extends MenuForm {
        Button ok = new Button(new Command("OK"));
        ok.getAllStyles().setBorder(Border.createEmpty());
        ok.getAllStyles().setFgColor(0);
-       ok.addActionListener(i->{
+       ok.addPointerReleasedListener(i->{
            for(User u:PromoServices.getInstance().getAPImessage())
            {
                Twilio.init(ACCOUNT_SID, AUTH_TOKEN);

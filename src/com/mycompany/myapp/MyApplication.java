@@ -51,10 +51,9 @@ public class MyApplication {
             current.show();
             return;
         }      // new InscriptionForm();
-       User u = new User(12);
-       UserSession us=UserSession.getInstance(u);
        
-      Form home= new HomeForm();
+       
+      Form home= new LoginForm();
       home.show();
     }
 

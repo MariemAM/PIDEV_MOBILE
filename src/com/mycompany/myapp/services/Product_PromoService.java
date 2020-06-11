@@ -12,7 +12,7 @@ import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
 import com.codename1.ui.events.ActionListener;
 import com.mycompany.myapp.entities.Produit_Promo;
-import com.mycompany.myapp.utils.Statics_M;
+import com.mycompany.myapp.utils.Statics;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -93,7 +93,7 @@ public class Product_PromoService {
         return Produits_promo;
     } 
      public ArrayList<Produit_Promo> getAllTasks(int id){
-         String url = Statics_M.BASE_URL+"/pidevmerge/web/app_dev.php/api/promo/products/" + id;
+         String url = Statics.BASE+"promo/products/" + id;
         req.setUrl(url);
         req.setPost(false);
         req.addResponseListener(new ActionListener<NetworkEvent>() {
@@ -109,7 +109,7 @@ public class Product_PromoService {
     
      public ArrayList<Produit_Promo> getAllPromoProducts(){
         
-        String url = Statics_M.BASE_URL+"/pidevmerge/web/app_dev.php/api/all/promo/products";
+        String url = Statics.BASE+"all/promo/products";
         req.setUrl(url);
         req.setPost(false);
         req.addResponseListener(new ActionListener<NetworkEvent>() {
@@ -124,7 +124,7 @@ public class Product_PromoService {
     }
       public ArrayList<Produit_Promo> getAllProducts(){
  
-        String url = Statics_M.BASE_URL+"/pidevmerge/web/app_dev.php/api/!promopdt";
+        String url = Statics.BASE+"!promopdt";
         req.setUrl(url);
         req.setPost(false);
         req.addResponseListener(new ActionListener<NetworkEvent>() {

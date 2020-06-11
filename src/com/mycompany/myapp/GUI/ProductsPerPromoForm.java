@@ -7,14 +7,12 @@ package com.mycompany.myapp.GUI;
 
 import com.codename1.ui.Button;
 import com.codename1.ui.CN;
-import static com.codename1.ui.CN.getCurrentForm;
 import static com.codename1.ui.Component.RIGHT;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
-import com.codename1.ui.animations.CommonTransitions;
 import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.plaf.RoundRectBorder;
@@ -25,7 +23,6 @@ import com.mycompany.myapp.entities.Promotion;
 import com.mycompany.myapp.services.LignePromoService;
 import com.mycompany.myapp.services.Product_PromoService;
 import java.util.ArrayList;
-import java.util.TreeSet;
 
 
 /**
@@ -42,6 +39,7 @@ public class ProductsPerPromoForm extends MenuForm {
         ArrayList<LignePromotion> list=new ArrayList<>();
         
          for (LignePromotion e : LignePromoService.getInstance().getAllTasks(promo.getId())){list.add(e);}
+         System.out.println(list);
          for (Produit_Promo pdt : Product_PromoService.getInstance().getAllProducts()){
                        
                            LignePromotion l=new LignePromotion();
@@ -53,7 +51,7 @@ public class ProductsPerPromoForm extends MenuForm {
                   
               }
     
-         
+         System.out.println(list);
             
               for (LignePromotion o : list){
            Container c= new Container(BoxLayout.x());

@@ -5,11 +5,6 @@
  */
 package com.mycompany.myapp.services;
 
-import com.codename1.io.ConnectionRequest;
-import com.codename1.io.NetworkEvent;
-import com.codename1.io.NetworkManager;
-import com.codename1.ui.events.ActionListener;
-import com.mycompany.myapp.entities.User;
 import com.mycompany.myapp.utils.Statics_M;
 
 import com.codename1.io.CharArrayReader;

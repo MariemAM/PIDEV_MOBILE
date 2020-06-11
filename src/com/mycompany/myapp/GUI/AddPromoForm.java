@@ -9,9 +9,9 @@ import com.codename1.ui.Button;
 import static com.codename1.ui.Component.CENTER;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
+import com.codename1.ui.Display;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
-import com.codename1.ui.PickerComponent;
 import com.codename1.ui.TextComponent;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
@@ -20,10 +20,8 @@ import com.codename1.ui.plaf.Border;
 import static com.codename1.ui.plaf.Style.BACKGROUND_NONE;
 import com.codename1.ui.validation.NumericConstraint;
 import com.codename1.ui.validation.Validator;
-import com.mycompany.myapp.entities.Promotion;
 import com.mycompany.myapp.services.PromoServices;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import com.codename1.ui.spinner.Picker;
 
 /**
  *
@@ -53,13 +51,17 @@ public class AddPromoForm extends MenuForm {
         Label s = new Label("Start Date:");
         s.getAllStyles().setBgColor(0x2d283e);
         s.getAllStyles().setFgColor(0xd3d3d3);
-        PickerComponent startdate = PickerComponent.createDate(null);
-        startdate.getAllStyles().setMarginBottom(100);
+        //PickerComponent startdate = PickerComponent.createDate(null);
+        Picker startdate = new Picker();
+        startdate.setType(Display.PICKER_TYPE_DATE);
+        
         Label end = new Label("End Date:");
         end.getAllStyles().setBgColor(0x2d283e);
         end.getAllStyles().setFgColor(0xd3d3d3);
-        PickerComponent enddate = PickerComponent.createDate(null);
-        enddate.getAllStyles().setMarginBottom(100);
+        //PickerComponent enddate = PickerComponent.createDate(null);
+        Picker enddate = new Picker();
+        enddate.setType(Display.PICKER_TYPE_DATE);
+       
         rate.getAllStyles().setMarginBottom(100);
         Label err = new Label(" ");
         err.setAlignment(CENTER);
@@ -88,17 +90,19 @@ public class AddPromoForm extends MenuForm {
         r.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                if (name.getText().equals("") || rate.getText().equals("") || startdate.toString().equals("") || enddate.toString().equals("")) {
+                if (name.getText().equals("") || rate.getText().equals("") || startdate.getDate()==null || enddate.getDate()==null) {
                     err.setText("Empty fields!!");
                     revalidate();
                 }
                 else{
-
-                PromoServices.getInstance().createPromotion(name.getText(), Integer.parseInt(rate.getText()));
+                System.out.println(startdate.getDate());
+                    
+                PromoServices.getInstance().createPromotion(name.getText(), Integer.parseInt(rate.getText()),startdate.getDate(),enddate.getDate());
                 Label error = new Label("successfully added");
                 Dialog d = new Dialog("", BoxLayout.y());
                 d.addAll(error);
-                d.showPopupDialog(r); }}
+                d.showPopupDialog(r);
+                new AllPromotionForm(new HomeForm()).show();}}
 
         });
         c.addAll(l, name, ra, rate, s, startdate, end, enddate, err, r, cancel);

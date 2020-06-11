@@ -14,7 +14,7 @@ import com.codename1.io.NetworkManager;
 import com.codename1.ui.events.ActionListener;
 import com.mycompany.myapp.entities.Promotion;
 import com.mycompany.myapp.entities.User;
-import com.mycompany.myapp.utils.Statics_M;
+import com.mycompany.myapp.utils.Statics;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -77,7 +77,7 @@ public class PromoServices {
      
      public ArrayList<Promotion> getAllTasks(){
        // String url = Statics_M.BASE_URL+"/pidevmerge/web/app_dev.php/api/all/Promotion";
-       String url = Statics_M.BASE_URL+"/pidevmerge/web/app_dev.php/api/promotion/all";
+       String url = Statics.BASE+"promotion/all";
         req.setUrl(url);
         req.setPost(false);
         req.addResponseListener(new ActionListener<NetworkEvent>() {
@@ -111,8 +111,14 @@ public class PromoServices {
                 Date date=format.parse(input);
                 return date;
      }
-       public boolean updatePromotion(Promotion p){//Date d1,Date d2,
-        String url = Statics_M.BASE_URL + "/pidevmerge/web/app_dev.php/api/promo/update/"+p.getId()+"?"+"nom="+p.getNom()+"&rate="+p.getTauxReduction();
+      public String df(Date d){
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
+        String strDate= formatter.format(d);  
+        System.out.println(strDate); 
+        return strDate;
+      }
+       public boolean updatePromotion(Promotion p){
+        String url = Statics.BASE + "promo/update/"+p.getId()+"?"+"nom="+p.getNom()+"&rate="+p.getTauxReduction()+"&dateDebut="+df(p.getDateDebut())+"&dateFin="+df(p.getDateFin());
         req.setUrl(url);// Insertion de l'URL de notre demande de connexion
         req.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
@@ -124,8 +130,8 @@ public class PromoServices {
         NetworkManager.getInstance().addToQueueAndWait(req);
         return resultOK;
        }
-       public boolean createPromotion(String nom,int tx){//Date d1,Date d2
-        String url = Statics_M.BASE_URL + "/pidevmerge/web/app_dev.php/api/newpromo?nom="+nom+"&rate="+tx;//+"&dateDebut="+d1+"&dateFin="+d2;
+       public boolean createPromotion(String nom,int tx,Date start,Date end ){//Date d1,Date d2
+        String url = Statics.BASE+ "newpromo?nom="+nom+"&rate="+tx+"&dateDebut="+df(start)+"&dateFin="+df(end);
         req.setUrl(url);// Insertion de l'URL de notre demande de connexion
         req.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
@@ -140,7 +146,7 @@ public class PromoServices {
        
        
      public boolean deletePromotion(Promotion  p){
-        String url = Statics_M.BASE_URL + "/pidevmerge/web/app_dev.php/api/promo/supprimer/"+p.getId();
+        String url = Statics.BASE + "promo/supprimer/"+p.getId();
         req.setUrl(url);// Insertion de l'URL de notre demande de connexion
         req.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
@@ -155,7 +161,7 @@ public class PromoServices {
      
       public ArrayList<User> getAPImessage(){
        // String url = Statics_M.BASE_URL+"/pidevmerge/web/app_dev.php/api/all/Promotion";
-       String url = Statics_M.BASE_URL+"/pidevmerge/web/app_dev.php/api/getphonenumber";
+       String url = Statics.BASE+"getphonenumber";
         req.setUrl(url);
         req.setPost(false);
         req.addResponseListener(new ActionListener<NetworkEvent>() {

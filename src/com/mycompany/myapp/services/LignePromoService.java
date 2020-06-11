@@ -12,7 +12,7 @@ import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
 import com.codename1.ui.events.ActionListener;
 import com.mycompany.myapp.entities.LignePromotion;
-import com.mycompany.myapp.utils.Statics_M;
+import com.mycompany.myapp.utils.Statics;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -95,7 +95,7 @@ public class LignePromoService {
     
     
       public boolean UpdateQuantity(int id,int qtepdt,int qtepromo){
-         String url = Statics_M.BASE_URL+"/pidevmerge/web/app_dev.php/api/quantitysupdate/"+id+"?"+"qtepdt="+qtepdt+"&qtepromo="+qtepromo;
+         String url = Statics.BASE+"quantitysupdate/"+id+"?"+"qtepdt="+qtepdt+"&qtepromo="+qtepromo;
         req.setUrl(url);
         req.setPost(false);
         req.addResponseListener(new ActionListener<NetworkEvent>() {
@@ -110,7 +110,7 @@ public class LignePromoService {
       
     }
        public ArrayList<LignePromotion> createLigne(int idpdt,int idpromo){
-         String url = Statics_M.BASE_URL+"/pidevmerge/web/app_dev.php/api/newligne/"+idpdt+"/"+idpromo;
+         String url = Statics.BASE+"newligne/"+idpdt+"/"+idpromo;
         req.setUrl(url);
         req.setPost(false);
         req.addResponseListener(new ActionListener<NetworkEvent>() {
@@ -126,7 +126,7 @@ public class LignePromoService {
       
     }
         public ArrayList<LignePromotion> getAllTasks(int id){
-        String url = Statics_M.BASE_URL+"/pidevmerge/web/app_dev.php/api/promo/products/" + id;
+        String url = Statics.BASE+"promo/products/" + id;
         req.setUrl(url);
         req.setPost(false);
         req.addResponseListener(new ActionListener<NetworkEvent>() {

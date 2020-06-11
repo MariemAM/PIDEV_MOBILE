@@ -6,9 +6,9 @@
 package com.mycompany.myapp.GUI;
 
 import com.codename1.ui.Button;
-import static com.codename1.ui.CN.getCurrentForm;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
+import com.codename1.ui.Display;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
 import com.codename1.ui.PickerComponent;
@@ -19,13 +19,10 @@ import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.plaf.Border;
 import static com.codename1.ui.plaf.Style.BACKGROUND_NONE;
 import com.codename1.ui.spinner.Picker;
-import com.codename1.ui.validation.LengthConstraint;
 import com.codename1.ui.validation.NumericConstraint;
 import com.codename1.ui.validation.Validator;
 import com.mycompany.myapp.entities.Promotion;
 import com.mycompany.myapp.services.PromoServices;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 /**
  *
@@ -59,13 +56,19 @@ public class editPromoForm extends MenuForm{
         Label s=new Label("Start Date:");
         s.getAllStyles().setBgColor(0x2d283e);
         s.getAllStyles().setFgColor(0xd3d3d3);
-        PickerComponent startdate = PickerComponent.createDate(p.getDateDebut());
-        startdate.getAllStyles().setMarginBottom(100);
+      //  PickerComponent startdate = PickerComponent.createDate(p.getDateDebut());
+        Picker startdate = new Picker();
+        startdate.setDate(p.getDateDebut());
+        startdate.setType(Display.PICKER_TYPE_DATE);
+       // startdate.getAllStyles().setMarginBottom(100);
         Label end=new Label("End Date:");
         end.getAllStyles().setBgColor(0x2d283e);
         end.getAllStyles().setFgColor(0xd3d3d3);
-        PickerComponent enddate = PickerComponent.createDate(p.getDateFin());
-         enddate.getAllStyles().setMarginBottom(100);
+       // PickerComponent enddate = PickerComponent.createDate(p.getDateFin());
+        Picker enddate = new Picker();
+        enddate.setDate(p.getDateFin());
+        enddate.setType(Display.PICKER_TYPE_DATE);
+        // enddate.getAllStyles().setMarginBottom(100);
          Label err=new Label(" ");
          
         err.setAlignment(CENTER);
@@ -97,22 +100,22 @@ public class editPromoForm extends MenuForm{
              @Override
              public void actionPerformed(ActionEvent evt) {
                  
-                 Date datedebut=startdate.getPicker().getDate();
-                 Date datefin=enddate.getPicker().getDate();
+                 Date datedebut=startdate.getDate();
+                 Date datefin=enddate.getDate();
                  Promotion promo=new Promotion();
                  promo.setId(p.getId());
                  promo.setNom(name.getText());
                  promo.setTauxReduction(Integer.parseInt(rate.getText()));
+                 promo.setDateDebut(datedebut);
+                 promo.setDateFin(datefin);
                 if( PromoServices.getInstance().updatePromotion(promo)){
                  Label error = new Label("successfully updated");
                 Dialog d = new Dialog("", BoxLayout.y());
                 d.addAll(error);
-                d.showPopupDialog(r);};
-                 }
-                 
-                 
-             
-                 
+                d.showPopupDialog(r);
+                new AllPromotionForm(new HomeForm()).show();}
+            }
+       
         });
          c.addAll(l,name,ra,rate,s,startdate,end,enddate,r,cancel);
          addAll(c);
