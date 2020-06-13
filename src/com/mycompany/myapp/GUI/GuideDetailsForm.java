@@ -166,7 +166,7 @@ public GuideDetailsForm(Form prev){}
       Container C3=new Container(BoxLayout.x());
       Container C4=new Container(BoxLayout.x());
           Container Concomm=new Container(BoxLayout.y());
-      Button    ajouter = new Button("Ajouter");
+      Button    ajouter = new Button("ADD Comment");
       TextArea comm = new TextArea();
         comm.setHint("Add a new comment");
     Concomm.add(comm);
@@ -188,7 +188,7 @@ public GuideDetailsForm(Form prev){}
                 Dialog.show("Alert", "empty field ", "ok", null);}
         Concomm.add(content);
     }); 
-       for (Commentaire comment : bC.getAllClaims(g.getId())){
+       for (Commentaire comment : bC.getAllComm(g.getId())){
 
           Container list = new Container(BoxLayout.y());
        

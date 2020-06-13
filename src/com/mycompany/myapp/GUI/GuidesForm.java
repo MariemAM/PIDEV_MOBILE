@@ -77,40 +77,10 @@ searchField.getHintLabel().setUIID("Title");
 searchField.setUIID("Title");
 searchField.getAllStyles().setAlignment(Component.LEFT);
 FontImage  searchIcon= FontImage.createMaterial(FontImage.MATERIAL_SEARCH, s);
-/*      searchField.addDataChangedListener((int d1, int d2) ->{
-         
-          //  if (!searchField.getText().equals("") ) {
-              //  bS.rechercheList(searchFiled.getText());
-               String d = searchField.getText();
-             bS.searchIconChercherTopic(d);
-            // this.show();
-            //System.out.println("nnn"+liche);
 
-             // bS.rechercheList(searchField.getText());
-             
-            //} else {
-             //   bS.getList();
-
-            //}
-        });
-        //searchContainer.add(srchText);
-*/
                Button searchbt = new Button("search");
              searchbt.getAllStyles().setAlignment(Component.RIGHT);
-          /* searchbt.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent evt) {
-              
-                   bS.ChercherTopic(searchField.getText());
-                }
-       });*/
-      /*     searchbt.addActionListener((l) -> {
-                bS.ChercherTopic(searchField.getText());
-            searchContainer.setVisible(true);
-            this.revalidate();
-            //PaiementForm pf = new PaiementForm();
-            //pf.getF().show();
-        });*/
+        
 
         searchContainer.add(searchbt);
         searchContainer.add(searchIcon);
@@ -133,23 +103,12 @@ FontImage  searchIcon= FontImage.createMaterial(FontImage.MATERIAL_SEARCH, s);
             Label date = new Label(guide.getDate_creation());
          Label cate = new Label(guide.getCategorie());
    
-     //   searchContainer.add(srchText);
-      //  searchContainer.add(searchFiled);
-        // wholeContainer.add(searchContainer);
-         //    add(wholeContainer);
-        //wholeContainer.add(listeContainer);
-      
-        //wholeContainer.add(listeContainer);
-//             add(wholeContainer);
-        //Service testing
-       
+     
 
            Button ev = new Button("Details");
             
         ev.addActionListener((evt) -> {
-           //new GuideDetailsForm(prev ).show();
-          // bS.AfficherDetails(b);
-           // new GuideDetailsForm(prev, b, CENTER).show();
+           
          new GuideDetailsForm(guide).show();
             });
       
@@ -164,7 +123,7 @@ FontImage  searchIcon= FontImage.createMaterial(FontImage.MATERIAL_SEARCH, s);
                         int likeCount = 0;
                         boolean liked = false;
                         int commentCount = 0;
-                        bS.nbrelike(guide);
+                     //   bS.nbrelike(guide);
                      /*   float f1 = (float)bC.avgReview(b) ;
                         f1 = f1 * 100;
                   f1 = (int) f1;
@@ -182,7 +141,7 @@ FontImage  searchIcon= FontImage.createMaterial(FontImage.MATERIAL_SEARCH, s);
            FontImage heartImage = FontImage.createMaterial(FontImage.MATERIAL_FAVORITE, s2);
            likes.setIcon(heartImage);
        }
-       Label comments = new Label(bS.nbrelike(guide) + " Comments", "NewsBottomLine");
+       Label comments = new Label(commentCount + " Comments", "NewsBottomLine");
        //FontImage.setMaterialIcon(likes, FontImage.MATERIAL_CHAT);  
       FontImage commIm = FontImage.createMaterial(FontImage.MATERIAL_CHAT, s2);
            comments.setIcon(commIm);

@@ -50,6 +50,7 @@ public class SearchFormguide extends MenuForm{
  ArrayList<Guide> liche = bS.ChercherTopic(d);
  for (Guide guide: liche) {
  Label titre = new Label(guide.getTitre());
+   Label date = new Label(guide.getDate_creation());
             //titre.getAllStyles().setFgColor(0x0c42c0);
             //String m=guide.getDate_creation();
             //SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
@@ -111,7 +112,7 @@ public class SearchFormguide extends MenuForm{
             System.out.println(guide);
             Container guideInfoContainer = new Container(BoxLayout.y());
             listeContainer.add(titre);
-//             listeContainer.add(date);
+            listeContainer.add(date);
               listeContainer.add(cate);
               listeContainer.add(imgv);
             listeContainer.add(informations);

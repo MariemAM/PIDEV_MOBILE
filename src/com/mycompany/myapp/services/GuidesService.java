@@ -58,7 +58,7 @@ public class GuidesService {
             ArrayList<Guide> listguides = new ArrayList<>();
         ConnectionRequest con = new ConnectionRequest();
         
-       // String Url = "http://127.0.0.1/pidev/web/app_dev.php/api/guides/get_guides/idguide="+guide.getId()+"&titre="+guide.getTitre();
+       
      String Url ="http://localhost/pidev/web/app_dev.php/api/guides";
         con.setUrl(Url);
         con.addResponseListener(new ActionListener<NetworkEvent>()   {
@@ -217,26 +217,7 @@ public void AfficherDetails(Guide b)throws NullPointerException{
   
         }
 }
-/*public boolean isLiked(Restaurant r){
-        ArrayList<Restaurant> restaurants = new ArrayList<>();
-        ConnectionRequest con = new ConnectionRequest();
-        String Url = RESTAURANT_API+"isliked/"+UserCo.userCo.getId()+"/"+r.getId();
-        final boolean[] liked = {false};
-        con.setUrl(Url);
-        con.addResponseListener((NetworkEvent evt) -> {
-            //listTasks = getListTask(new String(con.getResponseData()));
-            JSONParser jsonp = new JSONParser();
-            String response = new String(con.getResponseData());
-            if(response.equals("\"true\"")){
-                liked[0] = true;
-            }
-            else
-                liked[0] = false;
-        });
-        NetworkManager.getInstance().addToQueueAndWait(con);
-        return liked[0];
-        
-    }*/
+
     
      public ArrayList<Guide> ChercherTopic(String titre) {
         ArrayList<Guide> listTopic = new ArrayList<>();
@@ -259,6 +240,7 @@ public void AfficherDetails(Guide b)throws NullPointerException{
                     task.setDescription(obj.get("description").toString());
                     task.setPhoto(obj.get("photo").toString());
                     task.setCategorie(obj.get("categorie").toString());
+                    task.setDate_creation(obj.get("dateCreation").toString());
                   /*      String DateS = obj.get("date").toString().substring(obj.get("date").toString().indexOf("timestamp") + 10, obj.get("date").toString().indexOf("timestamp") + 21);
                         Date currentTime = new Date(Double.valueOf(DateS).longValue() * 1000);
                         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -276,7 +258,7 @@ public void AfficherDetails(Guide b)throws NullPointerException{
     }
 public void AddRate(rate p)throws IOException{
         
-        //String url = "http://127.0.0.1:8000/ajouterjson/"+p.getNom()+ "/" +p.getCategorie()+ "/" +p.getEmail()+ "/" +p.getType()+ "/" +p.getAdresse()+ "/" +p.getDescription()+ "/" +p.getSiteWeb()+ "/" +p.getPageFacebook()+ "/" +p.getPhone();
+        
         String url = "http://localhost/pidev/web/app_dev.php/api/guide/rate/"+p.getId_user()+"/"+p.getId_guide()+"/"+p.getNote();
         ConnectionRequest con = new ConnectionRequest();
         

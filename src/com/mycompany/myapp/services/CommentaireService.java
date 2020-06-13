@@ -121,39 +121,7 @@ public class CommentaireService {
 
 
     }
-  /*  public void delete(Commentaire c , int bid , int uid) {
-        ConnectionRequest con = new ConnectionRequest();
-        con.setPost(false);
-        con.setUrl("http://localhost/pidev/web/app_dev.php/api/DellCom/"+c.getId()+c.getGuide_id());
-        con.addArgument("id", String.valueOf(c));
-
-        NetworkManager.getInstance().addToQueueAndWait(con);
-    }*/
-    /*public void ajoutComm(Commentaire d) {
-        ConnectionRequest con = new ConnectionRequest();
-        String Url = "http://localhost/pidev/web/app_dev.php/api/AddComm"+"contenu="+d.getContenu()+"/"+"guide=" + d.getGuide_id() ;
-        con.setUrl(Url);
-
-        con.addResponseListener((e) -> {
-            String str = new String(con.getResponseData());
-            System.out.println(str);
-        });
-        NetworkManager.getInstance().addToQueueAndWait(con);
-    }*/
-    
-   /* public void supprimerDoc(int id) {
-        ConnectionRequest con = new ConnectionRequest();
-        String Url = "http://localhost/pidev/web/app_dev.php/api/DellCom/"+id;
-        con.setUrl(Url);
-
-        con.addResponseListener((e) -> {
-            String str = new String(con.getResponseData());
-            
-            System.out.println(str);
-            
-        });
-        NetworkManager.getInstance().addToQueueAndWait(con);
-    }*/
+  
      public void supprimercom(Commentaire e) {
         ConnectionRequest con = new ConnectionRequest();
          System.out.println(e.getId());
@@ -305,7 +273,7 @@ public ArrayList<Commentaire> parseTasks(String jsonText){
     
  
 
-public ArrayList<Commentaire> parseReclamation(String jsonText) throws ParseException{
+public ArrayList<Commentaire> parseComm(String jsonText) throws ParseException{
         try {
             comment=new ArrayList<>();
             JSONParser j = new JSONParser();
@@ -344,7 +312,7 @@ public ArrayList<Commentaire> parseReclamation(String jsonText) throws ParseExce
         return comment;
     }
 
-    public ArrayList<Commentaire> getAllClaims(int id){
+    public ArrayList<Commentaire> getAllComm(int id){
          ConnectionRequest con = new ConnectionRequest();
         String url = "http://localhost/pidev/web/app_dev.php/api/AfficherComm/"+id;
         con.setUrl(url);
@@ -353,7 +321,7 @@ public ArrayList<Commentaire> parseReclamation(String jsonText) throws ParseExce
             @Override
             public void actionPerformed(NetworkEvent evt) {
                 try {
-                    comment = parseReclamation(new String(con.getResponseData()));
+                    comment = parseComm(new String(con.getResponseData()));
                 } catch (ParseException ex) {
                      System.out.println(ex.getMessage());
                 }
