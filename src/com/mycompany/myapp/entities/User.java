@@ -42,6 +42,15 @@ public class User implements Serializable {
   
 
     private String roles;
+     private String nom;
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
   
     
    
@@ -207,6 +216,8 @@ public class User implements Serializable {
     public String toString() {
         return "User{" + "id=" + id + ", username=" + username + ", usernameCanonical=" + usernameCanonical + ", email=" + email + ", emailCanonical=" + emailCanonical + ", enabled=" + enabled + ", salt=" + salt + ", password=" + password + ", lastLogin=" + lastLogin + ", confirmationToken=" + confirmationToken + ", passwordRequestedAt=" + passwordRequestedAt + ", roles=" + roles + '}';
     }
+
+  
    
 
 }

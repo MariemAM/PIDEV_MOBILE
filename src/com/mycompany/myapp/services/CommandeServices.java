@@ -110,10 +110,7 @@ public class CommandeServices {
                 Double prix = Double.parseDouble(o.get("prix").toString()); 
                 lc.setPrice(prix);
                 Map<String,Object> prod = (Map<String,Object>) o.get("produit");
-                
-                    lc.setPname(prod.get("nom").toString());
-                
-                
+                lc.setPname(prod.get("nom").toString());
                 
                 c.addLcs(lc);
                 

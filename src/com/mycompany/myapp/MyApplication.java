@@ -3,10 +3,10 @@ package com.mycompany.myapp;
 
 import static com.codename1.ui.CN.*;
 import com.codename1.ui.Form;
-import com.codename1.ui.Dialog;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 import com.codename1.io.Log;
+import com.codename1.ui.Dialog;
 import com.codename1.ui.Toolbar;
 import com.mycompany.myapp.GUI.LoginForm;
 
@@ -16,7 +16,7 @@ public class MyApplication {
 
     private Form current;
     private Resources theme;
-
+    //s=UserSession.getInstance(currentUser);
     public void init(Object context) {
         // use two network threads instead of one
         updateNetworkThreadCount(2);
@@ -45,12 +45,11 @@ public class MyApplication {
         if(current != null){
             current.show();
             return;
-        }      // new InscriptionForm();
-       
-       
+        }    
      new LoginForm().show();
-      
-    }
+        }
+
+    
 
     public void stop() {
         current = getCurrentForm();

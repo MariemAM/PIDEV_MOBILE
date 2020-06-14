@@ -46,8 +46,17 @@
     <image name="Button.borderTopR_3.png" type="multi"  />
     <image name="Button.borderTopR_4.png" type="multi"  />
     <image name="Button.borderTopR_5.png" type="multi"  />
+    <ui name="GUI 1" />
     <theme name="Theme">
         <val key="@includeNativeBool" value="true" />
+        <val key="Button.bgColor" value="ccccff" />
+        <val key="Button.bgImage" value="Button.borderTop_3.png" />
+        <val key="Button.bgType" value="4" />
+        <val key="Button.fgColor" value="ff9999" />
+        <val key="Label.bgColor" value="66ffff" />
+        <val key="Label.fgColor" value="6666" />
+        <font key="Label.font" type="system" face="0" style="1" size="0" />
+        <val key="Label.textDecoration" value="16" />
         <val key="SideCommand.bgColor" value="0d0d0d" />
         <border key="SideCommand.border" type="empty" />
         <val key="SideCommand.fgColor" value="d1d7e0" />
