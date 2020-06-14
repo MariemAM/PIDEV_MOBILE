@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<resource majorVersion="1" minorVersion="11" useXmlUI="false">
+    <image name="Button.borderBottom_1.png" type="multi"  />
+    <image name="Button.borderBottom_2.png" type="multi"  />
+    <image name="Button.borderBottom_3.png" type="multi"  />
+    <image name="Button.borderBottom_4.png" type="multi"  />
+    <image name="Button.borderBottom_5.png" type="multi"  />
+    <image name="Button.borderBottomL_1.png" type="multi"  />
+    <image name="Button.borderBottomL_2.png" type="multi"  />
+    <image name="Button.borderBottomL_3.png" type="multi"  />
+    <image name="Button.borderBottomL_4.png" type="multi"  />
+    <image name="Button.borderBottomL_5.png" type="multi"  />
+    <image name="Button.borderBottomR_1.png" type="multi"  />
+    <image name="Button.borderBottomR_2.png" type="multi"  />
+    <image name="Button.borderBottomR_3.png" type="multi"  />
+    <image name="Button.borderBottomR_4.png" type="multi"  />
+    <image name="Button.borderBottomR_5.png" type="multi"  />
+    <image name="Button.borderCenter_1.png" type="multi"  />
+    <image name="Button.borderCenter_2.png" type="multi"  />
+    <image name="Button.borderCenter_3.png" type="multi"  />
+    <image name="Button.borderCenter_4.png" type="multi"  />
+    <image name="Button.borderCenter_5.png" type="multi"  />
+    <image name="Button.borderLeft_1.png" type="multi"  />
+    <image name="Button.borderLeft_2.png" type="multi"  />
+    <image name="Button.borderLeft_3.png" type="multi"  />
+    <image name="Button.borderLeft_4.png" type="multi"  />
+    <image name="Button.borderLeft_5.png" type="multi"  />
+    <image name="Button.borderRight_1.png" type="multi"  />
+    <image name="Button.borderRight_2.png" type="multi"  />
+    <image name="Button.borderRight_3.png" type="multi"  />
+    <image name="Button.borderRight_4.png" type="multi"  />
+    <image name="Button.borderRight_5.png" type="multi"  />
+    <image name="Button.borderTop_1.png" type="multi"  />
+    <image name="Button.borderTop_2.png" type="multi"  />
+    <image name="Button.borderTop_3.png" type="multi"  />
+    <image name="Button.borderTop_4.png" type="multi"  />
+    <image name="Button.borderTop_5.png" type="multi"  />
+    <image name="Button.borderTopL_1.png" type="multi"  />
+    <image name="Button.borderTopL_2.png" type="multi"  />
+    <image name="Button.borderTopL_3.png" type="multi"  />
+    <image name="Button.borderTopL_4.png" type="multi"  />
+    <image name="Button.borderTopL_5.png" type="multi"  />
+    <image name="Button.borderTopR_1.png" type="multi"  />
+    <image name="Button.borderTopR_2.png" type="multi"  />
+    <image name="Button.borderTopR_3.png" type="multi"  />
+    <image name="Button.borderTopR_4.png" type="multi"  />
+    <image name="Button.borderTopR_5.png" type="multi"  />
+    <theme name="Theme">
+        <val key="@includeNativeBool" value="true" />
+        <val key="SideCommand.bgColor" value="d0d0d" />
+        <border key="SideCommand.border" type="empty" />
+        <val key="SideCommand.fgColor" value="d1d7e0" />
+        <font key="SideCommand.font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="4.0" />
+        <val key="SideCommand.margin" value="0.0,3.0,0.0,0.0" />
+        <val key="SideCommand.padUnit" value="2,2,2,2" />
+        <val key="SideCommand.padding" value="3.0,3.0,3.0,3.0" />
+        <val key="SideCommand.press#bgColor" value="423e" />
+        <val key="SideCommand.press#derive" value="SideCommand" />
+        <val key="SideCommand.sel#bgColor" value="423e" />
+        <val key="SideCommand.sel#derive" value="SideCommand" />
+        <val key="SideCommand.textDecoration" value="0" />
+        <val key="SideCommand.transparency" value="255" />
+        <val key="SideNavigationPanel.bgColor" value="d1d7e0" />
+        <val key="SideNavigationPanel.transparency" value="255" />
+        <val key="Title.fgColor" value="d1d7e0" />
+        <val key="TitleCommand.fgColor" value="d1d7e0" />
+        <val key="TitleCommand.press#derive" value="TitleCommand" />
+        <val key="TitleCommand.press#fgColor" value="3e37" />
+        <val key="TitleCommand.sel#derive" value="TitleCommand" />
+        <val key="TitleCommand.sel#fgColor" value="3e37" />
+        <gradient key="hi.bgGradient" color1="7431580" color2="14784360" posX="0.5" posY="0.5" radius="2.0" />
+        <val key="hi.bgType" value="6" />
+    </theme>
+</resource>
