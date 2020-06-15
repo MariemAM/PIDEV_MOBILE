@@ -10,8 +10,10 @@ import com.codename1.components.ImageViewer;
 import com.codename1.components.SpanLabel;
 import com.codename1.ui.Button;
 import com.codename1.ui.CN;
+import com.codename1.ui.Command;
 import com.codename1.ui.Component;
 import com.codename1.ui.Container;
+import com.codename1.ui.Dialog;
 import com.codename1.ui.EncodedImage;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
@@ -77,13 +79,33 @@ Form current;
           tftStyle.setMargin(Component.BOTTOM, 3);
           searchc.addAll(tsearch,search);
          search.addActionListener((ActionListener) (ActionEvent evt1) -> {  
-               String user = ServiceUser.getInstance().getNUser(tsearch.getText()).get(0).getUsername();
-               if(user != null) {
-                new UserDetailsForm(user,current).show();}
+            
+              if (tsearch.getText().length()==0){
+                  Dialog.show("Alert", "Please fill the field", new Command("OK"));
+              }else {
+                  ArrayList <User> us = new ArrayList();
+                  us=ServiceUser.getInstance().getNUser(tsearch.getText());
+               if(us.size() == 0) {
+                    Dialog.show("Alert", "try again", new Command("OK"));
+                      
+               }
                else {
-                new ListPostForm();
+                    String user =us.get(0).getUsername();
+                    int userd =us.get(0).getId();
+                    int pr = ServiceUser.getInstance().getAUser(1).get(0).getId();
+                    if ( userd != pr)
+                    {
+                        new UserDetailsForm(user,current).show();
+                         
+                     }
+                    else {
+                       
+                         new ListPostForm().show();   
+                        }
+                    }
+                
              }
-         });
+              });
          add(searchc);
          readPost(1,gl);
         
@@ -113,8 +135,6 @@ Form current;
           
           ArrayList<Post> posts = ff.getUPosts(uid);
            
-        
-        
          for (Post p : posts)
                 {
                 
@@ -153,7 +173,7 @@ Form current;
                   final int id = p.getId();
                    Container c3 = new Container(BoxLayout.x());
                    ImageViewer imgv = new ImageViewer();  
-               imgv.setImage(setImage(1));
+                  imgv.setImage(setImage(1));
                   sp.setText(ServiceUser.getInstance().getAUser(user).get(0).getUsername());
                   c3.add(imgv);
                   c3.add(sp);

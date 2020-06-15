@@ -46,8 +46,8 @@ Form current;
            Container gl = new Container(BoxLayout.y());
            super.addSideMenu();
            readClaim(1,gl);
-           Button btnAddClaim = new Button();
-           btnAddClaim.addActionListener(e-> new AddClaimForum(current).show());
+          /* Button btnAddClaim = new Button();
+    //       btnAddClaim.addActionListener(e-> new AddClaimForum(current).show());
            Style closeStyle = btnAddClaim.getAllStyles();
            closeStyle.setFgColor(0xffffff);
            closeStyle.setBgTransparency(0);
@@ -56,8 +56,8 @@ Form current;
            closeStyle.setBorder(RoundBorder.create().shadowOpacity(100));
            FontImage.setMaterialIcon(btnAddClaim, FontImage.MATERIAL_ADD);
            Container btn = new Container(BoxLayout.xRight());
-           btn.add(btnAddClaim);
-           gl.add(btn);
+         //  btn.add(btnAddClaim);
+           gl.add(btn);*/
            add(gl);
          
        
@@ -97,11 +97,11 @@ Form current;
                 
                   SpanLabel sp = new SpanLabel(); 
                   SpanLabel spt = new SpanLabel(); 
-                  Button edit = new Button(FontImage.MATERIAL_EDIT);
+                 
                   Button delete = new Button(FontImage.MATERIAL_DELETE);  
                   final int id = r.getId();        
                 
-                Container c3 = new Container(BoxLayout.x());
+                   Container c3 = new Container(BoxLayout.x());
                    ImageViewer imgv = new ImageViewer();  
                   imgv.setImage(setImage(ServiceUser.getInstance().getAUser(r.getReclamer()).get(0).getId()));
                   sp.setText(ServiceUser.getInstance().getAUser(r.getReclamer()).get(0).getUsername());
@@ -109,18 +109,12 @@ Form current;
                   c3.add(sp);
                   c1.add(date);
                   c1.add(cont);
-                  c2.add(edit);
                   c2.add(delete);
                   c.add(c3);
                   c.add(c1);
                   c.add(c2);
                   listclaim.add(c);
-                 
-                  edit.addActionListener((ActionListener) (ActionEvent evt1) -> {
-                        new EditClaimForm(id,current).show();
-
-                  });
-                  
+               
                   delete.addActionListener((ActionListener)(ActionEvent evt1) -> {
                       ff.deleteClaim(id);
                         new ListClaimForm().show();

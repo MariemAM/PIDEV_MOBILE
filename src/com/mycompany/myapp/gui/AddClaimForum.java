@@ -17,12 +17,14 @@ import com.codename1.ui.TextField;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.ui.plaf.RoundBorder;
 import com.codename1.ui.plaf.RoundRectBorder;
 import com.codename1.ui.plaf.Style;
 import com.mycompany.myapp.entities.Post;
 import com.mycompany.myapp.entities.Reclamation;
 import com.mycompany.myapp.services.ServicePost;
 import com.mycompany.myapp.services.ServiceReclamation;
+import com.mycompany.myapp.services.ServiceUser;
 
 /**
  *
@@ -30,15 +32,13 @@ import com.mycompany.myapp.services.ServiceReclamation;
  */
 public class AddClaimForum extends Form{
 Form current;
-    public AddClaimForum(Form previous) {
+    public AddClaimForum(String user,Form previous) {
         current = this ;
         setTitle("Add a new claim");
         setLayout(BoxLayout.yCenter());
          Container CX = new Container(BoxLayout.yCenter());
         Container C = new Container(BoxLayout.yCenter());
         TextField tfContenu = new TextField("","claim");
-        TextField tfUser = new TextField("","user");
-        TextField tfTarget = new TextField("","target");
         TextField tfObj = new TextField("","obj");
         Button btnValider = new Button("Add");
         Style tftStyle =  tfContenu.getAllStyles();
@@ -52,16 +52,7 @@ Form current;
           tftStyle.setMarginUnit(Style.UNIT_TYPE_DIPS);
           tftStyle.setMargin(Component.BOTTOM, 3);
           
-         Style tStyle =  tfUser.getAllStyles();
          
-          tStyle.setBorder(RoundRectBorder.create().
-                         strokeColor(0xffffff).
-                         strokeOpacity(120).
-                         stroke(borderStroke));
-          tStyle.setBgColor(0xffffff);
-          tStyle.setBgTransparency(255);
-          tStyle.setMarginUnit(Style.UNIT_TYPE_DIPS);
-          tStyle.setMargin(Component.BOTTOM, 3);
            Style Style =  tfObj.getAllStyles();
           Style.setBorder(RoundRectBorder.create().
                          strokeColor(0xffffff).
@@ -72,17 +63,15 @@ Form current;
           Style.setMarginUnit(Style.UNIT_TYPE_DIPS);
           Style.setMargin(Component.BOTTOM, 3);
           
-             Style tyle =  tfTarget.getAllStyles();
-             
-          tyle.setBorder(RoundRectBorder.create().
-                         strokeColor(0xffffff).
-                         strokeOpacity(120).
-                         stroke(borderStroke));
-          tyle.setBgColor(0xffffff);
-          tyle.setBgTransparency(255);
-          tyle.setMarginUnit(Style.UNIT_TYPE_DIPS);
-          tyle.setMargin(Component.BOTTOM, 3);
           
+       btnValider.getUnselectedStyle().setAlignment(Component.CENTER);
+       btnValider.getAllStyles().setFgColor(0xffffff);
+       btnValider.getUnselectedStyle().setPaddingUnit(Style.UNIT_TYPE_DIPS);
+       btnValider.getUnselectedStyle().setPadding(2, 2, 2, 2);
+       btnValider.getUnselectedStyle().setBorder(
+       RoundBorder.create().rectangle(true).shadowOpacity(90));
+          
+             
           
         btnValider.addActionListener(new ActionListener() {
             @Override
@@ -92,12 +81,14 @@ Form current;
                 else
                 {
                     try {
-                        Reclamation r = new Reclamation(tfContenu.getText(), tfObj.getText(),Integer.parseInt(tfTarget.getText()), Integer.parseInt(tfUser.getText()));
+                        
+                     int id = ServiceUser.getInstance().getNUser(user).get(0).getId();
+                        Reclamation r = new Reclamation(tfContenu.getText(), tfObj.getText(),id,1);
                         ServiceReclamation.getInstance().addReclamation(r);
                        
                              new ListClaimForm().show();
                                      
-                    } catch (NumberFormatException e) {
+                    } catch (Exception e) {
                         
                     }
                     
@@ -107,7 +98,7 @@ Form current;
             }
         });
         
-        C.addAll(tfContenu,tfUser,tfTarget,tfObj,btnValider);
+        C.addAll(tfContenu,tfObj,btnValider);
         CX.add(C);
         add(CX);
         getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e-> previous.showBack());

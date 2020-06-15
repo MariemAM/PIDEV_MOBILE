@@ -58,9 +58,9 @@ public class ServiceFollow {
          
             follow=new ArrayList<>();
             JSONParser j = new JSONParser();
-            Map<String,Object> PostsListJson = j.parseJSON(new CharArrayReader(jsonText.toCharArray()));
+            Map<String,Object> ListJson = j.parseJSON(new CharArrayReader(jsonText.toCharArray()));
             
-            List<Map<String,Object>> list = (List<Map<String,Object>>)PostsListJson.get("root");
+            List<Map<String,Object>> list = (List<Map<String,Object>>)ListJson.get("root");
                 for(Map<String,Object> obj : list){
                    
                 Follow f = new Follow();
@@ -126,10 +126,7 @@ public class ServiceFollow {
         NetworkManager.getInstance().addToQueueAndWait(req);
         return follow;
     }
-     
-      
-      
-      
+ 
      public boolean deleteFollow(int id){
         String url = Statics.BASE_URL+"/api/deletefollow/"+id;
         req.setUrl(url);

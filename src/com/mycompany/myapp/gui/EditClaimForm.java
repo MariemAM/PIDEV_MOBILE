@@ -17,6 +17,7 @@ import com.codename1.ui.TextField;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.ui.plaf.RoundBorder;
 import com.codename1.ui.plaf.RoundRectBorder;
 import com.codename1.ui.plaf.Style;
 import com.mycompany.myapp.services.ServicePost;
@@ -57,6 +58,13 @@ public class EditClaimForm extends Form {
           Style.setBgTransparency(255);
           Style.setMarginUnit(Style.UNIT_TYPE_DIPS);
           Style.setMargin(Component.BOTTOM, 3);
+              
+       btnValider.getUnselectedStyle().setAlignment(Component.CENTER);
+       btnValider.getAllStyles().setFgColor(0xffffff);
+       btnValider.getUnselectedStyle().setPaddingUnit(Style.UNIT_TYPE_DIPS);
+       btnValider.getUnselectedStyle().setPadding(2, 2, 2, 2);
+       btnValider.getUnselectedStyle().setBorder(
+       RoundBorder.create().rectangle(true).shadowOpacity(90));
         
         btnValider.addActionListener(new ActionListener() {
             @Override
@@ -68,14 +76,11 @@ public class EditClaimForm extends Form {
                 {
                     try {
                         
-                        if( ServiceReclamation.getInstance().updateClaim(id,tfContenu.getText(),tfObj.getText()))
-                        {Dialog.show("Success","Connection accepted",new Command("OK"));
+                         ServiceReclamation.getInstance().updateClaim(id,tfContenu.getText(),tfObj.getText());
                          new ListClaimForm().show();
-                        }
-                        else
-                            Dialog.show("ERROR", "Server error", new Command("OK"));
-                    } catch (NumberFormatException e) {
-                        Dialog.show("ERROR", "Status must be a number", new Command("OK"));
+                        
+                    } catch (Exception e) {
+                        
                     }
                     
                 }  

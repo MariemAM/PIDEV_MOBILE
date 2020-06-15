@@ -55,8 +55,12 @@ public class UserDetailsForm extends ProfilForm {
       Container p1 = new Container (BoxLayout.y());
       Container p2 = new Container (BoxLayout.y());
       super.addSideMenu();
+      
+      Container c3 = new Container(BoxLayout.xCenter());
+                   ImageViewer imgv = new ImageViewer();  
+                  imgv.setImage(setImage(uid));
       Label username = new Label (user);
-       Container btn = new Container(BoxLayout.x()); 
+       Container btn = new Container(BoxLayout.xCenter()); 
        Button follow = new Button("  follow  ");
        Button unfollow = new Button("  unfollow  ");
        Button claim = new Button("  claim  ");
@@ -94,21 +98,22 @@ public class UserDetailsForm extends ProfilForm {
                                      
                        
              });
-        
-          
-        
-       p1.add(username);
+       
+        c3.add(imgv);
+        c3.add(username); 
        btn.add(follow);
        btn.add(unfollow);
        btn.add(claim);
+       p1.add(c3);
        p1.add(btn);
        readPost(user,uid ,p2);
        listglobal.add(p1);
        listglobal.add(p2);
-       
-       
-             
-                     {
+      claim.addActionListener((ActionListener)(ActionEvent evt1) -> {
+                     
+                      new AddClaimForum(user, current).show();
+
+                  });
                        unfollow.addActionListener((ActionListener) (ActionEvent evt1) -> { 
                             ArrayList<Follow> Follows = fl.getFollows(1,uid);
                      for (Follow f :Follows){
@@ -117,7 +122,7 @@ public class UserDetailsForm extends ProfilForm {
                         new HomeProfilForm().show();
                      }
                        });
-                     }
+                     
          int follows =fl.getFollows(1,uid).size();
                   if(follows != 0){
                       follow.remove();
@@ -179,11 +184,11 @@ public class UserDetailsForm extends ProfilForm {
                    Container c3 = new Container(BoxLayout.x());
                    ImageViewer imgv = new ImageViewer();  
                   imgv.setImage(setImage(userf));
-                  sp.setText(ServiceUser.getInstance().getAUser(userf).get(0).getUsername());
+                  sp.setText(user);
                   c3.add(imgv);
+                  c3.add(user);
                   c1.add(date);
                   c1.add(cont);
-                 
                   c2.add(likes);
                   c2.add(like);
                   c2.add(dislike);
@@ -215,6 +220,8 @@ public class UserDetailsForm extends ProfilForm {
                       new UserDetailsForm(user, current).show();
 
                   });
+                     
+                      
                      }
                   
                 }
@@ -233,7 +240,7 @@ public class UserDetailsForm extends ProfilForm {
                        
                         
     }
-    
+   
 }
     
 

@@ -19,6 +19,7 @@ import com.codename1.ui.TextField;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.ui.plaf.RoundBorder;
 import com.codename1.ui.plaf.RoundRectBorder;
 import com.codename1.ui.plaf.Style;
 import com.mycompany.myapp.entities.Post;
@@ -51,6 +52,13 @@ Form current;
           tftStyle.setBgTransparency(255);
           tftStyle.setMarginUnit(Style.UNIT_TYPE_DIPS);
           tftStyle.setMargin(Component.BOTTOM, 3);
+              
+       btnValider.getUnselectedStyle().setAlignment(Component.CENTER);
+       btnValider.getAllStyles().setFgColor(0xffffff);
+       btnValider.getUnselectedStyle().setPaddingUnit(Style.UNIT_TYPE_DIPS);
+       btnValider.getUnselectedStyle().setPadding(2, 2, 2, 2);
+       btnValider.getUnselectedStyle().setBorder(
+       RoundBorder.create().rectangle(true).shadowOpacity(90));
         
         btnValider.addActionListener(new ActionListener() {
             @Override

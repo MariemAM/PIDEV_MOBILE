@@ -29,6 +29,7 @@ import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.ui.plaf.RoundBorder;
 import com.codename1.ui.plaf.RoundRectBorder;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.ImageIO;
@@ -104,7 +105,7 @@ public class SettingsForm extends ProfilForm {
           Button browse = new Button ("browse");
               Button save = new Button ("save");
               ImageViewer img = new ImageViewer ();
-              
+             
               Container tf = new Container(BoxLayout.y());
               
              tf.add(susername);
@@ -113,28 +114,36 @@ public class SettingsForm extends ProfilForm {
              tf.add(sadd);
              tf.add(browse);
              tf.add(save);
+             tf.add(img);
+                 
+       save.getUnselectedStyle().setAlignment(Component.CENTER);
+       save.getAllStyles().setFgColor(0xffffff);
+       save.getUnselectedStyle().setPaddingUnit(Style.UNIT_TYPE_DIPS);
+       save.getUnselectedStyle().setPadding(2, 2, 2, 2);
+       save.getUnselectedStyle().setBorder(
+       RoundBorder.create().rectangle(true).shadowOpacity(90));
+       browse.getUnselectedStyle().setAlignment(Component.CENTER);
+       browse.getAllStyles().setFgColor(0xffffff);
+       browse.getUnselectedStyle().setPaddingUnit(Style.UNIT_TYPE_DIPS);
+       browse.getUnselectedStyle().setPadding(2, 2, 2, 2);
+       browse.getUnselectedStyle().setBorder(
+       RoundBorder.create().rectangle(true).shadowOpacity(90));    
              
-           Container imgd = new Container(BoxLayout.y()){
-            @Override
-            protected Dimension calcPreferredSize() {
-                Dimension d = super.calcPreferredSize(); 
-                d.setWidth(CN.getDisplayHeight()*4/100);
-                return d;
-            } 
-                  };
-           imgd.add(img);
-           tf.add(imgd);
+             
            browse.addActionListener((ActionListener)(ActionEvent evt1) -> {
  
                 try {
-                    Image capturedImage = Image.createImage(Capture.capturePhoto());
+                    Image capturedImage = Image.createImage(Capture.capturePhoto(850,850));
+                   
                     img.setImage(capturedImage);
+                  
                     String imageFile = "file://C://xampp/htdocs/pidev/web/images/"+capturedImage.getImage().hashCode()+".png";
                     try(OutputStream os = FileSystemStorage.getInstance().openOutputStream(imageFile)) {
                               ImageIO.getImageIO().save(capturedImage, os, ImageIO.FORMAT_PNG, 1);
                         save.addActionListener((ActionListener)(ActionEvent evt2) -> {
                     ServiceUser su = new ServiceUser();
-                    su.updateUser(2, susername.getText(), semail.getText(), sadd.getText(),Integer.parseInt(stlf.getText()), capturedImage.getImage().hashCode()+".png");
+                    su.updateUser(1, susername.getText(), semail.getText(), sadd.getText(),Integer.parseInt(stlf.getText()), capturedImage.getImage().hashCode()+".png");
+                     new ListPostForm().show();
                 });       
                               
                             } catch(IOException err) { } 
