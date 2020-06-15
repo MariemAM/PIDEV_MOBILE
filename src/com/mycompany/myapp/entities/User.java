@@ -31,6 +31,33 @@ public class User implements Serializable {
 
     private String password;
  
+    private String photo;
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public User(Integer id, String username, String usernameCanonical, String email, String emailCanonical, boolean enabled, String salt, String password, String photo, Date lastLogin, String phone, String confirmationToken, Date passwordRequestedAt, String roles, String nom) {
+        this.id = id;
+        this.username = username;
+        this.usernameCanonical = usernameCanonical;
+        this.email = email;
+        this.emailCanonical = emailCanonical;
+        this.enabled = enabled;
+        this.salt = salt;
+        this.password = password;
+        this.photo = photo;
+        this.lastLogin = lastLogin;
+        this.phone = phone;
+        this.confirmationToken = confirmationToken;
+        this.passwordRequestedAt = passwordRequestedAt;
+        this.roles = roles;
+        this.nom = nom;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
 
     private Date lastLogin;
     

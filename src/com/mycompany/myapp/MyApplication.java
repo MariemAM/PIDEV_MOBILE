@@ -9,6 +9,7 @@ import com.codename1.io.Log;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.Toolbar;
 import com.mycompany.myapp.GUI.LoginForm;
+import com.mycompany.myapp.gui.HomeProfilForm;
 
 
 
@@ -46,7 +47,8 @@ public class MyApplication {
             current.show();
             return;
         }    
-     new LoginForm().show();
+     //new LoginForm().show();
+     new HomeProfilForm().show();
         }
 
     
