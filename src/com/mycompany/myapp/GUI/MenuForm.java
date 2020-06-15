@@ -69,6 +69,10 @@ public class MenuForm extends Form{
             Form f=new OrdersForm(getCurrentForm());
             f.setTransitionOutAnimator(CommonTransitions.createEmpty());
             f.show();});
+        tb.addMaterialCommandToSideMenu(" Guides ", FontImage.MATERIAL_DASHBOARD, e -> {
+            Form f=new GuidesForm(getCurrentForm());
+            f.setTransitionOutAnimator(CommonTransitions.createEmpty());
+            f.show();});
 if(UserSession.getInstance().getUser().isAdmin()){
          tb.addMaterialCommandToSideMenu("Promote ", FontImage.MATERIAL_REDEEM, e -> {
             Form f=new AllPromotionForm(getCurrentForm());      
