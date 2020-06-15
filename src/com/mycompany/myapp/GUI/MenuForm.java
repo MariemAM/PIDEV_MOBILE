@@ -73,6 +73,14 @@ public class MenuForm extends Form{
             Form f=new GuidesForm(getCurrentForm());
             f.setTransitionOutAnimator(CommonTransitions.createEmpty());
             f.show();});
+        tb.addMaterialCommandToSideMenu(" Events ", FontImage.MATERIAL_DASHBOARD, e -> {
+            Form f=new AfficheEvent(getCurrentForm());
+            f.setTransitionOutAnimator(CommonTransitions.createEmpty());
+            f.show();});
+        tb.addMaterialCommandToSideMenu(" Add event ", FontImage.MATERIAL_DASHBOARD, e -> {
+            Form f=new AddEventForm(getCurrentForm());
+            f.setTransitionOutAnimator(CommonTransitions.createEmpty());
+            f.show();});
 if(UserSession.getInstance().getUser().isAdmin()){
          tb.addMaterialCommandToSideMenu("Promote ", FontImage.MATERIAL_REDEEM, e -> {
             Form f=new AllPromotionForm(getCurrentForm());      
