@@ -3,16 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.myapp.gui;
+package com.mycompany.myapp.GUI;
 
 import com.codename1.components.ImageViewer;
 import com.codename1.components.SpanLabel;
 import com.codename1.ui.Button;
 import com.codename1.ui.CN;
-import com.codename1.ui.Command;
 import com.codename1.ui.Component;
 import com.codename1.ui.Container;
-import com.codename1.ui.Dialog;
 import com.codename1.ui.EncodedImage;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
@@ -92,7 +90,7 @@ public class UserDetailsForm extends ProfilForm {
        
       
         follow.addActionListener((ActionListener) (ActionEvent evt1) -> {  
-              Follow f = new Follow(1,uid);
+              Follow f = new Follow(12,uid);
                          fl.addFollow(f);
                         new HomeProfilForm().show();
                                      
@@ -212,7 +210,7 @@ public class UserDetailsForm extends ProfilForm {
                       new UserDetailsForm(user, current).show();
 
                   });
-                     ArrayList<Jaime> Jaimes = jm.getlikes(1,p.getId());
+                     ArrayList<Jaime> Jaimes = jm.getlikes(12,p.getId());
                      for (Jaime J :Jaimes )
                      {
                       dislike.addActionListener((ActionListener)(ActionEvent evt1) -> {

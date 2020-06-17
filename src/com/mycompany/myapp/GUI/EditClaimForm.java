@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.myapp.gui;
+package com.mycompany.myapp.GUI;
 
 import com.codename1.ui.Button;
 import com.codename1.ui.Command;
@@ -20,7 +20,6 @@ import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.plaf.RoundBorder;
 import com.codename1.ui.plaf.RoundRectBorder;
 import com.codename1.ui.plaf.Style;
-import com.mycompany.myapp.services.ServicePost;
 import com.mycompany.myapp.services.ServiceReclamation;
 
 /**

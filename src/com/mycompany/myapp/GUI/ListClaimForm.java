@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.myapp.gui;
+package com.mycompany.myapp.GUI;
 
 import com.codename1.components.ImageViewer;
 import com.codename1.components.SpanLabel;
@@ -22,13 +22,10 @@ import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.layouts.BoxLayout;
-import com.codename1.ui.plaf.RoundBorder;
 import com.codename1.ui.plaf.RoundRectBorder;
 import com.codename1.ui.plaf.Style;
-import com.mycompany.myapp.entities.Post;
 import com.mycompany.myapp.entities.Reclamation;
 import com.mycompany.myapp.entities.User;
-import com.mycompany.myapp.services.ServicePost;
 import com.mycompany.myapp.services.ServiceReclamation;
 import com.mycompany.myapp.services.ServiceUser;
 import java.text.SimpleDateFormat;
@@ -42,7 +39,7 @@ public class ListClaimForm extends ProfilForm{
 Form current;
     public ListClaimForm() {
       current =this;
-           setTitle("List Claims");
+           setTitle("Reports");
            Container gl = new Container(BoxLayout.y());
            super.addSideMenu();
            readClaim(12,gl);

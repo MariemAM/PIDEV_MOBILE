@@ -10,8 +10,6 @@ import com.codename1.components.ScaleImageLabel;
 import com.codename1.ui.Button;
 import static com.codename1.ui.CN.getDisplayHeight;
 import com.codename1.ui.Component;
-import static com.codename1.ui.Component.CENTER;
-import static com.codename1.ui.ComponentSelector.$;
 import com.codename1.ui.Container;
 import com.codename1.ui.Display;
 import com.codename1.ui.EncodedImage;
@@ -21,24 +19,18 @@ import com.codename1.ui.Form;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
-import com.codename1.ui.Toolbar;
 import com.codename1.ui.URLImage;
-import com.codename1.ui.events.ActionEvent;
-import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.layouts.BoxLayout;
-import com.codename1.ui.plaf.RoundRectBorder;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
-import com.codename1.util.EasyThread;
 import com.mycompany.myapp.entities.Guide;
 import com.mycompany.myapp.services.CommentaireService;
 import com.mycompany.myapp.services.GuidesService;
 //import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -49,6 +41,8 @@ public class GuidesForm extends MenuForm{
     Container listeContainer = new Container(BoxLayout.y());
     Container searchContainer = new Container(BoxLayout.x());
     Container wholeContainer = new Container(BoxLayout.y());
+    
+          
     Resources res;
     Guide b ;
      GuidesService bS = new GuidesService();
@@ -157,6 +151,10 @@ FontImage  searchIcon= FontImage.createMaterial(FontImage.MATERIAL_SEARCH, s);
               listeContainer.add(imgv);
             listeContainer.add(informations);
             listeContainer.addComponent(ev);
+            listeContainer.getAllStyles().setBgColor(0xffffff);
+          listeContainer.getAllStyles().setBgTransparency(255);
+          searchContainer.getAllStyles().setBgColor(0xffffff);
+          searchContainer.getAllStyles().setBgTransparency(255);
           // listeContainer.add(searchContainer);
           Container info=new Container(BoxLayout.x());
          info.add(likes);

@@ -53,7 +53,10 @@ public class UserSession {
         } else {
             panier.put(Produit, qte);
         }
+        if(Produit.getPrix_promo()==0)
         this.total+=Produit.getPrix()*qte;
+        else
+        this.total+=Produit.getPrix_promo()*qte;
     }
 
     public void removeFromPanier(Produit Produit) {
@@ -98,7 +101,7 @@ public class UserSession {
                 os.write(json.toString().getBytes("UTF-8"));
             }  
         };
-        post.setUrl(Statics.BASE_URL+"/order/");
+        post.setUrl(Statics.BASE_URLi+"/order/");
         post.setPost(true);
         post.setContentType("application/json");
         NetworkManager.getInstance().addToQueueAndWait(post);

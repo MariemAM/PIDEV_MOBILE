@@ -6,17 +6,13 @@
 package com.mycompany.myapp.GUI;
 
 import com.codename1.components.ImageViewer;
-import com.codename1.components.MultiButton;
 import com.codename1.components.ScaleImageLabel;
 import com.codename1.components.ShareButton;
 import com.codename1.components.SpanLabel;
 import com.codename1.io.FileSystemStorage;
-import static com.codename1.io.Log.e;
 import com.codename1.io.Util;
 import com.codename1.l10n.DateFormat;
 import com.codename1.ui.Button;
-import com.codename1.ui.Component;
-import static com.codename1.ui.Component.CENTER;
 import static com.codename1.ui.ComponentSelector.$;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
@@ -28,26 +24,17 @@ import com.codename1.ui.Form;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.Slider;
-import com.codename1.ui.SwipeableContainer;
-import com.codename1.ui.Tabs;
 import com.codename1.ui.TextArea;
 import com.codename1.ui.URLImage;
-import com.codename1.ui.animations.CommonTransitions;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.geom.Dimension;
-import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
-import com.codename1.ui.layouts.GridLayout;
-import com.codename1.ui.layouts.LayeredLayout;
 import com.codename1.ui.plaf.Border;
-import com.codename1.ui.plaf.RoundRectBorder;
 import com.codename1.ui.plaf.Style;
-import static com.codename1.ui.plaf.Style.BACKGROUND_NONE;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
-import com.mycompany.myapp.MyApplication;
 
 import com.mycompany.myapp.entities.Commentaire;
 import com.mycompany.myapp.entities.Guide;
@@ -59,9 +46,6 @@ import com.mycompany.myapp.services.CommentaireService;
 import com.mycompany.myapp.services.GuidesService;
 import com.mycompany.myapp.utils.UserSession;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
 
 
 

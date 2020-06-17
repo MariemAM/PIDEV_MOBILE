@@ -51,11 +51,10 @@ public class MenuForm extends Form{
         topBar.getStyle().setPaddingTop(10);
         topBar.getStyle().setPaddingBottom(20);
         tb.addComponentToSideMenu(topBar);
-        tb.addMaterialCommandToSideMenu(" Home ", FontImage.MATERIAL_HOME, e -> {
-            Form f=new HomeForm();
-            f.setTransitionOutAnimator(CommonTransitions.createEmpty());
-            f.show();
-        }); 
+        tb.addMaterialCommandToSideMenu("Home", FontImage.MATERIAL_HOME, e->new HomeProfilForm().show());
+        tb.addMaterialCommandToSideMenu("Profile", FontImage.MATERIAL_ACCOUNT_BOX, e->new ListPostForm().show());
+        tb.addMaterialCommandToSideMenu("Reports", FontImage.MATERIAL_INFO, e->new ListClaimForm().show());
+        tb.addMaterialCommandToSideMenu("Settings", FontImage.MATERIAL_INFO, e->new SettingsForm().show());
         tb.addMaterialCommandToSideMenu(" Shop ", FontImage.MATERIAL_SHOP, e -> {
             Form f=new ShopTestForm(getCurrentForm());
             f.setTransitionOutAnimator(CommonTransitions.createEmpty());

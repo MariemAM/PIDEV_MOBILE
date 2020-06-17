@@ -136,7 +136,7 @@ public class CommandeServices {
                 return date;
      }
     public ArrayList<Commande> getAllOrders(){
-        String url = Statics.BASE_URL+"/orders/";
+        String url = Statics.BASE_URLi+"/orders/";
         System.out.println(url);
         req.setUrl(url);
         req.setPost(false);

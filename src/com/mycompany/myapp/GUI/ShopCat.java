@@ -113,7 +113,8 @@ public class ShopCat extends MenuForm{
            prix.getAllStyles().setAlignment(LEFT);
            final int idp = i.getId();
           EncodedImage img = EncodedImage.createFromImage(Image.createImage(Display.getInstance().getDisplayWidth(),450), true);
-                        URLImage imgg= URLImage.createToStorage(img,i.getPhoto(), "http://localhost/pidev/web/images/"+i.getPhoto());
+          System.out.println(i.getPhoto().substring(31));
+                        URLImage imgg= URLImage.createToStorage(img,i.getPhoto(), "http://localhost/pidev/web/images/"+i.getPhoto().substring(31));
                         imgg.fetch(); 
                         ScaleImageLabel sl = new ScaleImageLabel(imgg);
             sl.setBackgroundType(Style.BACKGROUND_IMAGE_SCALED_FILL);

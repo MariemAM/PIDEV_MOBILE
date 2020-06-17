@@ -52,7 +52,7 @@ public class ServiceUser {
                 User u = new User();
                 float id = Float.parseFloat(obj.get("id").toString());
                 u.setId((int)id);
-                u.setUsername(obj.get("nom").toString());
+                u.setUsername(obj.get("username").toString());
                 u.setPhoto(obj.get("photo").toString());
                  users.add(u);
             }

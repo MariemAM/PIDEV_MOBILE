@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.myapp.gui;
+package com.mycompany.myapp.GUI;
 
 import com.codename1.components.ImageViewer;
 import com.codename1.components.SpanLabel;
@@ -67,7 +67,7 @@ public class HomeProfilForm extends ProfilForm {
              for (Follow f :Follows)
              {
                  int uid = f.getFollowed();
-                 readPost(2,Page);
+                 readPost(uid,Page);
                  
              }
              

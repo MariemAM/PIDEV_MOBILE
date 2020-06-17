@@ -144,9 +144,16 @@ public class ShopTestForm extends MenuForm{
         Label prix=new Label(i.getPrix()+" T.N.D");
            prix.getAllStyles().setFgColor(0xd1d7e0);
            prix.getAllStyles().setAlignment(LEFT);
+           Label prixpromo=new Label();
+           if(i.getPrix_promo()!=null){
+                prixpromo.setText(i.getPrix_promo()+" T.N.D");
+                prixpromo.getAllStyles().setFgColor(0xd1d7e0);
+                prixpromo.getAllStyles().setAlignment(LEFT);
+           }
+           
            final int idp = i.getId();
           EncodedImage img = EncodedImage.createFromImage(Image.createImage(Display.getInstance().getDisplayWidth(),450), true);
-                        URLImage imgg= URLImage.createToStorage(img,i.getPhoto(), "http://localhost/pidev/web/images"+i.getPhoto());
+                        URLImage imgg= URLImage.createToStorage(img,i.getPhoto(), "http://localhost/pidev/web/images"+i.getPhoto().substring(31));
                         imgg.fetch(); 
                         ScaleImageLabel sl = new ScaleImageLabel(imgg);
             sl.setBackgroundType(Style.BACKGROUND_IMAGE_SCALED_FILL);
@@ -168,7 +175,7 @@ public class ShopTestForm extends MenuForm{
              
           
           
-         c.addAll(imgv,l,prix, b,b2,share);
+         c.addAll(imgv,l,prix,prixpromo, b,b2,share);
             add(c);   
           
       }

@@ -70,6 +70,12 @@ public class ProductServices {
                 
                float prix=Float.parseFloat(obj.get("prix").toString());
                c.setPrix((int)prix);
+               if(obj.get("prix_promo")!=null){
+               float prixpromo=Float.parseFloat(obj.get("prix_promo").toString());
+               c.setPrix_promo((int)prixpromo);
+               }
+               
+               
                 
                c.setDescription(obj.get("description").toString());
                c.setPhoto(obj.get("photo").toString());
@@ -165,7 +171,7 @@ public ArrayList<Produit> SearchProduct(String nom){
         return prds;
     }
 public ArrayList<Produit> getAProduct(int id){
-        String url = Statics.BASE+"details/"+id;
+        String url = Statics.BASE+"detailss/"+id;
         System.out.println(url);
         req.setUrl(url);
         req.setPost(false);
